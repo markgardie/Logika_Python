@@ -17,7 +17,7 @@ class CardBuilder():
                         CARD_HEIGHT - size,
                         str(i+1) + ".jpg")
 
-            card.card_num = i + 1
+            card.num = i + 1
             card.load_image()
             self.card_list.append(card)
             x += CARD_WIDTH + 10
