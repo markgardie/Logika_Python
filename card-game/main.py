@@ -1,9 +1,11 @@
+import click
 import pygame
 import os
 from constants import*
 from card import*
 from card_builder import*
 from draw_cards import*
+from click_fun import*
 
 pygame.init()
 
@@ -33,14 +35,16 @@ clicked_card_num = 0
 while game:
 
     draw_enemy_card(enemy_card, window)
-    draw_big_cards(flag, big_cards, window, clicked_card_num)
+    flag = draw_big_cards(flag, big_cards, window, clicked_card_num)
     draw_small_cards(flag, small_cards, window, clicked_card_num)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            clicked_card_num = onclick_card(big_cards ,event)
+            flag = 10
             
-    
     pygame.display.flip()
     window.fill(LEMON)
     fps.tick(60)
