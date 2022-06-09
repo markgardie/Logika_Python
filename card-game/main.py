@@ -3,6 +3,7 @@ import os
 from constants import*
 from card import*
 from card_builder import*
+from draw_cards import*
 
 pygame.init()
 
@@ -16,18 +17,24 @@ pygame.display.set_caption("Card Game")
 fps = pygame.time.Clock()
 
 #------Builders, cards
-enemy_builder = CardBuilder(1)
+enemy_builder = EnemyCardBuilder()
 big_builder = CardBuilder(4)
 small_builder = CardBuilder(4, 10)
 
 big_cards = big_builder.get_list()
 small_cards = small_builder.get_list()
-enemy_card = enemy_builder.get_list()
+enemy_card = enemy_builder.get_enemy()
 
 #------Game Cycle
 game = True
+flag = 0
+clicked_card_num = 0
 
 while game:
+
+    draw_enemy_card(enemy_card, window)
+    draw_big_cards(flag, big_cards, window, clicked_card_num)
+    draw_small_cards(flag, small_cards, window, clicked_card_num)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
