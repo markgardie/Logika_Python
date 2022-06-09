@@ -11,7 +11,7 @@ class Card():
         self.height = height 
         self.img_name = img_name
         self.image = None
-        self.card_num =  None
+        self.num =  None
         self.rect = pygame.Rect(x,y, width, height)
 
     def load_image(self):
