@@ -3,6 +3,7 @@ import os
 from constants import*
 from card import*
 from card_builder import*
+from click_fun import*
 
 pygame.init()
 
@@ -26,13 +27,19 @@ enemy_card = enemy_builder.get_list()
 
 #------Game Cycle
 game = True
+clicked_card_num = 0
 
 while game:
+
+    for card in big_cards:
+        window.blit(card.image, (card.x, card.y))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
-            
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            clicked_card_num = on_card_click(big_cards, event)
+
     
     pygame.display.flip()
     window.fill(LEMON)
