@@ -9,3 +9,7 @@ PROJECT_PATH = os.path.abspath(__file__ + "/..")
 IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
 ICON_PATH = os.path.join(IMAGES_PATH, "icon.png")
 FONT_PATH = os.path.join(PROJECT_PATH, "fonts")
+MAP = ["1111111111",
+        "0001111000",
+        "1111111111",
+        "0001111000"]
