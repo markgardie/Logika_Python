@@ -22,5 +22,5 @@ while game:
             game = False
             
     pygame.display.flip()
-    window.fill(LEMON)
+    window.fill(BLUE)
     fps.tick(60)
