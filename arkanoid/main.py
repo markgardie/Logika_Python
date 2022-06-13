@@ -1,3 +1,4 @@
+from functions import*
 from constants import*
 import pygame
 
@@ -12,8 +13,9 @@ pygame.display.set_icon(icon)
 
 fps = pygame.time.Clock()
 
-#------Blocks List
+#------Blocks
 blocks = list()
+create_blocks(blocks)
 
 #------Game Cycle
 game = True
