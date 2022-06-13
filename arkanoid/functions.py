@@ -15,3 +15,7 @@ def create_blocks(blocks):
         y += 56
         x = 20
 
+def draw_blocks(blocks, window):
+
+    for block in blocks:
+        window.blit(block.image, (block.x, block.y))
