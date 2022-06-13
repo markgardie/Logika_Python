@@ -6,8 +6,9 @@ pygame.init()
 #------Window
 
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption("Card Game")
-
+pygame.display.set_caption("Arkanoid")
+icon = pygame.image.load(ICON_PATH)
+pygame.display.set_icon(icon)
 
 fps = pygame.time.Clock()
 
