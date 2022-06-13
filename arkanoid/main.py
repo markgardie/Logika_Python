@@ -23,6 +23,8 @@ game = True
 
 while game:
 
+    draw_blocks(blocks, window)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
