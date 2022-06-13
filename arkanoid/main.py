@@ -12,6 +12,9 @@ pygame.display.set_icon(icon)
 
 fps = pygame.time.Clock()
 
+#------Blocks List
+blocks = list()
+
 #------Game Cycle
 game = True
 
