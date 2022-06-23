@@ -26,7 +26,7 @@ ball.load_image()
 
 #------Game Cycle
 game = True
-
+direction = 1
 
 while game:
 
@@ -35,10 +35,17 @@ while game:
     window.blit(ball.image, (ball.x, ball.y))
 
     for event in pygame.event.get():
+        
         if event.type == pygame.QUIT:
             game = False
+        
         platform.handle_keys()
-            
+
+        direction = handle_collisions(blocks, platform, ball, direction)
+
+        ball.move_up_down(direction)
+
+       
     pygame.display.flip()
     window.fill(BLUE)
     fps.tick(60)
