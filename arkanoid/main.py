@@ -37,6 +37,7 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
+        platform.handle_keys()
             
     pygame.display.flip()
     window.fill(BLUE)
