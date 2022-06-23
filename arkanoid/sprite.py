@@ -3,12 +3,14 @@ from constants import*
 
 class Sprite():
 
-    def __init__(self, width = 10, height = 10, x = 0, y = 0, img_name = ""):
+    def __init__(self, width = 10, height = 10, x = 0, y = 0, img_name = "", speed = 0):
         self.width = width
         self.height = height
         self.x = x
         self.y = y
         self.img_name = img_name
+        self.speed = speed
+
         self.img_path = os.path.join(IMAGES_PATH, img_name)
         self.image = None
         self.hitbox = pygame.Rect(x, y, width, height)
