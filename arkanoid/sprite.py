@@ -18,3 +18,11 @@ class Sprite():
     def load_image(self):
         image = pygame.image.load(self.img_path)
         self.image = pygame.transform.scale(image, (self.hitbox.width, self.hitbox.height))
+
+    def move_left(self):
+        self.x -= self.speed
+        self.hitbox.x -= self.speed
+
+    def move_right(self):
+        self.x += self.speed 
+        self.hitbox.x += self.speed
