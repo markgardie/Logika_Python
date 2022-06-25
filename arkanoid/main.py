@@ -1,5 +1,7 @@
+from functions import*
 from constants import*
 import pygame
+from sprite import*
 
 pygame.init()
 
@@ -7,9 +9,20 @@ pygame.init()
 
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Arkanoid")
-
+icon = pygame.image.load(ICON_PATH)
+pygame.display.set_icon(icon)
 
 fps = pygame.time.Clock()
+
+#------Create Sprites
+blocks = list()
+create_blocks(blocks)
+
+platform = Sprite(PLATFORM_WIDTH, PLATFORM_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT - 30, "platform.png")
+platform.load_image()
+
+ball = Sprite(BALL_WIDTH, BALL_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, "ball.png")
+ball.load_image()
 
 #------Game Cycle
 game = True
@@ -17,10 +30,14 @@ game = True
 
 while game:
 
+    draw_blocks(blocks, window)
+    window.blit(platform.image, (platform.x, platform.y))
+    window.blit(ball.image, (ball.x, ball.y))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
-
+            
     pygame.display.flip()
     window.fill(BLUE)
     fps.tick(60)
