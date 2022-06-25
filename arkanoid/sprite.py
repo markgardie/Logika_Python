@@ -25,3 +25,10 @@ class Sprite():
     def move_right(self):
         self.x += self.speed
         self.hitbox.x += self.speed
+
+    def handle_keys(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            self.move_left()
+        if keys[pygame.K_d]:
+            self.move_right()
