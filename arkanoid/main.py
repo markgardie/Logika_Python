@@ -18,10 +18,10 @@ fps = pygame.time.Clock()
 blocks = list()
 create_blocks(blocks)
 
-platform = Sprite(PLATFORM_WIDTH, PLATFORM_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT - 30, "platform.png")
+platform = Sprite(PLATFORM_WIDTH, PLATFORM_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT - 30, "platform.png", speed=PLATFORM_SPEED)
 platform.load_image()
 
-ball = Sprite(BALL_WIDTH, BALL_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, "ball.png")
+ball = Sprite(BALL_WIDTH, BALL_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, "ball.png", speed=BALL_SPEED)
 ball.load_image()
 
 #------Game Cycle
