@@ -44,7 +44,7 @@ while game:
 
     direction_x, direction_y = handle_collisions(blocks, platform, ball, direction_x, direction_y)
 
-    ball.move_up_down(direction_x, direction_y)
+    ball.auto_move(direction_x, direction_y)
 
        
     pygame.display.flip()

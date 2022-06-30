@@ -34,7 +34,10 @@ class Sprite():
         self.x += self.speed 
         self.hitbox.x += self.speed
 
-    def move_up_down(self, direction_x, direction_y):
-        self.y += self.speed * direction_x
-        self.hitbox.y += self.speed * direction_x
+    def auto_move(self, direction_x, direction_y):
+        self.y += self.speed * direction_y
+        self.hitbox.y += self.speed * direction_y
+
+        self.x += self.speed * direction_x
+        self.hitbox.x += self.speed * direction_x
 
