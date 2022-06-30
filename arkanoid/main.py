@@ -26,7 +26,8 @@ ball.load_image()
 
 #------Game Cycle
 game = True
-direction = 1
+direction_x = 1
+direction_y = 1
 
 while game:
 
@@ -41,9 +42,9 @@ while game:
         
     platform.handle_keys()
 
-    direction = handle_collisions(blocks, platform, ball, direction)
+    direction_x, direction_y = handle_collisions(blocks, platform, ball, direction_x, direction_y)
 
-    ball.move_up_down(direction)
+    ball.move_up_down(direction_x, direction_y)
 
        
     pygame.display.flip()
