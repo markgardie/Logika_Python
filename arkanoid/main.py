@@ -28,25 +28,35 @@ ball.load_image()
 game = True
 direction_x = 1
 direction_y = 1
+text = ""
+game_state = 1
 
 while game:
-
-    draw_blocks(blocks, window)
-    window.blit(platform.image, (platform.x, platform.y))
-    window.blit(ball.image, (ball.x, ball.y))
 
     for event in pygame.event.get():
         
         if event.type == pygame.QUIT:
             game = False
-        
-    platform.handle_keys()
 
-    direction_x, direction_y = handle_collisions(blocks, platform, ball, direction_x, direction_y)
 
-    ball.auto_move(direction_x, direction_y)
+    if game_state == 1:
 
-       
+        draw_blocks(blocks, window)
+        window.blit(platform.image, (platform.x, platform.y))
+        window.blit(ball.image, (ball.x, ball.y))
+
+        platform.handle_keys()
+
+        direction_x, direction_y = handle_collisions(blocks, platform, ball, direction_x, direction_y)
+
+        ball.auto_move(direction_x, direction_y)
+
+        game_state, text = win_lose(ball, game_state, window, blocks, text)
+
+    if game_state == 0:
+        window.blit(text, (WINDOW_WIDTH / 2 - FONT_SIZE, WINDOW_HEIGHT / 2 - FONT_SIZE)) 
+
     pygame.display.flip()
     window.fill(BLUE)
     fps.tick(60)
+

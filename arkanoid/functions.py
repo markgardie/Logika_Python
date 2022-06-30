@@ -50,3 +50,16 @@ def handle_collisions(blocks, platform, ball, direction_x, direction_y):
             direction_x = -1
     
     return direction_x, direction_y
+
+def win_lose(ball, game_state, window, blocks, text):
+    font = pygame.font.Font(FONT_PATH, FONT_SIZE)
+    
+    if ball.hitbox.y > 590:
+        text = font.render("You Lose", True, BLACK)
+        game_state = 0
+        
+    if len(blocks) == 0:
+        text = font.render("You Win", True, BLACK)
+        game_state = 0
+
+    return game_state, text
