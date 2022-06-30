@@ -39,11 +39,11 @@ while game:
         if event.type == pygame.QUIT:
             game = False
         
-        platform.handle_keys()
+    platform.handle_keys()
 
-        direction = handle_collisions(blocks, platform, ball, direction)
+    direction = handle_collisions(blocks, platform, ball, direction)
 
-        ball.move_up_down(direction)
+    ball.move_up_down(direction)
 
        
     pygame.display.flip()
