@@ -38,15 +38,15 @@ def handle_collisions(blocks, platform, ball, direction_x, direction_y):
             direction_y = 1 
 
     #ball and top border collision
-    if ball.hitbox.y < 0:
+    if ball.hitbox.y < 5:
             direction_y = 1
 
     #ball and left border collision
-    if ball.hitbox.x < 0:
+    if ball.hitbox.x < 5:
             direction_x = 1
 
     #ball and right border collision
-    if ball.hitbox.x > 880:
+    if ball.hitbox.x > 875:
             direction_x = -1
     
     return direction_x, direction_y
