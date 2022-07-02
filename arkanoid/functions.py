@@ -21,11 +21,27 @@ def draw_blocks(blocks, window):
         window.blit(block.image, (block.x, block.y))
 
 def handle_collisions(blocks, platform, ball, direction_y, direction_x):
+    
+    #collide platform
     if ball.hitbox.colliderect(platform.hitbox):
         direction_y = -1
+
+    #collide blocks
     for block in blocks:
         if ball.hitbox.colliderect(block.hitbox):
             blocks.remove(block)
             direction_y = 1 
+
+    #collide left border
+    if ball.x < 5: 
+        direction_x = 1
+
+    #collide right border
+    if ball.x > 875:
+        direction_x = -1
+
+    #collide top border 
+    if ball.y < 0:
+        direction_y = 1
     
     return direction_y, direction_x
