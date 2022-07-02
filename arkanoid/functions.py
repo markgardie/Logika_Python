@@ -20,12 +20,12 @@ def draw_blocks(blocks, window):
     for block in blocks:
         window.blit(block.image, (block.x, block.y))
 
-def handle_collisions(blocks, platform, ball, direction):
+def handle_collisions(blocks, platform, ball, direction_y, direction_x):
     if ball.hitbox.colliderect(platform.hitbox):
-        direction = -1
+        direction_y = -1
     for block in blocks:
         if ball.hitbox.colliderect(block.hitbox):
             blocks.remove(block)
-            direction = 1 
+            direction_y = 1 
     
-    return direction
+    return direction_y, direction_x
