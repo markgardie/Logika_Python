@@ -8,8 +8,9 @@ class Sprite():
         self.height = height
         self.x = x
         self.y = y
-        self.speed = speed
         self.img_name = img_name
+        self.speed = speed
+
         self.img_path = os.path.join(IMAGES_PATH, img_name)
         self.image = None
         self.hitbox = pygame.Rect(x, y, width, height)
@@ -18,17 +19,22 @@ class Sprite():
         image = pygame.image.load(self.img_path)
         self.image = pygame.transform.scale(image, (self.hitbox.width, self.hitbox.height))
 
-    def move_left(self):
-        self.x -= self.speed
-        self.hitbox.x -= self.speed
-
-    def move_right(self):
-        self.x += self.speed
-        self.hitbox.x += self.speed
-
     def handle_keys(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
             self.move_left()
         if keys[pygame.K_d]:
             self.move_right()
+    
+    def move_left(self):
+        self.x -= self.speed
+        self.hitbox.x -= self.speed
+
+    def move_right(self):
+        self.x += self.speed 
+        self.hitbox.x += self.speed
+
+    def move_up_down(self, direction):
+        self.y += self.speed * direction
+        self.hitbox.y += self.speed * direction
+

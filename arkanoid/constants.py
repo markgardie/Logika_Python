@@ -10,13 +10,13 @@ PLATFORM_WIDTH = 150
 PLATFORM_HEIGHT = 30
 BALL_WIDTH = 30
 BALL_HEIGHT = 30
-PLATFORM_SPEED = 10
-BALL_SPEED = 5
 BLUE = (200, 255, 255)
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
 IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
 ICON_PATH = os.path.join(IMAGES_PATH, "icon.png")
 FONT_PATH = os.path.join(PROJECT_PATH, "fonts")
+PLATFORM_SPEED = 10
+BALL_SPEED = 5
 MAP = ["1111111111",
         "0001111000",
         "1111111111",
