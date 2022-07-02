@@ -43,5 +43,6 @@ def handle_collisions(blocks, platform, ball, direction_y, direction_x):
     #collide top border 
     if ball.y < 0:
         direction_y = 1
+
     
     return direction_y, direction_x

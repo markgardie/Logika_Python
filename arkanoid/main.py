@@ -25,11 +25,11 @@ ball = Sprite(BALL_WIDTH, BALL_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, "bal
 ball.load_image()
 
 #------Game Cycle
-game = True
+game_state = 1
 direction_y = 1
 direction_x = 1
 
-while game:
+while game_state == 1:
 
     draw_blocks(blocks, window)
     window.blit(platform.image, (platform.x, platform.y))
@@ -38,7 +38,7 @@ while game:
     for event in pygame.event.get():
         
         if event.type == pygame.QUIT:
-            game = False
+            game_state = 0
         
     platform.handle_keys()
 
@@ -50,3 +50,19 @@ while game:
     pygame.display.flip()
     window.fill(BLUE)
     fps.tick(60)
+
+
+while game_state == 2:
+
+
+    
+
+    for event in pygame.event.get():
+        
+        if event.type == pygame.QUIT:
+            game_state = 0
+
+    pygame.display.flip()
+    window.fill(BLUE)
+    fps.tick(60)
+
