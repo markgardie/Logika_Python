@@ -34,7 +34,7 @@ class Sprite():
         self.x += self.speed 
         self.hitbox.x += self.speed
 
-    def move_diagonal(self, direction_y, direction_x):
+    def auto_move(self, direction_x, direction_y):
         self.y += self.speed * direction_y
         self.hitbox.y += self.speed * direction_y
 
