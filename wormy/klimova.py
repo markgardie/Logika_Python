@@ -1,0 +1,42 @@
+from curses import window
+from math import degrees
+from constants import*
+
+def show_start_screen(window): 
+    font = pygame.font.Font("freesansbold.ttf ", 100)
+    text1 = font.render("Wormy!", True, WHITE, DARKGREEN)
+    text2 =  font.render("Wormy!", True, GREEN)
+
+    degrees1 = 0
+    degrees2 = 0
+    while True:
+        window.fill(BG_COLOR)
+        rotated_surf1 = pygame.transform.rotate(text1, degrees1)
+        rotated_rect1 = rotated_surf1.get_rect()
+        rotated_rect1.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+        window.blit(rotated_surf1,rotated_rect1 )
+        
+        rotated_surf2 = pygame.transform.rotate(text1, degrees1)
+        rotated_rect2 = rotated_surf2.get_rect()
+        rotated_rect2.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+        window.blit(rotated_surf1,rotated_rect2 )
+
+        drow_press_key_msg()
+
+        if check_for_key_press():
+            pygame.event.get()
+            return 
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
+        degrees1 += 3
+        degrees2 += 7
+
+
+def draw_score(self):
+    score = self.find_withtag("score")
+    self.itemconfigure(score, text="Счет: {0}". format(self.score))
+
+
+
+
+ 
