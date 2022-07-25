@@ -37,6 +37,17 @@ def draw_score(self):
     self.itemconfigure(score, text="Счет: {0}". format(self.score))
 
 
+def draw_apple(apple_coords, window):
+    for coord in worm_coords:
+        x = coord["x"] * CELL_SIZE
+        y = coord["y"] * CELL_SIZE
+        apple_rect = pygame.Rect(x , y , CELL_SIZE , CELL_SIZE)
+        pygame.draw.rect(window, RED, apple_rect)
+        
+
+
+
+
 
 
  
