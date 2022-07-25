@@ -15,10 +15,6 @@ def show_start_screen(window):
     font = pygame.font.Font("freesansbold.ttf", 18)
     
 
-
-
-
-
     #GAME CYCLE
     game = True
 
@@ -54,4 +50,27 @@ def show_start_screen(window):
         degrees_1 += 5
         degrees_2 += 10
 
-show_start_screen(window)
+#show_start_screen(window)
+
+
+def showGameOverScreen():
+
+    font = pygame.font.Font('freesansbold.ttf', 150)
+
+    #Game
+    game_text = font.render('Game', True, WHITE)
+    gameRect = game_text.get_rect()
+    gameRect.midtop = (WINDOW_WIDTH / 2, 10)
+    window.blit(game_text, gameRect)
+    #Over
+    over_text = font.render('Over', True, WHITE)
+    overRect = over_text.get_rect()
+    overRect.midtop = (WINDOW_WIDTH / 2, gameRect.height + 10 + 25)
+    window.blit(over_text, overRect)
+    
+    #draw_press_key_msg()
+
+    pygame.display.update()
+    
+    #check_for_key_press()
+    
