@@ -73,4 +73,32 @@ def showGameOverScreen():
     pygame.display.update()
     
     #check_for_key_press()
-    
+
+
+def runGame():
+    start_x = random.randint(10,CELL_WIDTH-10)
+    start_y = random.randint(10,CELL_HEIGHT-10)
+    wormCoords = [{"x":start_x,"y":start_y},{"x":start_x-1,"y":start_y,"x":start_x-2,"y":start_y}]
+    direction = "RIGHT"
+    apple = getRandomLocation()  
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                terminate()
+            elif event.type ==pygame.KEYDOWN:
+                if event.key == K_LEFT and direction!="RIGHT" :
+                    direction = "LEFT"
+                elif event.key == K_RIGHT and direction!="LEFT":
+                    direction = "RIGHT"
+                elif event.key == K_UP and direction!="DOWN":
+                    direction = "UP"
+                elif event.key == K_DOWN and direction!="UP":
+                    direction = "DOWN"
+    #дописати на відпрацюванні
+
+font1 = pygame.font.SysFont("Times New Roman",25)
+def drawScore():
+    score_text = font1.render("SCORE:",True,(250,0,250))
+    score_text_rect = score_text.get_rect()
+    score_text_rect.topleft = (400,10)
+    window.blit(score_text,score_text_rect)
