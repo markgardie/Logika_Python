@@ -39,3 +39,16 @@ def getRandomMove(board,lastMove = None):
     if lastMove == LEFT or not isValidMove(board, RIGHT):
         validMoves.remove(RIGHT)
     random.choice(validMoves)
+
+
+def drawTile(tilex, tiley, number, adjx = 0, adjy = 0):
+
+    left, top = getLeftTopOfTile(tilex, tiley)
+    pygame.draw.rect(window, TILE_COLOR, left + adjx, top + adjy, TILE_SIZE, TILE_SIZE)
+
+    font = pygame.font.Font("freesansbold.ttf", FONT_SIZE)
+
+    textSurf = font.render(str(number), True, TEXT_COLOR)
+    textRect = textSurf.get_rect()
+    textRect.center = left + int(TILE_SIZE / 2) + adjx, top + int(TILE_SIZE / 2) + adjy
+    window.blit(textSurf, textRect) 
