@@ -36,15 +36,3 @@ def handleAppleTouch(wormCoords):
     else:
         del wormCoords[-1] # remove worm's tail segment
 
-def newCoords(wormCoords, direction):
-     # move the worm by adding a segment in the direction it is moving
-    if direction == UP:
-        newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] - 1}
-    elif direction == DOWN:
-        newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] + 1}
-    elif direction == LEFT:
-        newHead = {'x': wormCoords[HEAD]['x'] - 1, 'y': wormCoords[HEAD]['y']}
-    elif direction == RIGHT:
-        newHead = {'x': wormCoords[HEAD]['x'] + 1, 'y': wormCoords[HEAD]['y']}
-    
-    wormCoords.insert(0, newHead)
