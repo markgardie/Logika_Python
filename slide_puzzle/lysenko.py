@@ -13,11 +13,11 @@ def getSpotClicked(board, x, y):
 #---друга функція!-----З пересування плики на пусту 
  
 def isValidMove(board, move): 
-    blankx, blanky = getBlankPosition(board) 
-    return (move == UP and blanky != len(board[0]) - 1) or \ 
-           (move == DOWN and blanky != 0) or \ 
-           (move == LEFT and blankx != len(board) - 1) or \ 
-           (move == RIGHT and blankx != 0) 
+    blankx, blanky = getBlankPosition(board)
+    return (move == UP and blanky != len(board[0]) - 1) or \
+           (move == DOWN and blanky != 0) or \
+           (move == LEFT and blankx != len(board) - 1) or \
+           (move == RIGHT and blankx != 0)
  
 def getBlankPosition(board): 
     # Return the x and y of board coordinates of the blank space. 
