@@ -2,57 +2,60 @@
 import pygame
 import random
 from constants import*
-pygame.init()
+from konoval import*
+from klimova import*
+from chaenok import*
+from ivantsiv import*
 
-#Window
-window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption("Wormy")
+def main():
+    global FPS_CLOCK, WINDOW, BASIC_FONT
 
-#Clock
-fps = pygame.time.Clock()
+    pygame.init()
+    WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
+    BASIC_FONT = pygame.font.Font('freesansbold.ttf', 18)
+    FPS_CLOCK = pygame.time.Clock()
+    pygame.display.set_caption("Wormy")
+
+    showStartScreen()
+    while True:
+        runGame()
+        showGameOverScreen()
 
 
-def show_start_screen(window):
-    font = pygame.font.Font("freesansbold.ttf", 18)
+def showStartScreen():
+  
+    titleFont = pygame.font.Font('freesansbold.ttf', 100)
+    text1 = titleFont.render('Wormy!', True, WHITE, DARK_GREEN)
+    text2 = titleFont.render('Wormy!', True, GREEN)
+
+    degrees1 = 0
+    degrees2 = 0
     
+    while True:
 
-    #GAME CYCLE
-    game = True
-
-    while game:
-
+        WINDOW.blit(BG_COLOR)
+        
         #text1
-        text1 = font.render("Wormy!", True, WHITE, DARK_GRAY)
-        degrees_1 = 0
-        text1_rotate = pygame.transform.rotate(text1, degrees_1)
+        text1_rotate = pygame.transform.rotate(text1, degrees1)
         rect1_rotate = text1_rotate.get_rect()
         rect1_rotate.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
-        window.blit(text1_rotate, rect1_rotate)
+        WINDOW.blit(text1_rotate, rect1_rotate)
 
         #text2
-        text2 = font.render("Wormy!", True, GREEN)
-        degrees_2 = 0
-        text2_rotate = pygame.transform.rotate(text2, degrees_2)
+        text2_rotate = pygame.transform.rotate(text2, degrees2)
         rect2_rotate = text2_rotate.get_rect()
         rect2_rotate.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
-        window.blit(text2_rotate, rect2_rotate)
+        WINDOW.blit(text2_rotate, rect2_rotate)
         
+        drawPressKeyMsg()
 
-
-        for event in pygame.event.get():
-        
-            if event.type == pygame.QUIT:
-                game = False
-
-        pygame.display.flip()
-        window.fill(BG_COLOR)
-        fps.tick(FPS)
-        
-        degrees_1 += 5
-        degrees_2 += 10
-
-#show_start_screen(window)
-
+        if checkForKeyPress():
+            pygame.event.get() # clear event queue
+            return
+        pygame.display.update()
+        FPS_CLOCK.tick(FPS)
+        degrees1 += 3 # rotate by 3 degrees each frame
+        degrees2 += 7 # rotate by 7 degrees each frame
 
 def showGameOverScreen():
 
@@ -62,44 +65,21 @@ def showGameOverScreen():
     game_text = font.render('Game', True, WHITE)
     gameRect = game_text.get_rect()
     gameRect.midtop = (WINDOW_WIDTH / 2, 10)
-    window.blit(game_text, gameRect)
+    WINDOW.blit(game_text, gameRect)
     #Over
     over_text = font.render('Over', True, WHITE)
     overRect = over_text.get_rect()
     overRect.midtop = (WINDOW_WIDTH / 2, gameRect.height + 10 + 25)
-    window.blit(over_text, overRect)
+    WINDOW.blit(over_text, overRect)
     
-    #draw_press_key_msg()
-
+    drawPressKeyMsg()
     pygame.display.update()
-    
-    #check_for_key_press()
+    pygame.time.wait(500)
+    checkForKeyPress() 
 
-
-def runGame():
-    start_x = random.randint(10,CELL_WIDTH-10)
-    start_y = random.randint(10,CELL_HEIGHT-10)
-    wormCoords = [{"x":start_x,"y":start_y},{"x":start_x-1,"y":start_y,"x":start_x-2,"y":start_y}]
-    direction = "RIGHT"
-    apple = getRandomLocation()  
     while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                terminate()
-            elif event.type ==pygame.KEYDOWN:
-                if event.key == K_LEFT and direction!="RIGHT" :
-                    direction = "LEFT"
-                elif event.key == K_RIGHT and direction!="LEFT":
-                    direction = "RIGHT"
-                elif event.key == K_UP and direction!="DOWN":
-                    direction = "UP"
-                elif event.key == K_DOWN and direction!="UP":
-                    direction = "DOWN"
-    #дописати на відпрацюванні
+        if checkForKeyPress():
+            pygame.event.get() # clear event queue
+            return
 
-font1 = pygame.font.SysFont("Times New Roman",25)
-def drawScore():
-    score_text = font1.render("SCORE:",True,(250,0,250))
-    score_text_rect = score_text.get_rect()
-    score_text_rect.topleft = (400,10)
-    window.blit(score_text,score_text_rect)
+
