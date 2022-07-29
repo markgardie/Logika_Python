@@ -32,9 +32,12 @@ def show_start_screen(window):
         degrees2 += 7
 
 
-def draw_score(self):
-    score = self.find_withtag("score")
-    self.itemconfigure(score, text="Счет: {0}". format(self.score))
+def drawScore(score):
+    scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
+    scoreRect = scoreSurf.get_rect()
+    scoreRect.topleft = (WINDOWWIDTH - 120, 10)
+    DISPLAYSURF.blit(scoreSurf, scoreRect)
+
 
 
 def draw_apple(apple_coords, window):
