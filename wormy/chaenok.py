@@ -1,18 +1,20 @@
 import pygame
 from constants import*
-pygame.init()
+from konoval import*
+from ivantsiv import*
+from klimova import*
 
-def draw_worm(worm_coords, window):
-    for coord in worm_coords:
+def drawWorm():
+    for coord in wormCoords:
         x = coord["x"] * CELL_SIZE
         y = coord["y"] * CELL_SIZE
         worm_rect = pygame.Rect(x , y , CELL_SIZE , CELL_SIZE)
-        pygame.draw.rect(window, DARK_GREEN , worm_rect)
+        pygame.draw.rect(WINDOW, DARK_GREEN , worm_rect)
         cell_rect = pygame.Rect(x + 4 , y + 4 , CELL_SIZE - 8 , CELL_SIZE - 8)
-        pygame.draw.rect(window, GREEN , cell_rect)
+        pygame.draw.rect(WINDOW, GREEN , cell_rect)
 
 
-def newCoords(wormCoords, direction):
+def newCoords():
      # move the worm by adding a segment in the direction it is moving
     if direction == UP:
         newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] - 1}
@@ -26,11 +28,11 @@ def newCoords(wormCoords, direction):
     wormCoords.insert(0, newHead)
 
 
-def drawing(window, wormCoords, apple):
-    window.fill(BG_COLOR)
+def drawing():
+    WINDOW.fill(BG_COLOR)
     drawGrid()
     drawWorm(wormCoords)
     drawApple(apple)
     drawScore(len(wormCoords) - 3)
     pygame.display.update()
-    FPSCLOCK.tick(FPS)
+    FPS_CLOCK.tick(FPS)

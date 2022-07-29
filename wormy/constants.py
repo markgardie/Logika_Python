@@ -1,3 +1,6 @@
+import pygame
+pygame.init()
+
 FPS = 15
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
@@ -22,3 +25,8 @@ LEFT = 'left'
 RIGHT = 'right'
 
 HEAD = 0 # syntactic sugar: index of the worm's head
+
+WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
+BASIC_FONT = pygame.font.Font('freesansbold.ttf', 18)
+FPS_CLOCK = pygame.time.Clock()
+

@@ -1,7 +1,8 @@
-from curses import window
 import pygame
-from math import degrees
-from constants import*
+from pygame.locals import*
+from wormy.constants import*
+from konoval import*
+from ivantsiv import*
 
 def show_start_screen(window): 
     font = pygame.font.Font("freesansbold.ttf ", 100)
@@ -22,27 +23,27 @@ def show_start_screen(window):
         rotated_rect2.center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
         window.blit(rotated_surf1,rotated_rect2 )
 
-        drow_press_key_msg()
+        drawPressKeyMsg()
 
-        if check_for_key_press():
+        if checkForKeyPress():
             pygame.event.get()
             return 
         pygame.display.update()
-        FPSCLOCK.tick(FPS)
+        FPS_CLOCK.tick(FPS)
         degrees1 += 3
         degrees2 += 7
 
 
 def drawScore(score):
-    scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
+    scoreSurf = BASIC_FONT.render('Score: %s' % (score), True, WHITE)
     scoreRect = scoreSurf.get_rect()
     scoreRect.topleft = (WINDOW_WIDTH - 120, 10)
-    window.blit(scoreSurf, scoreRect)
+    WINDOW.blit(scoreSurf, scoreRect)
 
 
 
-def draw_apple(apple_coords, window):
-    for coord in worm_coords:
+def drawApple(apple_coords, window):
+    for coord in wormCoords:
         x = coord["x"] * CELL_SIZE
         y = coord["y"] * CELL_SIZE
         apple_rect = pygame.Rect(x , y , CELL_SIZE , CELL_SIZE)

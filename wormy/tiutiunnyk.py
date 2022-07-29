@@ -4,8 +4,6 @@ import random
 from constants import*
 from konoval import*
 from klimova import*
-from chaenok import*
-from ivantsiv import*
 
 def main():
     global FPS_CLOCK, WINDOW, BASIC_FONT
@@ -21,7 +19,6 @@ def main():
         runGame()
         showGameOverScreen()
 
-
 def showStartScreen():
   
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
@@ -33,7 +30,7 @@ def showStartScreen():
     
     while True:
 
-        WINDOW.blit(BG_COLOR)
+        WINDOW.fill(BG_COLOR)
         
         #text1
         text1_rotate = pygame.transform.rotate(text1, degrees1)
@@ -82,4 +79,4 @@ def showGameOverScreen():
             pygame.event.get() # clear event queue
             return
 
-
+main()

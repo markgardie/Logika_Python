@@ -1,8 +1,8 @@
 import pygame
 import sys
-from constants import*
 import random
-pygame.init()
+from constants import*
+from konoval import*
 
 
 
@@ -16,12 +16,12 @@ def getRandomLocation():
 def drawGrid():
 
     for x in range(0, WINDOW_WIDTH, CELL_SIZE):
-        pygame.draw.line(window, DARK_GRAY, (x, 0), (x, WINDOW_HEIGHT))
+        pygame.draw.line(WINDOW, DARK_GRAY, (x, 0), (x, WINDOW_HEIGHT))
     for y in range(0, WINDOW_HEIGHT, CELL_SIZE):
-        pygame.draw.line(window, DARK_GRAY, (0, y), (WINDOW_WIDTH, 0))
+        pygame.draw.line(WINDOW, DARK_GRAY, (0, y), (WINDOW_WIDTH, 0))
 
 
-def handleLose(wormCoords):
+def handleLose():
     
     if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELL_WIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
         return # game over
@@ -30,7 +30,7 @@ def handleLose(wormCoords):
         if wormBody['x'] == wormCoords[HEAD]['x'] and wormBody['y'] == wormCoords[HEAD]['y']:
             return # game over
 
-def handleAppleTouch(wormCoords):
+def handleAppleTouch():
     # check if worm has eaten an apply
     if wormCoords[HEAD]['x'] == apple['x'] and wormCoords[HEAD]['y'] == apple['y']:
             # don't remove worm's tail segment
