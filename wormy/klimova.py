@@ -45,7 +45,16 @@ def draw_apple(apple_coords, window):
         pygame.draw.rect(window, RED, apple_rect)
         
 
+def checkForKeyPress():
+    if len(pygame.event.get(QUIT)) > 0:
+        terminate()
 
+    keyUpEvents = pygame.event.get(KEYUP)
+    if len(keyUpEvents) == 0:
+        return None
+    if keyUpEvents[0].key == K_ESCAPE:
+        terminate()
+    return keyUpEvents[0].key
 
 
 
