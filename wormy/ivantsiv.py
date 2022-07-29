@@ -23,7 +23,7 @@ def drawGrid():
 
 def handleLose():
     
-    if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELL_WIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
+    if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELL_WIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELL_HEIGHT:
         return # game over
 
     for wormBody in wormCoords[1:]:

@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import*
-from wormy.constants import*
+from constants import*
 from konoval import*
 from ivantsiv import*
 
@@ -39,7 +39,6 @@ def drawScore(score):
     scoreRect = scoreSurf.get_rect()
     scoreRect.topleft = (WINDOW_WIDTH - 120, 10)
     WINDOW.blit(scoreSurf, scoreRect)
-
 
 
 def drawApple(apple_coords, window):

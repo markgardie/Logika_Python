@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import*
 import random
 from constants import*
 from ivantsiv import*
