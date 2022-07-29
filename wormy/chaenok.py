@@ -27,7 +27,7 @@ def newCoords(wormCoords, direction):
 
 
 def drawing(window, wormCoords, apple):
-    window.fill(BGCOLOR)
+    window.fill(BG_COLOR)
     drawGrid()
     drawWorm(wormCoords)
     drawApple(apple)

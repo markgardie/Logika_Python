@@ -1,20 +1,20 @@
 FPS = 15
-WINDOWWIDTH = 640
-WINDOWHEIGHT = 480
-CELLSIZE = 20
-assert WINDOWWIDTH % CELLSIZE == 0, "Window width must be a multiple of cell size."
-assert WINDOWHEIGHT % CELLSIZE == 0, "Window height must be a multiple of cell size."
-CELLWIDTH = int(WINDOWWIDTH / CELLSIZE)
-CELLHEIGHT = int(WINDOWHEIGHT / CELLSIZE)
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 480
+CELL_SIZE = 20
+assert WINDOW_WIDTH % CELL_SIZE == 0, "Window width must be a multiple of cell size."
+assert WINDOW_HEIGHT % CELL_SIZE == 0, "Window height must be a multiple of cell size."
+CELL_WIDTH = int(WINDOW_WIDTH / CELL_SIZE)
+CELL_HEIGHT = int(WINDOW_HEIGHT / CELL_SIZE)
 
 #             R    G    B
 WHITE     = (255, 255, 255)
 BLACK     = (  0,   0,   0)
 RED       = (255,   0,   0)
 GREEN     = (  0, 255,   0)
-DARKGREEN = (  0, 155,   0)
-DARKGRAY  = ( 40,  40,  40)
-BGCOLOR = BLACK
+DARK_GREEN = (  0, 155,   0)
+DARK_GRAY  = ( 40,  40,  40)
+BG_COLOR = BLACK
 
 UP = 'up'
 DOWN = 'down'

@@ -1,5 +1,7 @@
 import pygame
 import sys
+from constants import*
+import random
 pygame.init()
 
 
@@ -9,7 +11,7 @@ def terminate():
     sys.exit()
 
 def getRandomLocation():
-    return {'x': random.randint(0, CELLWIDTH - 1), 'y': random.randint(0, CELLHEIGHT - 1)}
+    return {'x': random.randint(0, CELL_WIDTH - 1), 'y': random.randint(0, CELL_HEIGHT - 1)}
 
 def drawGrid():
 
@@ -21,7 +23,7 @@ def drawGrid():
 
 def handleLose(wormCoords):
     
-    if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELLWIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
+    if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELL_WIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
         return # game over
 
     for wormBody in wormCoords[1:]:

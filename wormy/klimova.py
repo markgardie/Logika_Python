@@ -1,10 +1,11 @@
 from curses import window
+import pygame
 from math import degrees
 from constants import*
 
 def show_start_screen(window): 
     font = pygame.font.Font("freesansbold.ttf ", 100)
-    text1 = font.render("Wormy!", True, WHITE, DARKGREEN)
+    text1 = font.render("Wormy!", True, WHITE, DARK_GREEN)
     text2 =  font.render("Wormy!", True, GREEN)
 
     degrees1 = 0
@@ -35,8 +36,8 @@ def show_start_screen(window):
 def drawScore(score):
     scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
     scoreRect = scoreSurf.get_rect()
-    scoreRect.topleft = (WINDOWWIDTH - 120, 10)
-    DISPLAYSURF.blit(scoreSurf, scoreRect)
+    scoreRect.topleft = (WINDOW_WIDTH - 120, 10)
+    window.blit(scoreSurf, scoreRect)
 
 
 

@@ -1,5 +1,6 @@
 
 import pygame
+import random
 from constants import*
 pygame.init()
 
@@ -21,7 +22,7 @@ def show_start_screen(window):
     while game:
 
         #text1
-        text1 = font.render("Wormy!", True, WHITE, DARKGRAY)
+        text1 = font.render("Wormy!", True, WHITE, DARK_GRAY)
         degrees_1 = 0
         text1_rotate = pygame.transform.rotate(text1, degrees_1)
         rect1_rotate = text1_rotate.get_rect()

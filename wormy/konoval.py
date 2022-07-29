@@ -1,4 +1,6 @@
 import pygame
+import random
+from constants import*
 pygame.init()
 
 font1 = pygame.font.SysFont("Times New Roman", 25)
