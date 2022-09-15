@@ -31,16 +31,16 @@ clicked_card_num = 0
 
 while game:
 
-    for card in big_cards:
-        window.blit(card.image, (card.x, card.y))
+ for card in big_cards:
+  window.blit(card.image, (card.x, card.y))
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            game = False
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            clicked_card_num = on_card_click(big_cards, event)
+ for event in pygame.event.get():
+  if event.type == pygame.QUIT:
+game = False
+  if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+clicked_card_num = on_card_click(big_cards, event)
 
-    
-    pygame.display.flip()
-    window.fill(LEMON)
-    fps.tick(60)
+ 
+ pygame.display.flip()
+ window.fill(LEMON)
+ fps.tick(60)

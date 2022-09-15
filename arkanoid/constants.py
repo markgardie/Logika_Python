@@ -20,6 +20,6 @@ FONT_PATH = os.path.join(PROJECT_PATH, "fonts/font.ttf")
 PLATFORM_SPEED = 10
 BALL_SPEED = 5
 MAP = ["1111111111",
-        "0001111000",
-        "1111111111",
-        "0001111000"]
+  "0001111000",
+  "1111111111",
+  "0001111000"]

@@ -3,63 +3,63 @@ from sprite import*
 from random import randint
 
 def create_blocks(blocks):
-    x = 20 
-    y = 20 
+ x = 20 
+ y = 20 
 
-    for raw in MAP:
-        for place in raw:
-            if place == "1":
-                block = Sprite(BLOCK_WIDTH, BLOCK_HEIGHT, x, y, "block.png")
-                block.load_image()
-                blocks.append(block)
-            x += 76
-        y += 56
-        x = 20
+ for raw in MAP:
+  for place in raw:
+if place == "1":
+ block = Sprite(BLOCK_WIDTH, BLOCK_HEIGHT, x, y, "block.png")
+ block.load_image()
+ blocks.append(block)
+x += 76
+  y += 56
+  x = 20
 
 def draw_blocks(blocks, window):
 
-    for block in blocks:
-        window.blit(block.image, (block.x, block.y))
+ for block in blocks:
+  window.blit(block.image, (block.x, block.y))
 
 def handle_collisions(blocks, platform, ball, direction_x, direction_y):
-    # ball and platform collision
-    if ball.hitbox.colliderect(platform.hitbox):
-        direction_y = -1
-        rand_dir = randint(0, 1)
-        if rand_dir == 0:
-            direction_x = -1
-        else:
-            direction_x = 1
+ # ball and platform collision
+ if ball.hitbox.colliderect(platform.hitbox):
+  direction_y = -1
+  rand_dir = randint(0, 1)
+  if rand_dir == 0:
+direction_x = -1
+  else:
+direction_x = 1
 
-    #ball and blocks collision
-    for block in blocks:
-        if ball.hitbox.colliderect(block.hitbox):
-            blocks.remove(block)
-            direction_y = 1 
+ #ball and blocks collision
+ for block in blocks:
+  if ball.hitbox.colliderect(block.hitbox):
+blocks.remove(block)
+direction_y = 1 
 
-    #ball and top border collision
-    if ball.hitbox.y < 5:
-            direction_y = 1
+ #ball and top border collision
+ if ball.hitbox.y < 5:
+direction_y = 1
 
-    #ball and left border collision
-    if ball.hitbox.x < 5:
-            direction_x = 1
+ #ball and left border collision
+ if ball.hitbox.x < 5:
+direction_x = 1
 
-    #ball and right border collision
-    if ball.hitbox.x > 875:
-            direction_x = -1
-    
-    return direction_x, direction_y
+ #ball and right border collision
+ if ball.hitbox.x > 875:
+direction_x = -1
+ 
+ return direction_x, direction_y
 
 def win_lose(ball, game_state, window, blocks, text):
-    font = pygame.font.Font(FONT_PATH, FONT_SIZE)
-    
-    if ball.hitbox.y > 590:
-        text = font.render("You Lose", True, BLACK)
-        game_state = 0
-        
-    if len(blocks) == 0:
-        text = font.render("You Win", True, BLACK)
-        game_state = 0
+ font = pygame.font.Font(FONT_PATH, FONT_SIZE)
+ 
+ if ball.hitbox.y > 590:
+  text = font.render("You Lose", True, BLACK)
+  game_state = 0
+  
+ if len(blocks) == 0:
+  text = font.render("You Win", True, BLACK)
+  game_state = 0
 
-    return game_state, text
+ return game_state, text

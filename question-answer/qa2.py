@@ -26,12 +26,12 @@ fps = pygame.time.Clock()
 
 class Button:
 
-    def __init__(self, width, height, x, y, color):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.color = color
+ def __init__(self, width, height, x, y, color):
+  self.rect = pygame.Rect(x, y, width, height)
+  self.color = color
 
-    def draw(self):
-        pygame.draw.rect(window, self.color, self.rect)
+ def draw(self):
+  pygame.draw.rect(window, self.color, self.rect)
 
 
 #----------Game Cycle
@@ -40,10 +40,10 @@ game = True
 
 while game:
 
-    pygame.display.flip()
-    window.fill(BLUE)
-    fps.tick(60) 
+ pygame.display.flip()
+ window.fill(BLUE)
+ fps.tick(60) 
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            game = False
+ for event in pygame.event.get():
+  if event.type == pygame.QUIT:
+game = False

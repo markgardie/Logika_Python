@@ -33,30 +33,30 @@ game_state = 1
 
 while game:
 
-    for event in pygame.event.get():
-        
-        if event.type == pygame.QUIT:
-            game = False
+ for event in pygame.event.get():
+  
+  if event.type == pygame.QUIT:
+game = False
 
 
-    if game_state == 1:
+ if game_state == 1:
 
-        draw_blocks(blocks, window)
-        window.blit(platform.image, (platform.x, platform.y))
-        window.blit(ball.image, (ball.x, ball.y))
+  draw_blocks(blocks, window)
+  window.blit(platform.image, (platform.x, platform.y))
+  window.blit(ball.image, (ball.x, ball.y))
 
-        platform.handle_keys()
+  platform.handle_keys()
 
-        direction_x, direction_y = handle_collisions(blocks, platform, ball, direction_x, direction_y)
+  direction_x, direction_y = handle_collisions(blocks, platform, ball, direction_x, direction_y)
 
-        ball.auto_move(direction_x, direction_y)
+  ball.auto_move(direction_x, direction_y)
 
-        game_state, text = win_lose(ball, game_state, window, blocks, text)
+  game_state, text = win_lose(ball, game_state, window, blocks, text)
 
-    if game_state == 0:
-        window.blit(text, (WINDOW_WIDTH / 2 - FONT_SIZE, WINDOW_HEIGHT / 2 - FONT_SIZE)) 
+ if game_state == 0:
+  window.blit(text, (WINDOW_WIDTH / 2 - FONT_SIZE, WINDOW_HEIGHT / 2 - FONT_SIZE)) 
 
-    pygame.display.flip()
-    window.fill(BLUE)
-    fps.tick(60)
+ pygame.display.flip()
+ window.fill(BLUE)
+ fps.tick(60)
 

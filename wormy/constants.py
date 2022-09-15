@@ -10,12 +10,12 @@ assert WINDOW_HEIGHT % CELL_SIZE == 0, "Window height must be a multiple of cell
 CELL_WIDTH = int(WINDOW_WIDTH / CELL_SIZE)
 CELL_HEIGHT = int(WINDOW_HEIGHT / CELL_SIZE)
 
-#             R    G    B
-WHITE     = (255, 255, 255)
-BLACK     = (  0,   0,   0)
-RED       = (255,   0,   0)
-GREEN     = (  0, 255,   0)
-DARK_GREEN = (  0, 155,   0)
+# R G B
+WHITE  = (255, 255, 255)
+BLACK  = (  0,0,0)
+RED = (255,0,0)
+GREEN  = (  0, 255,0)
+DARK_GREEN = (  0, 155,0)
 DARK_GRAY  = ( 40,  40,  40)
 BG_COLOR = BLACK
 
