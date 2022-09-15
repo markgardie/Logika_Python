@@ -1,14 +1,14 @@
-class Button
-    def __init_(self, title_text, x_num, y_num):
-        self.title = title
-        self.x = x
-        self.y = y
+class Button():
+    def __init__(self, title_text, x_num, y_num):
+        self.title = title_text
+        self.x = x_num
+        self.y = y_num
         self.appearance = True
-    def hide( ):
+    def hide(self):
         self.appearance = False
-    def show( ):
+    def show(self):
         self.appearance = True
-    def print_status( ):
+    def print_status(self):
         print('Дані про віджет:')
         print(self.title, self.x, self.y, self.appearance)
 
