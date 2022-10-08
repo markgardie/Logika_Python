@@ -11,3 +11,4 @@ RIGHT_TEXT = 'apple'
 WRONG_TEXT1 = 'application'
 WRONG_TEXT2 = 'building'
 WRONG_TEXT3 = 'caterpillar'
+
