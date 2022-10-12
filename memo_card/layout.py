@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import (
 from constants import*
 
 
+#Створити вікно
+
 #create widgets
 menuButton = QPushButton("Меню")
 timerButton = QPushButton("Відпочити")
@@ -26,7 +28,10 @@ minutesLabel = QLabel("хвилин")
 
 ansButtonGroup = QButtonGroup()
 ansGroupBox = QGroupBox("Варіанти відповідей")
-resultGroupBox = QGroupBox("Результати")
+resultGroupBox = QGroupBox("Результати") #Перенести layout результату в інший файл
+
+#Додати кнопки до ButtonGroup
+
 
 #create layout
 row1 = QHBoxLayout()
@@ -55,11 +60,11 @@ row2.addWidget(questionLabel, alignment=Qt.AlignCenter)
 
 row3.addLayout(column1)
 row3.addLayout(column2)
+ansGroupBox.setLayout(row3)
 
 row4.addStretch(1)
 row4.addWidget(answerButton, alignment=Qt.AlignCenter)
 row4.addStretch(1)
-
 
 mainColumn.addLayout(row1)
 mainColumn.addLayout(row2)
@@ -67,4 +72,5 @@ mainColumn.addLayout(row3)
 mainColumn.addLayout(row4)
 mainColumn.setSpacing(5)
 
-ansGroupBox.setLayout(row3)
+
+

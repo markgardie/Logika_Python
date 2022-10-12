@@ -13,3 +13,9 @@ def showQuestion():
     ansRadioButton4.setChecked(False)
 
     ansButtonGroup.setExclusive(True)
+
+
+#Функція показу результату
+#Функція показу даних
+#Функція перевірки результату (чи правильно відповіли)
+#Функція-обробник кліка
