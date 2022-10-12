@@ -1,4 +1,3 @@
-
 CARD_WIDTH, CARD_HEIGHT = 600, 500 # начальные размеры окна "карточка"
 WINDOW_X, WINDOW_Y = 300, 300
 TEXT_WRONG = 'Невірно'
