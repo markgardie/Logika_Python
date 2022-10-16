@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (
+from PyQt5.QtWidgets import (QWidget,
        QApplication, QHBoxLayout, QVBoxLayout,
        QGroupBox, QButtonGroup, QRadioButton, 
        QPushButton, QLabel, QSpinBox)
@@ -7,6 +7,9 @@ from constants import*
 
 
 #Створити вікно
+questionWindow = QWidget()
+questionWindow.resize(CARD_WIDTH, CARD_HEIGHT)
+questionWindow.move(WINDOW_X, WINDOW_Y)
 
 #create widgets
 menuButton = QPushButton("Меню")
@@ -30,7 +33,11 @@ ansButtonGroup = QButtonGroup()
 ansGroupBox = QGroupBox("Варіанти відповідей")
 resultGroupBox = QGroupBox("Результати") #Перенести layout результату в інший файл
 
-#Додати кнопки до ButtonGroup
+
+ansButtonGroup.addButton(ansRadioButton1)
+ansButtonGroup.addButton(ansRadioButton2)
+ansButtonGroup.addButton(ansRadioButton3)
+ansButtonGroup.addButton(ansRadioButton4)
 
 
 #create layout
