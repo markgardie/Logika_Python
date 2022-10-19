@@ -1,9 +1,16 @@
-from layout.question_layout import*
+from layouts.question_layout import (
+    resultGroupBox, ansGroupBox, answerButton,
+    ansButtonGroup, ansRadioButton1, ansRadioButton2,
+    ansRadioButton3, ansRadioButton4, questionLabel
+) 
+from layouts.result_layout import correctAnswerLabel, resultLabel
 from constants import*
 
 def showQuestion():
     resultGroupBox.hide()
     ansGroupBox.show()
+
+    answerButton.setText('Відповісти')
 
     ansButtonGroup.setExclusive(False)
     
@@ -14,6 +21,23 @@ def showQuestion():
 
     ansButtonGroup.setExclusive(True)
 
+
+def showResult():
+   ''' показать панель ответов '''
+   ansGroupBox.hide()
+   resultGroupBox.show()
+   answerButton.setText('Наступне питання')
+
+def showData(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3):
+   ''' показывает на экране нужную информацию '''
+   # объединим в функцию похожие действия
+   questionLabel.setText(QUESTION_TEXT)
+   correctAnswerLabel.setText(RIGHT_TEXT)
+   answer.setText(RIGHT_TEXT)
+   wrongAnswer1.setText(WRONG_TEXT1)
+   wrongAnswer2.setText(WRONG_TEXT2)
+   wrongAnswer3.setText(WRONG_TEXT3)
+ 
 
 #Функція перевірки результату (чи правильно відповіли)
 def checkAnswer(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3):
