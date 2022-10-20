@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import (QWidget, QHBoxLayout, QVBoxLayout,
        QPushButton, QLabel, QSpinBox)
 from constants import*
 from layouts.result_layout import resultGroupBox
+from layouts.rest_layout import restGroupBox
 
 #create window
 questionWindow = QWidget()
@@ -70,6 +71,7 @@ row2.addWidget(questionLabel, alignment=Qt.AlignCenter)
 
 row3.addWidget(ansGroupBox)
 row3.addWidget(resultGroupBox)
+row3.addWidget(restGroupBox)
 
 row4.addStretch(1)
 row4.addWidget(answerButton, alignment=Qt.AlignCenter)
