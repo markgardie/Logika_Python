@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (QVBoxLayout,
 
 #create widgets
 restGroupBox = QGroupBox("Відпочинок")
-timerLabel = QLabel("30")
+timerLabel = QLabel("")
 
 #create layout
 timerColumn = QVBoxLayout()
