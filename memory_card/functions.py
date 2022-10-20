@@ -26,7 +26,7 @@ def showResult():
    ''' показать панель ответов '''
    ansGroupBox.hide()
    resultGroupBox.show()
-   answerButton.setText('Наступне питання')
+   answerButton.setText('Спробувати ще раз')
 
 def showData(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3):
    ''' показывает на экране нужную информацию '''
@@ -53,8 +53,10 @@ def checkAnswer(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3):
 
 #Функція-обробник кліка
 def clickOK(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3):
-    if answerButton.text() != 'Наступне питання':
+    if answerButton.text() != 'Спробувати ще раз':
         checkAnswer(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3)
+    else:
+        showQuestion()
 
 #Функція показу результату
 #Функція показу даних
