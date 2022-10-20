@@ -1,5 +1,5 @@
 from app import app
-from layouts.question_layout import questionWindow
+from layouts.question_layout import questionWindow, timerButton
 from functions import *
 from random import shuffle # будем перемешивать ответы в карточке вопроса
 
@@ -14,6 +14,7 @@ showData(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3)
 showQuestion()
 
 answerButton.clicked.connect(lambda: clickOK(answer, wrongAnswer1, wrongAnswer2, wrongAnswer3))
+timerButton.clicked.connect(clickRest)
 
 questionWindow.show()
 app.exec_()
