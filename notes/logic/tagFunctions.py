@@ -1,15 +1,15 @@
 
-from ui.mainWindow import uiMainWindow
+from ui.mainWindow import ui
 from data.dataFunctions import writeNotes, readNotes
 
 def addTag(notes):
-    if uiMainWindow.notesListWidget.selectedItems():
-        notesTitle = uiMainWindow.notesListWidget.selectedItems()[0].text()
-        tag = uiMainWindow.searchLineEdit.text()
+    if ui.notesListWidget.selectedItems():
+        notesTitle = ui.notesListWidget.selectedItems()[0].text()
+        tag = ui.searchLineEdit.text()
         if not tag in notes[notesTitle]["теги"]:
             notes[notesTitle]["теги"].append(tag)
-            uiMainWindow.tagsListWidget.addItem(tag)
-            uiMainWindow.searchLineEdit.clear()
+            ui.tagsListWidget.addItem(tag)
+            ui.searchLineEdit.clear()
         
         writeNotes(notes)
     else:
@@ -17,12 +17,12 @@ def addTag(notes):
 
 
 def deleteTag(notes):
-    if uiMainWindow.tagsListWidget.selectedItems():
-        noteTitle = uiMainWindow.notesListWidget.selectedItems()[0].text()
-        tag = uiMainWindow.tagsListWidget.selectedItems()[0].text()
+    if ui.tagsListWidget.selectedItems():
+        noteTitle = ui.notesListWidget.selectedItems()[0].text()
+        tag = ui.tagsListWidget.selectedItems()[0].text()
         notes[noteTitle]["теги"].remove(tag)
-        uiMainWindow.tagsListWidget.clear()
-        uiMainWindow.tagsListWidget.addItems(notes[noteTitle]["теги"])
+        ui.tagsListWidget.clear()
+        ui.tagsListWidget.addItems(notes[noteTitle]["теги"])
         writeNotes(notes)
     else:
         print("Тег для вилучення не обраний!")
