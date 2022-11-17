@@ -36,4 +36,12 @@ def deleteNote(notes):
     else:
         print("Замітка для вилучення не обрана!")
 
+def saveNote(notes):
+    if uiMainWindow.notesListWidget.selectedItems():
+        noteTitle = uiMainWindow.notesListWidget.selectedItems()[0].text()
+        notes[noteTitle]["текст"] = uiMainWindow.notesTextEdit.toPlainText()
+
+        writeNotes(notes)
+    else:
+        print("Замітка для збереження не вибрана!")
         
