@@ -1,18 +1,18 @@
 import json
 from ui.mainWindow import uiMainWindow
 
-path = r"C:\Users\Марк\Desktop\Logika_Python\notes\data\greetings.json"
+path = r"C:\Users\Марк\Desktop\Logika_Python\notes\data\notes.json"
 
 notes = {}
 
 
-def loadNotes():
+def showNotesList():
     with open(path, "r", encoding="utf-8") as file:
         notes = json.load(file)
     uiMainWindow.notesListWidget.addItems(notes)
 
 
-def showNotes():
+def showNotesInfo():
 
     with open(path, "r", encoding="utf-8") as file:
         notes = json.load(file)

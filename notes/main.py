@@ -1,9 +1,9 @@
 from ui.mainWindow import app, mainWindow, uiMainWindow
-from data.greetings import loadNotes, showNotes
+from logic.functions import showNotesList, showNotesInfo
 
-loadNotes()
+showNotesList()
 
-uiMainWindow.notesListWidget.itemClicked.connect(showNotes)
+uiMainWindow.notesListWidget.itemClicked.connect(showNotesInfo)
 
 mainWindow.show()
 app.exec_()
