@@ -1,7 +1,7 @@
 import json
 from ui.mainWindow import uiMainWindow, mainWindow
 from PyQt5.QtWidgets import QInputDialog
-from data.data import writeNotes, readNotes
+from data.dataFunctions import writeNotes, readNotes
 
 
 def showNotesInfo(notes):
