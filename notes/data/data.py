@@ -16,4 +16,4 @@ def readNotes():
 
 def writeNotes(newData):
     with open(path, "w", encoding="utf-8") as file:
-        json.dump(newData, file)
+        json.dump(newData, file, sort_keys=True, ensure_ascii=False)
