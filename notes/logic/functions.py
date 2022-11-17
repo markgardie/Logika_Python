@@ -1,7 +1,7 @@
 import json
 from ui.mainWindow import uiMainWindow, mainWindow
 from PyQt5.QtWidgets import QInputDialog
-from data.data import writeNotes
+from data.data import writeNotes, readNotes
 
 
 def showNotesInfo(notes):
@@ -20,4 +20,20 @@ def addNote(notes):
         uiMainWindow.notesListWidget.addItem(noteName)
         uiMainWindow.tagsListWidget.addItems(notes[noteName]["теги"])
         writeNotes(notes)
+
+
+def deleteNote(notes):
+    if uiMainWindow.notesListWidget.selectedItems():
+        noteTitle = uiMainWindow.notesListWidget.selectedItems()[0].text()
+        del notes[noteTitle]
+
+        uiMainWindow.notesListWidget.clear()
+        uiMainWindow.tagsListWidget.clear()
+        uiMainWindow.notesTextEdit.clear()
+
+        writeNotes(notes)
+        readNotes()
+    else:
+        print("Замітка для вилучення не обрана!")
+
         
