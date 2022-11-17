@@ -1,21 +1,10 @@
 import json
-from ui.mainWindow import uiMainWindow
-
-path = r"C:\Users\Марк\Desktop\Logika_Python\notes\data\notes.json"
-
-notes = {}
+from ui.mainWindow import uiMainWindow, mainWindow
+from PyQt5.QtWidgets import QInputDialog
+from data.data import writeNotes
 
 
-def showNotesList():
-    with open(path, "r", encoding="utf-8") as file:
-        notes = json.load(file)
-    uiMainWindow.notesListWidget.addItems(notes)
-
-
-def showNotesInfo():
-
-    with open(path, "r", encoding="utf-8") as file:
-        notes = json.load(file)
+def showNotesInfo(notes):
 
     noteTitle = uiMainWindow.notesListWidget.selectedItems()[0].text()
     print(noteTitle)
@@ -24,3 +13,11 @@ def showNotesInfo():
     uiMainWindow.tagsListWidget.addItems(notes[noteTitle]["теги"])
 
     
+def addNote(notes):
+    noteName, ok = QInputDialog.getText(mainWindow, "Додати замітку", "Назва замітки: ")
+    if ok and noteName != "":
+        notes[noteName] = {"текст" : "", "теги" : []}
+        uiMainWindow.notesListWidget.addItem(noteName)
+        uiMainWindow.tagsListWidget.addItems(notes[noteName]["теги"])
+        writeNotes(notes)
+        
