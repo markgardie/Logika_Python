@@ -1,6 +1,6 @@
 from ui.mainWindow import app, mainWindow, uiMainWindow
-from logic.functions import showNotesInfo, addNote, deleteNote, saveNote
-from data.data import readNotes
+from logic.notesFunctions import showNotesInfo, addNote, deleteNote, saveNote
+from data.dataFunctions import readNotes
 
 notes = readNotes()
 
