@@ -109,7 +109,7 @@ class Ui_mainWindow(object):
 
 app = QtWidgets.QApplication([])
 mainWindow = QtWidgets.QWidget()
-uiMainWindow = Ui_mainWindow()
-uiMainWindow.setupUi(mainWindow)
+ui = Ui_mainWindow()
+ui.setupUi(mainWindow)
 
 
