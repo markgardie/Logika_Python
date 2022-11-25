@@ -26,3 +26,31 @@ def deleteTag(notes):
         writeNotes(notes)
     else:
         print("Тег для вилучення не обраний!")
+
+
+def searchByTag(notes):
+    tag = ui.searchLineEdit.text()
+    searchButtonText = ui.tagSearchButton.text()
+
+    if searchButtonText == "Шукати по тегу" and tag:
+        notesFiltered = {}
+
+        for note in notes:
+            if tag in notes[note]["теги"]:
+                notesFiltered[note] = notes[note]
+
+        ui.tagSearchButton.setText("Скинути пошук")
+        ui.notesListWidget.clear()
+        ui.tagsListWidget.clear()
+
+        ui.notesListWidget.addItems(notesFiltered)
+    
+    elif searchButtonText == "Скинути пошук":
+        ui.searchLineEdit.clear()
+        ui.notesListWidget.clear()
+        ui.tagsListWidget.clear()
+
+        ui.notesListWidget.addItems(notes)
+
+        ui.tagSearchButton.setText("Шукати по тегу")
+    
