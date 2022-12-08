@@ -81,11 +81,8 @@ class Ui_mainWindow(object):
         self.grayButton.setText(_translate("mainWindow", "Ч/Б"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    mainWindow = QtWidgets.QWidget()
-    ui = Ui_mainWindow()
-    ui.setupUi(mainWindow)
-    mainWindow.show()
-    sys.exit(app.exec_())
+
+app = QtWidgets.QApplication([])
+mainWindow = QtWidgets.QWidget()
+ui = Ui_mainWindow()
+ui.setupUi(mainWindow)
