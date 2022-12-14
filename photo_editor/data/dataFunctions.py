@@ -1,11 +1,15 @@
 import os
 from PyQt5.QtWidgets import QFileDialog
 from ui.photoEditorUi import*
+from logic.ImageProcessor import ImageProcessor
 
 extensions = ['.jpg','.jpeg', '.png', '.gif', '.bmp']
 
+imgProcessor = ImageProcessor()
+
 def chooseWorkdir():
     workdir = QFileDialog.getExistingDirectory()
+    imgProcessor.setWorkDir(workdir)
     return workdir
 
 def filter(files, extensions):
