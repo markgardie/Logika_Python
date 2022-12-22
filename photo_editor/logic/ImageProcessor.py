@@ -3,6 +3,12 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PIL import Image
 from ui.photoEditorUi import*
+from PIL.ImageFilter import (
+   BLUR, CONTOUR, DETAIL, EDGE_ENHANCE, EDGE_ENHANCE_MORE,
+   EMBOSS, FIND_EDGES, SMOOTH, SMOOTH_MORE, SHARPEN,
+   GaussianBlur, UnsharpMask
+)
+
 
 class ImageProcessor():
 
@@ -50,6 +56,31 @@ class ImageProcessor():
        self.saveImage()
        imagePath = os.path.join(self.dir, self.saveDir, self.filename)
        self.showImage(imagePath)
+
+    def left(self):
+        self.image = self.image.transpose(Image.ROTATE_90)
+        self.saveImage()
+        imagePath = os.path.join(self.dir, self.saveDir, self.filename)
+        self.showImage(imagePath)
+
+    def right(self):
+        self.image = self.image.transpose(Image.ROTATE_270)
+        self.saveImage()
+        imagePath = os.path.join(self.dir, self.saveDir, self.filename)
+        self.showImage(imagePath)
+
+    def mirror(self):
+        self.image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
+        self.saveImage()
+        imagePath = os.path.join(self.dir, self.saveDir, self.filename)
+        self.showImage(imagePath)
+
+    def sharpen(self):
+        self.image = self.image.filter(SHARPEN)
+        self.saveImage()
+        imagePath = os.path.join(self.dir, self.saveDir, self.filename)
+        self.showImage(imagePath)
+
 
     
 
