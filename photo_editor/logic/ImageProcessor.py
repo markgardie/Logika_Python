@@ -28,5 +28,26 @@ class ImageProcessor():
         ui.photoLabel.setPixmap(pixmapImage) #накладаємо сітку на лейбл
         ui.photoLabel.show() #показуємо лейбл
 
+    def showChosenImage(self):
+
+        if ui.photoListWidget.currentRow() >= 0:
+            filename = ui.photoListWidget.currentItem().text()
+            self.loadImage(filename)
+            imagePath = os.path.join(self.dir, self.filename)
+            self.showImage(imagePath)
+
     
+    def saveImage(self):
+       path = os.path.join(self.dir, self.saveDir)
+       if not(os.path.exists(path) or os.path.isdir(path)):
+           os.mkdir(path)
+       imagePath = os.path.join(path, self.filename)
+       self.image.save(imagePath)
+
+
+    def blackAndWhite(self):
+       self.image = self.image.convert("L")
+       self.saveImage()
+       imagePath = os.path.join(self.dir, self.saveDir, self.filename)
+       self.showImage(imagePath)
             
