@@ -3,12 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PIL import Image
 from ui.photoEditorUi import*
-from PIL.ImageFilter import (
-   BLUR, CONTOUR, DETAIL, EDGE_ENHANCE, EDGE_ENHANCE_MORE,
-   EMBOSS, FIND_EDGES, SMOOTH, SMOOTH_MORE, SHARPEN,
-   GaussianBlur, UnsharpMask
-)
-
+from PIL.ImageFilter import SHARPEN
 
 class ImageProcessor():
 
