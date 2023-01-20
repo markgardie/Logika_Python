@@ -14,4 +14,6 @@ class Card():
     def set_color(self, new_color):
         self.color = new_color
 
+    def collide(self, x, y):
+        return self.hitbox.collidepoint(x, y)
     
