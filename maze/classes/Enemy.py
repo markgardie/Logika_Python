@@ -7,13 +7,13 @@ class Enemy(Sprite):
 
         
 
-        if self.hitbox.x <= 470:
+        if self.rect.x <= 470:
             self.direction = "right"
-        if self.hitbox.x >= WINDOW_WIDTH - 85:
+        if self.rect.x >= WINDOW_WIDTH - 85:
             self.direction = "left"
 
 
         if self.direction == "left":
-            self.hitbox.x -= self.speed
+            self.rect.x -= self.speed
         else:
-            self.hitbox.x += self.speed
+            self.rect.x += self.speed
