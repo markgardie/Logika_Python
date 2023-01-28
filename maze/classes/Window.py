@@ -11,4 +11,4 @@ class Window():
         self.bg_image = pygame.image.load(image_path)
         self.bg_image = pygame.transform.scale(self.bg_image, (width, height))
 
-        self.clock = pygame.time.Clock(
+        self.clock = pygame.time.Clock()

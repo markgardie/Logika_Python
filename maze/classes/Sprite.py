@@ -5,7 +5,7 @@ pygame.init()
 class Sprite():
 
     def __init__(self, width,  height, image_path, x, y, speed):
-        self.hitbox = pygame.Rect(x, y, width, height)
+        self.rect = pygame.Rect(x, y, width, height)
 
         self.speed = speed
 
