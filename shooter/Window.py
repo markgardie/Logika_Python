@@ -1,0 +1,16 @@
+import pygame
+
+pygame.init()
+
+class Window():
+
+    def __init__(self, width, height, caption, background):
+
+        self.screen = pygame.display.set_mode((width, height))
+        pygame.display.set_caption(caption)
+
+        self.bg_image = pygame.image.load(background)
+        self.bg_image = pygame.transform.scale(self.bg_image, (width, height))
+
+        self.clock = pygame.time.Clock()
+    
