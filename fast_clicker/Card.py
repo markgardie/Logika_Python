@@ -12,3 +12,5 @@ class Card():
 
         self.font = pygame.font.Font(FONT, TEXT_SIZE)
         self.text = self.font.render(TEXT, True, TEXT_COLOR)
+
+
