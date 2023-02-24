@@ -1,3 +1,8 @@
+
+import pygame
+
+pygame.init()
+
 BACKGROUND_COLOR = (200, 255, 255)
 YELLOW = (255,255,0)
 DARK_BLUE = (0,0,100)
@@ -20,6 +25,10 @@ TEXT_SIZE = 15
 TEXT = "CLICK"
 FONT = "verdana"
 
+SCORES_TEXT = "Рахунок:"
+SCORES_TEXT_SIZE = 30
+SCORES_TEXT_COR = (350, 50)
+SCORES_FONT = pygame.font.Font(None, SCORES_TEXT_SIZE)
 
 START_X = 70
 CARDS_DISTANCE = 100
@@ -31,3 +40,5 @@ OUTLINE_THICKNESS = 10
 CARDS_NUM = 4
 
 FPS = 60
+
+scores = [0]

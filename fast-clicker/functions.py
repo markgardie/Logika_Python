@@ -26,7 +26,7 @@ def draw_cards(window, cards):
 
     if wait == 0:
 
-        wait = 20
+        wait = 60
         global click_text
 
         click_text = randint(1, len(cards))
@@ -48,9 +48,13 @@ def click(window, cards, e):
         if card.collide(x, y):
             if (cards.index(card) + 1) == click_text:
                 card.set_color(GREEN)
+                scores[0] += 1
             else:
                 card.set_color(RED) 
+                scores[0] -= 1
             pygame.draw.rect(window, card.color, card.hitbox)
+    
+    return scores
 
 
         
