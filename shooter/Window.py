@@ -1,16 +1,16 @@
-import pygame
+import pygame as pg
 
-pygame.init()
+pg.init()
 
 class Window():
 
     def __init__(self, width, height, caption, background):
 
-        self.screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption(caption)
+        self.screen = pg.display.set_mode((width, height))
+        pg.display.set_caption(caption)
 
-        self.bg_image = pygame.image.load(background)
-        self.bg_image = pygame.transform.scale(self.bg_image, (width, height))
+        self.bg_image = pg.image.load(background)
+        self.bg_image = pg.transform.scale(self.bg_image, (width, height))
 
-        self.clock = pygame.time.Clock()
+        self.clock = pg.time.Clock()
     

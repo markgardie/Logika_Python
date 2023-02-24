@@ -2,24 +2,34 @@ from Window import*
 from Sprite import*
 from Player import*
 from constants import*
+from create_enemies import create_enemies
 
 window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, BACKGROUND_IMAGE_PATH)
 
 player = Player(PLAYER_WIDTH, PLAYER_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT - 80, PLAYER_IMAGE_PATH, PLAYER_SPEED)
+enemies = create_enemies()
 
 game = True
 
 while game:
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
             game = False
 
 
     window.screen.blit(window.bg_image, (0, 0))
-    window.screen.blit(player.image, (player.hitbox.x, player.hitbox.y))
+    window.screen.blit(player.image, (player.rect.x, player.rect.y))
+    enemies.draw(window.screen)
 
-    player.control(pygame.K_a, pygame.K_d)
+    miss_text = FONT.render(f"{MISS_TEXT} {miss[0]}", True, TEXT_COLOR)
+    scores_text = FONT.render(f"{SCORES_TEXT} {scores[0]}", True, TEXT_COLOR)
 
-    pygame.display.update()
+    window.screen.blit(miss_text, MISS_TEXT_COR)
+    window.screen.blit(scores_text, SCORES_TEXT_COR)
+
+    player.control(pg.K_a, pg.K_d)
+    enemies.update()
+
+    pg.display.update()
     window.clock.tick(FPS)
