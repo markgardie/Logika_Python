@@ -33,4 +33,4 @@ CARDS_NUM = 4
 FPS = 60
 
 
-
+scores = [0]
