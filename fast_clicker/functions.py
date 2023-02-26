@@ -2,6 +2,7 @@ import pygame as pg
 from constants import*
 from Card import*
 from random import randint
+from time import time
 
 wait = 0
 click_text = 0
@@ -35,7 +36,25 @@ def draw_cards(window, cards):
             pg.draw.rect(window, BLUE, card.rect, OUTLINE_THICKNESS)
 
             if cards.index(card) == click_text:
-                pass
+                window.blit(card.text, (card.rect.x + TEXT_X_SHIFT, card.rect.y + TEXT_Y_SHIFT))
 
     else:
         wait -= 1
+
+def click(window, cards, e):
+    x, y = e.pos
+    for card in cards:
+        if card.collide(x, y):
+            if (cards.index(card) + 1) == click_text:
+                card.set_color(GREEN)
+                scores[0] += 1
+            else:
+                card.set_color(RED) 
+                scores[0] -= 1
+            pygame.draw.rect(window, card.color, card.hitbox)
+    
+def win_lose(window, finish):
+
+    if scores[0] == 5:
+        win_text = pygame.font.Font(None, FINISH_TEXT_SIZE).render(WIN_TEXT, True, FINISH_TEXT_COLOR)
+        finish = True

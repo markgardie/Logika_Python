@@ -20,6 +20,10 @@ TEXT_SIZE = 15
 TEXT = "CLICK"
 FONT = "verdana"
 
+FINISH_TEXT_SIZE = 40
+FINISH_TEXT_COLOR = (255, 255, 255)
+WIN_TEXT = "Перемога"
+LOSE_TEXT = "Поразка"
 
 START_X = 70
 CARDS_DISTANCE = 100
@@ -31,3 +35,5 @@ OUTLINE_THICKNESS = 10
 CARDS_NUM = 4
 
 FPS = 60 
+
+scores = [0]
