@@ -56,6 +56,22 @@ def click(window, cards, e):
     
     return scores
 
+def win_lose(start_time, end_time, finish, text):
+
+    font = pygame.font.Font(FINAL_TEXT_FONT, FINAL_TEXT_SIZE)
+
+    if end_time - start_time >= 11:
+        text = font.render(LOSE_TEXT, True, TEXT_COLOR)
+        finish = True
+
+    if scores[0] > 5:
+        text = font.render(WIN_TEXT, True, TEXT_COLOR)
+        finish = True
+
+    return finish, text
+
+    
+
 
         
 
