@@ -2,6 +2,8 @@
 import os
 import pygame as pg
 
+pg.init()
+
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
@@ -13,12 +15,19 @@ ENEMY_WIDTH = 80
 ENEMY_HEGHT = 50
 ENEMY_Y = -40
 
+BULLET_SPEED = 15
+BULLET_WIDTH = 15
+BULLET_HEIGHT = 20
+
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
 RESOURCES_PATH = os.path.join(PROJECT_PATH, "resources")
 
 BACKGROUND_IMAGE_PATH = os.path.join(RESOURCES_PATH, "galaxy.jpg")
 PLAYER_IMAGE_PATH = os.path.join(RESOURCES_PATH, "rocket.png")
 ENEMY_IMAGE_PATH = os.path.join(RESOURCES_PATH, "ufo.png")
+BULLET_IMAGE_PATH = os.path.join(RESOURCES_PATH, "bullet.png")
+BACKGROUND_SOUND_PATH = os.path.join(RESOURCES_PATH, "space.ogg")
+FIRE_SOUND_PATH = os.path.join(RESOURCES_PATH, "fire.ogg")
 
 CAPTION = 'SHOOTER'
 
@@ -38,3 +47,6 @@ SCORES_TEXT_COR = (10, 20)
 
 scores = [0]
 miss = [0]
+
+BACKGROUND_SOUND = pg.mixer.Sound(BACKGROUND_SOUND_PATH)
+FIRE_SOUND = pg.mixer.Sound(FIRE_SOUND_PATH)
