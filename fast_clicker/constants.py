@@ -29,3 +29,5 @@ OUTLINE_THICKNESS = 10
 CARDS_NUM = 4
 
 FPS = 60
+
+scores = [0]

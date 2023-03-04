@@ -15,3 +15,17 @@ def create_cards():
         x += CARDS_DISTANCE
 
     return cards
+
+def win_lose(start_time, end_time, finish, text):
+
+    font = pygame.font.Font(None, 50)
+
+    if scores[0] > 5:
+        text = font.render("Ти переміг", True, TEXT_COLOR)
+        finish = True
+
+    if end_time - start_time > 10:
+        text = font.render("Ти програв", True, TEXT_COLOR)
+        finish = True
+
+    return finish, text
