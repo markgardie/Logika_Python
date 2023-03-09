@@ -2,7 +2,7 @@ from Sprite import*
 
 class Bullet(Sprite):
 
-    def move(self, enemies):
+    def move(self):
 
         self.rect.y -= self.speed
 
