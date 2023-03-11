@@ -34,6 +34,9 @@ FONT = pg.font.Font(None, 36)
 
 MISS_TEXT = "Пропущено:"
 SCORES_TEXT = "Рахунок:"
+WIN_TEXT = "Ти переміг"
+LOSE_TEXT = "Ти програв"
+
 TEXT_COLOR = (255, 255, 255)
 
 MISS_TEXT_COR = (10, 50)
