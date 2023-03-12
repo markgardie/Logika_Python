@@ -14,6 +14,9 @@ BLACK = (0, 0, 0)
 FONT_SIZE = 60
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
 IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
+
+BLOCK_IMAGE_PATH = os.path.join(IMAGES_PATH, "block.png")
+
 ICON_PATH = os.path.join(IMAGES_PATH, "icon.png")
 FONT_PATH = os.path.join(PROJECT_PATH, "fonts/font.ttf")
 PLATFORM_SPEED = 10

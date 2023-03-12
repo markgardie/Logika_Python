@@ -9,3 +9,6 @@ class Platform(Sprite):
 
         if key_pressed[left] and self.hitbox.x > 5:
             self.hitbox.x -= PLATFORM_SPEED
+
+        if key_pressed[right] and self.hitbox.x < WINDOW_WIDTH - 5:
+            self.hitbox.x += PLATFORM_SPEED
