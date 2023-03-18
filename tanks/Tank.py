@@ -1,5 +1,5 @@
 from Sprite import*
-
+from constants import*
 class Tank(Sprite):
 
     def controls(self, left, right, up, down):
@@ -8,3 +8,12 @@ class Tank(Sprite):
 
         if keys[up] and self.hitbox.y > 0:
             self.hitbox.y -= self.speed
+
+        if keys[down] and self.hitbox.y < WINDOW_HEIGHT:
+            self.hitbox.y += self.speed
+
+        if keys[left] and self.hitbox.x > 0:
+            self.hitbox.x -= self.speed
+
+        if keys[right] and self.hitbox.x < WINDOW_WIDTH:
+            self.hitbox.x += self.speed
