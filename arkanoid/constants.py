@@ -12,10 +12,11 @@ BALL_HEIGHT = 30
 BLUE = (200, 255, 255)
 BLACK = (0, 0, 0)
 FONT_SIZE = 60
+
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
 IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
-ICON_PATH = os.path.join(IMAGES_PATH, "icon.png")
-FONT_PATH = os.path.join(PROJECT_PATH, "fonts/font.ttf")
+BLOCK_PATH = os.path.join(IMAGES_PATH, "block.png")
+
 PLATFORM_SPEED = 10
 BALL_SPEED = 5
 MAP = ["1111111111",
