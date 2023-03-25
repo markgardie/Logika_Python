@@ -12,4 +12,5 @@ class Bullet(Sprite):
 
     def update(self):
         self.move()
+        
 
