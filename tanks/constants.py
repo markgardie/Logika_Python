@@ -3,8 +3,17 @@ import os
 WINDOW_WIDTH = 880
 WINDOW_HEIGHT = 600
 
-TANK_WIDTH = 40
+TANK_WIDTH = 60
 TANK_HEIGHT = 40
+
+TANK1_X = 20
+TANK2_X = WINDOW_WIDTH - 70
+
+TANKS_Y = WINDOW_HEIGHT / 2 - TANK_HEIGHT
+
+BULLET_WIDTH = 20
+BULLET_HEIGHT = 20
+
 
 PLAYER_SPEED = 10
 ENEMY_SPEED = 5
@@ -12,12 +21,16 @@ BULLET_SPEED = 8
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+BLUE = (200, 255, 255)
 
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
 RESOURCES_PATH = os.path.join(PROJECT_PATH, "resources")
-TANK1_IMAGE_PATH = os.path.join(RESOURCES_PATH, "tank1.jpg")
-TANK2_IMAGE_PATH = os.path.join(RESOURCES_PATH, "tank2.jpg")
-ENEMY_IMAGE_PATH = os.path.join(RESOURCES_PATH, "enemy.jpg")
-BULLET_IMAGE_PATH = os.path.join(RESOURCES_PATH, "bullet.jpg")
+
+TANK1_IMAGE_PATH = os.path.join(RESOURCES_PATH, "tank1.png")
+TANK2_IMAGE_PATH = os.path.join(RESOURCES_PATH, "tank2.png")
+ENEMY_IMAGE_PATH = os.path.join(RESOURCES_PATH, "enemy.png")
+BULLET_IMAGE_PATH = os.path.join(RESOURCES_PATH, "bullet.png")
 
 FPS = 60
+
+CAPTION = "Tanks"
