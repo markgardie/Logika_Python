@@ -41,3 +41,5 @@ COIN_IMAGE_PATH = os.path.join(RESOURCES_PATH, "coin.png")
 PLAYER_IMAGE_PATH = os.path.join(RESOURCES_PATH, "player.png")
 
 CAPTION = "Platformer"
+
+FPS = 60

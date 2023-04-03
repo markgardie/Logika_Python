@@ -5,18 +5,30 @@ from Bullet import*
 from constants import*
 import time
 
+# Створюємо вікно
+# з синім фоном
 window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, BLUE, CAPTION)
 
+# створюємо першого гравця
+# координата y однакова у всіх танках
+# вони з'являються на однаковій висоті, посередині
 tank1 = Tank(TANK_WIDTH, TANK_HEIGHT, TANK1_X, TANKS_Y, TANK1_IMAGE_PATH, PLAYER_SPEED)
+# створюємо другого гравця
 tank2 = Tank(TANK_WIDTH, TANK_HEIGHT, TANK2_X, TANKS_Y, TANK2_IMAGE_PATH, PLAYER_SPEED)
 
+# списки снарядів першого та другого танків
+# напочатку гри пусті, оскільки ще не було вистрілів
 bullets1 = []
 bullets2 = []
 
+# змінна, яка відповідає за закриття вікна
 game = True
+# змінна, яка відповідає за перемикання на фінальний екран
 finish = False
+# текст на фінальному екрані
 text = ""
 
+# ігровий цикл
 while game:
 
     # цикл перебирає виникаючі події
@@ -25,28 +37,48 @@ while game:
         if event.type == pygame.QUIT:
             # закриття гри та вікна при натисканні на крестик
             game = False
+        # подія натискання на клавішу Е
         if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
+            # якщо це клавіша Е, то це стріляє перший танк
+            # передаємо в дужках список снарядів першого танку
+            # всередині функції цей список заповнюється
             tank1.fire1(bullets1)
+        # подія натискання на клавішу L
         if event.type == pygame.KEYDOWN and event.key == pygame.K_l:
+            # якщо це клавіша L, то це стріляє другий танк
             tank2.fire2(bullets2)
 
-
+    # якщо гра не закінчилась перемогою чи поразкою
     if not finish:
-
+        
+        # малюємо перший танк
         window.screen.blit(tank1.image, (tank1.hitbox.x, tank1.hitbox.y))
+        # малюємо другий танк
         window.screen.blit(tank2.image, (tank2.hitbox.x, tank2.hitbox.y))
+        # малюємо снаряди всіх танків
         draw_bullets(window.screen, bullets1, bullets2)
 
+        # рухаємо снаряди
         move_bullets(bullets1, bullets2)
+        # керування першим танком
+        # розкладка: WASD
         tank1.controls(pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s)
+        # керування другим танком
+        # розкладка: стрілки
         tank2.controls(pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN)
 
+        # перевірка чи була перемога чи поразка
         finish, text = win_lose(tank1, tank2, bullets1, bullets2)
 
+    # якщо гра закінчилась перемогою чи поразкою
     else:
-
+        # малюємо тільки текст
         window.screen.blit(text, (WINDOW_WIDTH / 2 - 150, WINDOW_HEIGHT / 2 - 80))
 
+    # оновлюємо вікно і перемальовуємо об'єкти
     pygame.display.flip()
+    # заливаємо фон вікна синім кольором
     window.screen.fill(BLUE)
+    # тікає годинник, які вказує, коли треба змінювати кадри
+    # FPS вказує, скільки кадрів треба оновити під час тіку
     window.clock.tick(FPS)
