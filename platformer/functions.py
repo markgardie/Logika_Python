@@ -6,7 +6,7 @@ pygame.init()
 
 # функція перемоги_поразки
 # в параметрах приймає гравця та монету
-def win_lose(player, coin):
+def win_lose(player, coin, enemy):
 
     # аби працювати з текстом, треба спочатку створити шрифт
     # стандартний шрифт (None), розмір 50
@@ -25,6 +25,13 @@ def win_lose(player, coin):
         # ми перемагаємо
         text = font.render("Ти переміг", True, BLACK)
 
+     # якщо гравець торкається ворога 
+    if player.hitbox.colliderect(enemy.hitbox):
+        # перемикаємось на фінальний екран
+        finish = True
+        # ми програємо
+        text = font.render("Поразка", True, BLACK)
+
     # якщо гравець торкається нижньої межі (висота вікна) 
     if player.hitbox.y >= WINDOW_HEIGHT - 10:
 
@@ -32,6 +39,7 @@ def win_lose(player, coin):
         finish = True
         # поразка
         text = font.render("Поразка", True, BLACK)
+
 
     # повертаємо ці змінні в main
     # перемикання на фінальний екран і вивід тексту відбуваються в main
