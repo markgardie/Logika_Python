@@ -3,6 +3,27 @@ from constants import*
 
 pygame.init()
 
+# функція для перевірки колізій снарядів зі стінами
+# в параметрах вказуємо стіни і снаряди обох танків
+def wall_collisions(walls, bullets1, bullets2):
+
+    # проходимось по всім стінам
+    for wall in walls:
+
+        # проходимось по снарядам 1 танку
+        for bullet in bullets1:
+
+            # якщо снаряд торкнувся якоїсь стінки
+            if bullet.hitbox.colliderect(wall.hitbox):
+                # прибираємо снаряд зі списку, тобто знищуємо його
+                bullets1.remove(bullet)
+        # проходимось по снарядам  2 танку
+        for bullet in bullets2:
+             # якщо снаряд торкнувся якоїсь стінки
+             if bullet.hitbox.colliderect(wall.hitbox):
+                # прибираємо снаряд зі списку, тобто знищуємо його
+                bullets2.remove(bullet)
+
 # функція малює на екрін снаряди
 # в параметрах вона приймає 2 списки куль
 # bullets1 - снаряди першого танку
@@ -45,7 +66,7 @@ def move_bullets(bullets1, bullets2):
 
 # функція перемоги_поразки
 # в параметрах приймає 2 списки снарядів та 2 гравців
-def win_lose(player1, player2, bullets1, bullets2):
+def win_lose(player1, player2, bullets1, bullets2, walls):
 
     # змінна, яка відповідає за переключення на фінальний екран
     # коли ця змінна стає True, то перемикається фінальний екран
@@ -75,6 +96,23 @@ def win_lose(player1, player2, bullets1, bullets2):
             finish = True
             # перемагає другий танк
             text = font.render("Переміг гравець 2", True, BLACK)
+
+    # циклом for проходимось по всім стінам
+    for wall in walls:
+        
+        # якщо перший танк торкається стінки
+        if player1.hitbox.colliderect(wall.hitbox):
+            # перемикаємось на фінальний екран
+            finish = True
+            # перемагає другий танк
+            text = font.render("Переміг гравець 2", True, BLACK)
+
+        # якщо другий танк торкається стінки
+        if player2.hitbox.colliderect(wall.hitbox):
+            # перемикаємось на фінальний екран
+            finish = True
+            # перемагає другий танк
+            text = font.render("Переміг гравець 1", True, BLACK)
 
     # якщо перший танк торкається друого танку
     if player1.hitbox.colliderect(player2.hitbox):
