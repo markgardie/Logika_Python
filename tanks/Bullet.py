@@ -2,6 +2,5 @@ from Sprite import*
 
 class Bullet(Sprite):
 
-    def move(self, direction_x, direction_y):
+    def move(self, direction_x):
         self.hitbox.x += self.speed * direction_x
-        self.hitbox.y += self.speed * direction_y

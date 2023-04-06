@@ -1,14 +1,16 @@
 from Sprite import*
 from constants import*
+import time
 
 class Player(Sprite):
+    
+    def controls(self, left, right, up, platforms):
 
-    def controls(self, left, right, up):
         keys = pygame.key.get_pressed()
-
-        if keys[up] and self.hitbox.y > 0:
-            self.hitbox.y -= self.speed
-
+        for platform in platforms:
+            if keys[up] and self.hitbox.y > 0 and self.hitbox.colliderect(platform.hitbox):
+                self.hitbox.y -= self.speed * 20
+                
         if keys[left] and self.hitbox.x > 0:
             self.hitbox.x -= self.speed
 
@@ -20,7 +22,7 @@ class Player(Sprite):
         down = True
 
         for platform in platforms:
-
+            
             if self.hitbox.colliderect(platform.hitbox):
                 down = False
 
