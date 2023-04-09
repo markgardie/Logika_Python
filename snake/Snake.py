@@ -13,6 +13,12 @@ class Snake(Sprite):
         if key_pressed[right]:
             self.direction_x = 1
             self.direction_y = 0
+        if key_pressed[up]:
+            self.direction_x = 0
+            self.direction_y = -1
+        if key_pressed[down]:
+            self.direction_x = 0
+            self.direction_y = 1
     
     def move(self):
 

@@ -1,0 +1,28 @@
+import os
+
+
+WINDOW_WIDTH = 880
+WINDOW_HEIGHT = 600
+
+SNAKE_WIDTH = 50
+SNAKE_HEIGHT = 50
+
+FOOD_WIDTH = 50
+FOOD_HEIGHT = 50
+
+SNAKE_X = WINDOW_WIDTH / 2 - SNAKE_WIDTH / 2
+SNAKE_Y = WINDOW_HEIGHT / 2 - SNAKE_HEIGHT / 2
+
+SNAKE_SPEED = 5
+FOOD_SPEED = 0
+
+BLUE = (200, 255, 255)
+BLACK = (255, 255, 255)
+
+PROJECT_PATH = os.path.abspath(__file__ + "/..")
+IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
+
+SNAKE_IMAGE = os.path.join(IMAGES_PATH, "snake.png")
+FOOD_IMAGE = os.path.join(IMAGES_PATH, "food.png")
+
+CAPTION = "Snake"
