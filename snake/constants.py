@@ -26,3 +26,5 @@ SNAKE_IMAGE = os.path.join(IMAGES_PATH, "snake.png")
 FOOD_IMAGE = os.path.join(IMAGES_PATH, "food.png")
 
 CAPTION = "Snake"
+
+FPS = 60
