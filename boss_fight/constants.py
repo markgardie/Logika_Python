@@ -1,0 +1,37 @@
+import os
+
+
+WINDOW_WIDTH = 880
+WINDOW_HEIGHT = 600
+
+BOSS_WIDTH = 100
+BOSS_HEIGHT = 100
+
+PLAYER_WIDTH = 50
+PLAYER_HEIGHT = 50
+
+FIREBALL_WIDTH = 70
+FIREBALL_HEIGHT = 70
+
+BOSS_SPEED = 0
+PLAYER_SPEED = 8
+FIREBALL_SPEED = 5
+
+BOSS_X = WINDOW_WIDTH / 2 - BOSS_WIDTH / 2 
+BOSS_Y = WINDOW_HEIGHT / 2 - BOSS_HEIGHT / 2 
+
+PLAYER_X = 100
+PLAYER_Y = 100
+
+BLUE = (200, 255, 255)
+BLACK = (0, 0, 0)
+
+CAPTION = "Boss"
+
+PROJECT_PATH = os.path.abspath(__file__ + "/..")
+RESOURCES_PATH = os.path.join(PROJECT_PATH, "resources")
+
+BOSS_PATH = os.path.join(RESOURCES_PATH, "boss.png")
+PLAYER_PATH = os.path.join(RESOURCES_PATH, "player.png")
+FIREBALL_PATH = os.path.join(RESOURCES_PATH, "fireball.png")
+
