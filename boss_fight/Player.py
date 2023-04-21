@@ -1,4 +1,5 @@
 from Sprite import*
+from constants import*
 
 class Player(Sprite):
 

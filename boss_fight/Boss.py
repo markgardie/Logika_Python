@@ -2,6 +2,9 @@ from Sprite import*
 from Fireball import*
 from constants import*
 
+
+timer = 60
+
 class Boss(Sprite):
 
     def generate_direction(self):
@@ -17,63 +20,83 @@ class Boss(Sprite):
 
     def fire(self, fireballs):
 
-        dir_1_x, dir_1_y = self.generate_direction()
-        dir_2_x, dir_2_y = self.generate_direction()
-        dir_3_x, dir_3_y = self.generate_direction()
+        global timer
 
-        dir_xs = [dir_1_x, dir_2_x, dir_3_x]
-        dir_ys = [dir_1_y, dir_2_y, dir_3_y]
+        if timer == 0:
 
-        for dir_x in dir_xs:
-            for dir_y in dir_ys:
+            dir_1_x, dir_1_y = self.generate_direction()
+            dir_2_x, dir_2_y = self.generate_direction()
+            dir_3_x, dir_3_y = self.generate_direction()
 
-                
-                # left-top
-                if dir_x == -1 and dir_y == -1:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.left, self.hitbox.top,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
-                
-                # left
-                if dir_x == -1 and dir_y == 0:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.left, self.hitbox.centery,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
-                    
-                # left-bottom
-                if dir_x == -1 and dir_y == 1:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.left, self.hitbox.bottom,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
-                    
-                # top
-                if dir_x == 0 and dir_y == -1:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.centerx, self.hitbox.top,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
+            dir_xs = [dir_1_x, dir_2_x, dir_3_x]
+            dir_ys = [dir_1_y, dir_2_y, dir_3_y]
 
-                # bottom
-                if dir_x == 0 and dir_y == 1:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.centerx, self.hitbox.bottom,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
+            for dir_x in dir_xs:
+                for dir_y in dir_ys:
+
                     
-                # right-top
-                if dir_x == 1 and dir_y == -1:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.right, self.hitbox.top,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
+                    # left-top
+                    if dir_x == -1 and dir_y == -1:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.left, self.hitbox.top,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
                     
-                # right
-                if dir_x == 1 and dir_y == 0:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.right, self.hitbox.centery,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
-                
-                # right-bottom
-                if dir_x == 1 and dir_y == 1:
-                    fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
-                                        self.hitbox.right, self.hitbox.bottom,
-                                        FIREBALL_PATH, FIREBALL_SPEED)
+                    # left
+                    if dir_x == -1 and dir_y == 0:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.left, self.hitbox.centery,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+                        
+                    # left-bottom
+                    if dir_x == -1 and dir_y == 1:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.left, self.hitbox.bottom,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+                        
+                    # top
+                    if dir_x == 0 and dir_y == -1:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.centerx, self.hitbox.top,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+
+                    # bottom
+                    if dir_x == 0 and dir_y == 1:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.centerx, self.hitbox.bottom,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+                        
+                    # right-top
+                    if dir_x == 1 and dir_y == -1:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.right, self.hitbox.top,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+                        
+                    # right
+                    if dir_x == 1 and dir_y == 0:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.right, self.hitbox.centery,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+                    
+                    # right-bottom
+                    if dir_x == 1 and dir_y == 1:
+                        fireball = Fireball(FIREBALL_WIDTH, FIREBALL_HEIGHT,
+                                            self.hitbox.right, self.hitbox.bottom,
+                                            FIREBALL_PATH, FIREBALL_SPEED, 
+                                            dir_x, dir_y)
+                    
+                    fireballs.append(fireball)
+                        
+            timer = 60
+
+        else:
+            timer -= 1
+        
                     
   
