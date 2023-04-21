@@ -1,5 +1,14 @@
 from constants import*
 import pygame
+from Snake import*
+
+def food_collision(snake, food):
+
+    if snake.hitbox.colliderect(food.hitbox):
+        food.move()
+        scores[0] += 1
+
+        snake.hitbox.width += SNAKE_WIDTH
 
 def win_lose(snake):
 

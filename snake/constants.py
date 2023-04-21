@@ -1,5 +1,5 @@
 import os
-
+from random import randint
 
 WINDOW_WIDTH = 880
 WINDOW_HEIGHT = 600
@@ -13,11 +13,17 @@ FOOD_HEIGHT = 50
 SNAKE_X = WINDOW_WIDTH / 2 - SNAKE_WIDTH / 2
 SNAKE_Y = WINDOW_HEIGHT / 2 - SNAKE_HEIGHT / 2
 
+FOOD_X = randint(10, WINDOW_WIDTH - 10)
+FOOD_Y = randint(10, WINDOW_HEIGHT - 10)
+
 SNAKE_SPEED = 5
 FOOD_SPEED = 0
 
 BLUE = (200, 255, 255)
-BLACK = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0, 190, 0)
+RED = (190, 0, 0)
+
 
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
 IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
@@ -25,6 +31,14 @@ IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
 SNAKE_IMAGE = os.path.join(IMAGES_PATH, "snake.png")
 FOOD_IMAGE = os.path.join(IMAGES_PATH, "food.png")
 
+
+
 CAPTION = "Snake"
 
+WIN_SCORE = 5
+WIN_TEXT = "Перемога"
+LOSE_TEXT = "Поразка"
+
 FPS = 60
+
+scores = [0]

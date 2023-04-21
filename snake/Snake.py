@@ -3,6 +3,11 @@ from Sprite import*
 
 class Snake(Sprite):
 
+    def __init__(self, width, height, x, y, color, speed):
+        super().__init__(width, height, x, y, color, speed)
+        self.direction_x = 1
+        self.direction_y = 0
+
     def controls(self, up, down, left, right):
 
         key_pressed = pygame.key.get_pressed()
