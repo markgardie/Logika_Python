@@ -1,6 +1,8 @@
 from constants import*
 import pygame
 
+scores = 0
+
 def win_lose(snake):
 
 
@@ -29,3 +31,11 @@ def win_lose(snake):
         text = font.render(LOSE_TEXT, True, BLACK)
 
     return finish, text
+
+def food_collision(snake, food):
+
+    global scores
+    
+    if snake.hitbox.colliderect(food.hitbox):
+        scores += 1
+        food.move()

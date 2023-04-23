@@ -28,7 +28,13 @@ platform5 = Sprite(PLAYER_WIDTH, PLAYER_HEIGHT,
                    PLATFORM5_X, PLATFORM5_Y, 
                    PLATFORM_IMAGE_PATH, PLATFORM_SPEED)
 
+
+coin1 = Sprite(COIN_WIDTH, COIN_HEIGHT, COIN1_X, COIN1_Y, COIN_IMAGE_PATH, COIN_SPEED)
+coin2 = Sprite(COIN_WIDTH, COIN_HEIGHT, COIN2_X, COIN2_Y, COIN_IMAGE_PATH, COIN_SPEED)
+coin3 = Sprite(COIN_WIDTH, COIN_HEIGHT, COIN3_X, COIN3_Y, COIN_IMAGE_PATH, COIN_SPEED)
+
 platforms = [platform1, platform2, platform3, platform4, platform5]
+coins = [coin1, coin2, coin3]
 
 font = pygame.font.Font(None, 40)
 game = True
@@ -51,8 +57,13 @@ while game:
         window.screen.blit(platform4.image, (platform4.hitbox.x, platform4.hitbox.y))
         window.screen.blit(platform5.image, (platform5.hitbox.x, platform5.hitbox.y))
 
+        window.screen.blit(coin1.image, (coin1.hitbox.x, coin1.hitbox.y))
+        window.screen.blit(coin2.image, (coin2.hitbox.x, coin2.hitbox.y))
+        window.screen.blit(coin3.image, (coin3.hitbox.x, coin3.hitbox.y))
+
         window.screen.blit(counter_text, (100, 100))
 
+        collisions(player, coins)
         player.controls(pygame.K_SPACE, pygame.K_a, pygame.K_d, platforms)
         player.gravity(platforms)
 
