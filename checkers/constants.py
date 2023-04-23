@@ -12,3 +12,9 @@ NORTHWEST = "northwest"
 NORTHEAST = "northeast"
 SOUTHWEST = "southwest"
 SOUTHEAST = "southeast"
+
+
+WINDOW_SIZE = 600
+
+CAPTION = "Checkers"
+FPS = 60
