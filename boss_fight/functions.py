@@ -12,3 +12,21 @@ def win_lose():
     text = ""
 
     font = pygame.font.Font(None, 50)
+
+    if player_hp == 0:
+        finish = True
+        text = font.render("Поразка", True, BLACK)
+
+    if boss_hp == 0:
+        finish = True
+        text = font.render("Перемога", True, BLACK)
+
+    return finish, text
+
+def draw_fireballs(window, fireballs):
+    for fireball in fireballs:
+        window.blit(fireball.image, (fireball.hitbox.x, fireball.hitbox.y))
+
+def move_fireballs(fireballs):  
+    for fireball in fireballs:
+        fireball.move()
