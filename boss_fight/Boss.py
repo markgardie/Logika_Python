@@ -24,6 +24,8 @@ class Boss(Sprite):
 
         if timer == 0:
 
+            fireballs.clear()
+
             dir_1_x, dir_1_y = self.generate_direction()
             dir_2_x, dir_2_y = self.generate_direction()
             dir_3_x, dir_3_y = self.generate_direction()
@@ -98,5 +100,8 @@ class Boss(Sprite):
         else:
             timer -= 1
         
-                    
+    def move(self):
+
+        self.hitbox.x = randint(100, WINDOW_WIDTH - 100) 
+        self.hitbox.y = randint(100, WINDOW_HEIGHT - 100)        
   

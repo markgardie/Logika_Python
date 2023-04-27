@@ -36,3 +36,10 @@ PLAYER_PATH = os.path.join(RESOURCES_PATH, "player.png")
 FIREBALL_PATH = os.path.join(RESOURCES_PATH, "fireball.png")
 
 FPS = 60
+
+PLAYER_HP_TEXT_X = 50
+PLAYER_HP_TEXT_Y = 20
+
+
+BOSS_HP_TEXT_X = 50
+BOSS_HP_TEXT_X = 50
