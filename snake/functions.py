@@ -8,8 +8,6 @@ def food_collision(snake, food):
         food.move()
         scores[0] += 1
 
-        snake.hitbox.width += SNAKE_WIDTH
-
 def win_lose(snake):
 
 
