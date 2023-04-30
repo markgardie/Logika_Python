@@ -30,3 +30,17 @@ def draw_fireballs(window, fireballs):
 def move_fireballs(fireballs):  
     for fireball in fireballs:
         fireball.move()
+
+def collisions(player, fireballs, boss):
+
+    global player_hp
+    global boss_hp
+
+    for fireball in fireballs:
+        if player.hitbox.colliderect(fireball.hitbox):
+            player_hp -= 1
+            fireballs.remove(fireball)
+
+    if player.hitbox.colliderect(boss.hitbox):
+            boss_hp -= 1
+            boss.move()

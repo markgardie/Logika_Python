@@ -1,7 +1,7 @@
 from Sprite import*
 from Fireball import*
 from constants import*
-
+from random import randint
 
 timer = 120
 
@@ -88,5 +88,7 @@ class Boss(Sprite):
 
         else:
             timer -= 1
-                    
-  
+     
+    def move(self):
+        self.hitbox.x = randint(100, WINDOW_WIDTH - 100)
+        self.hitbox.y = randint(100, WINDOW_HEIGHT - 100)
