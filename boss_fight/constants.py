@@ -17,6 +17,8 @@ BOSS_SPEED = 0
 PLAYER_SPEED = 8
 FIREBALL_SPEED = 5
 
+# босс повинен бути напочатку гри посередині екрану
+# середина екрану - це половина ширини та висоти
 BOSS_X = WINDOW_WIDTH / 2 - BOSS_WIDTH / 2 
 BOSS_Y = WINDOW_HEIGHT / 2 - BOSS_HEIGHT / 2 
 

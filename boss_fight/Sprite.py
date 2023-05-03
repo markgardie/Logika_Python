@@ -1,14 +1,34 @@
 import pygame
+import os
+from constants import*
 
+# ініціалізація (запуск) пайгейму
+# треба для роботи шрифтів та текстів
 pygame.init()
 
+# базовий клас спрайт
+# підходить для багатьох ігор
+# можна копіювати в інші проекти
+# складається з хітбоксу та картинки
 class Sprite():
-    
-    def __init__(self, width, height, x, y, image_path, speed):
 
+    # конструктор спрайту
+    # запускається під час створення нового спрайту
+    # задає початкові властивості
+    # розміри, координати, картинку, швидкість
+    def __init__(self, width = 10, height = 10, x = 0, y = 0, img_path = "", speed = 0):
+        
+        # створюємо хітбокс
+        # хітбокс - це прямокутник, тому використовуємо відповідний клас
+        # задаємо розміри та координати прямокутника
         self.hitbox = pygame.Rect(x, y, width, height)
 
-        self.image = pygame.image.load(image_path)
+        # завантажуємо зображення спрайту
+        # по певному шляху
+        self.image = pygame.image.load(img_path)
+        # змінюємо розміри картинки
+        # розміри підлаштовуємо під хітбокс
         self.image = pygame.transform.scale(self.image, (width, height))
 
+        # задаємо швидкість спрайту
         self.speed = speed
