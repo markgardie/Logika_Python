@@ -6,7 +6,7 @@ from Player import*
 from Fireball import*
 
 # створюємо об'єкти вікна, босса, гравця
-window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, BLUE)
+window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, BLUE, CAPTION)
 boss = Boss(BOSS_WIDTH, BOSS_HEIGHT, BOSS_X, BOSS_Y, BOSS_PATH, BOSS_SPEED)
 player = Player(PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_X, PLAYER_Y, PLAYER_PATH, PLAYER_SPEED)
 

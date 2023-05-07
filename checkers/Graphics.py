@@ -57,7 +57,7 @@ class Graphics:
 		for x in range(8):
 			for y in range(8):
 				if board.matrix[x][y].occupant != None:
-					pygame.draw.circle(self.screen, board.matrix[x][y].occupant.color, self.pixel_coords((x,y)), self.piece_size) 
+					pygame.draw.circle(self.screen, board.matrix[x][y].occupant.color, (self.pixel_coords((x,y))), self.piece_size) 
 
 					if board.location((x,y)).occupant.king == True:
 						pygame.draw.circle(self.screen, GOLD, self.pixel_coords((x,y)), int (self.piece_size / 1.7), self.piece_size / 4)
@@ -68,6 +68,7 @@ class Graphics:
 		Takes in a tuple of board coordinates (x,y) 
 		and returns the pixel coordinates of the center of the square at that location.
 		"""
+	
 		return (board_coords[0] * self.square_size + self.piece_size, board_coords[1] * self.square_size + self.piece_size)
 
 	def board_coords(self, pixel):
