@@ -15,12 +15,11 @@ def win_lose(player, enemy, scores):
         finish = True
         text = font.render(LOSE_TEXT, True, BLACK)
 
-    if player.hitbox.y > WINDOW_WIDTH - 10:
+    if player.hitbox.y > WINDOW_HEIGHT - 10:
         finish = True
         text = font.render(LOSE_TEXT, True, BLACK)
 
     return finish, text
-
 
 def collisions(player, coins, scores):
 

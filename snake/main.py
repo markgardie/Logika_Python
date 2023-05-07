@@ -8,7 +8,6 @@ from Food import*
 window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, BLUE)
 
 snake = Snake(SNAKE_WIDTH, SNAKE_HEIGHT, SNAKE_X, SNAKE_Y, GREEN, SNAKE_SPEED)
-tail = []
 
 food = Food(FOOD_WIDTH, FOOD_HEIGHT, FOOD_X, FOOD_Y, RED, FOOD_SPEED)
 

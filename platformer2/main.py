@@ -60,6 +60,7 @@ while game:
         if event.type == pygame.QUIT:
             game = False
 
+
     if not finish:
         scores_text = font.render(f"Бали: {scores}", True, BLACK)
 
