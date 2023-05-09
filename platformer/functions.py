@@ -25,7 +25,7 @@ def win_lose(player, coin, enemy):
         # ми перемагаємо
         text = font.render("Ти переміг", True, BLACK)
 
-     # якщо гравець торкається ворога 
+    # якщо гравець торкається ворога 
     if player.hitbox.colliderect(enemy.hitbox):
         # перемикаємось на фінальний екран
         finish = True

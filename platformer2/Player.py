@@ -1,22 +1,48 @@
 from Sprite import*
 from constants import*
 
+
+# клас Гравець спадкується від базового класу Спрайт
+# копіює хітбокс та зображення
+# доповнює керуванням та гравітацією
 class Player(Sprite):
 
+    # керування
+    # в параметрах: 3 різних кнопки та напрямку
+    # також в параметрах платформи, оскільки стрибок залежиться
+    # від торкання платформи
     def controls(self, up, left, right, platforms):
 
-        key_pressed = pygame.key.get_pressed()
+       # отримуємо натиснуті кнопки
+        keys = pygame.key.get_pressed()
 
-        if key_pressed[left] and self.hitbox.x > 5:
+        # циклом проходимось по всім платформам
+        for platform in platforms:
+            # якщо натиснуто на клавішу вгору
+            # і не досягнули верхньої межі (0)
+            # і гравець торкається платформи 
+            if keys[up] and self.hitbox.y > 0 and self.hitbox.colliderect(platform.hitbox):
+                # робимо стрибок
+                # множення на 100 треба, аби перебороти гравітацію
+                # стрибок - це рух вгору
+                # рух вгору - це -у
+                self.hitbox.y -= self.speed * 20
+                
+        # якщо натиснуто на клавішу вліво
+        # і при цьому не вийшли за ліву межу (0)
+        if keys[left] and self.hitbox.x > 0:
+            # рухаємо персонажа вліво
+            # рух вліво це -х
             self.hitbox.x -= self.speed
 
-        if key_pressed[right] and self.hitbox.x < WINDOW_WIDTH - 5:
+        # якщо натиснуто на клавішу вправо
+        # і при цьому не вийшли за праву межу (ширина вікна)
+        if keys[right] and self.hitbox.x < WINDOW_WIDTH:
+            # рухаємо персонажа вправо
+            # рух вправо це +х
             self.hitbox.x += self.speed
 
-        for platform in platforms:
-            if key_pressed[up] and self.hitbox.y > 5 and self.hitbox.colliderect(platform.hitbox):
-                self.hitbox.y -= self.speed * 20
-
+            
     # запускає гравітацію
     # platforms треба для перевірки колізій із платформами
     # гравітація залежить від платформ
