@@ -22,3 +22,29 @@ class GameSprite(pygame.sprite.Sprite): #клас для всіх обʼєкті
         self.player_y = player_y
         self.player_speed = player_speed
 
+        # перший спосіб створення хітбокса
+        self.hitbox = pygame.Rect(player_x, player_y, width, height)
+
+        # другий спосіб створення хітбокса
+        # обрати один спосіб
+        self.hitbox2 = self.image.get_rect()
+
+
+class Rocket(GameSprite):
+
+    def controls(self, left, right):
+
+        keys = pygame.key.get_pressed()
+
+        # збільшити цифру до 5-10
+        if keys[left] and self.hitbox.x > 0:
+            self.hitbox.x -= self.player_speed
+
+        if keys[right] and self.hitbox.x < 600:
+            self.hitbox.x += self.player_speed
+
+class Ball(GameSprite):
+
+    def move(self, dir_x, dir_y):
+        self.hitbox.x += self.player_speed * dir_x
+        self.hitbox.y += self.player_speed * dir_y
