@@ -60,7 +60,7 @@ class Graphics:
 					pygame.draw.circle(self.screen, board.matrix[x][y].occupant.color, (self.pixel_coords((x,y))), self.piece_size) 
 
 					if board.location((x,y)).occupant.king == True:
-						pygame.draw.circle(self.screen, GOLD, self.pixel_coords((x,y)), int (self.piece_size / 1.7), self.piece_size / 4)
+						pygame.draw.circle(self.screen, GOLD, self.pixel_coords((x,y)), int (self.piece_size / 1.7), int(self.piece_size / 4))
 
 
 	def pixel_coords(self, board_coords):
@@ -75,7 +75,7 @@ class Graphics:
 		"""
 		Does the reverse of pixel_coords(). Takes in a tuple of of pixel coordinates and returns what square they are in.
 		"""
-		return (pixel[0] / self.square_size, pixel[1] / self.square_size)	
+		return (int(pixel[0] / self.square_size), int(pixel[1] / self.square_size))	
 
 	def highlight_squares(self, squares, origin):
 		"""
