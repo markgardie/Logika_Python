@@ -40,7 +40,7 @@ class Game:
 
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				if self.hop == False:
-					if self.board.location(self.mouse_pos).occupant != None and self.board.location(self.mouse_pos).occupant.color == self.turn:
+					if self.board.location(self.mouse_pos).busy != None and self.board.location(self.mouse_pos).busy.color == self.turn:
 						self.selected_piece = self.mouse_pos
 
 					elif self.selected_piece != None and self.mouse_pos in self.board.legal_moves(self.selected_piece):
@@ -85,36 +85,59 @@ class Game:
 			self.event_loop()
 			self.update()
 
+	# функція перемикає ходи між гравцями
 	def end_turn(self):
 		"""
 		End the turn. Switches the current player. 
 		end_turn() also checks for and game and resets a lot of class attributes.
 		"""
+		# якщо ходив синій
 		if self.turn == BLUE:
+			# то тепер ходить червоний
 			self.turn = RED
 		else:
+			# і навпаки
 			self.turn = BLUE
 
+		# при перемиканні ходу у нас:
+		# ніяка шашка не обрана
 		self.selected_piece = None
+		# дозволених кроків немає
 		self.selected_legal_moves = []
+		# стрибка також немає
 		self.hop = False
 
+		# якщо гра закінчилась
 		if self.check_for_endgame():
+			# якщо гра закінчилась на ході синього
 			if self.turn == BLUE:
+				# то переміг червоний
+				# друкуємо повідомлення про перемогу червоного
 				self.graphics.draw_message("RED WINS!")
 			else:
+				# або навпаки
 				self.graphics.draw_message("BLUE WINS!")
 
+	# функція для перевірки закінчення гри
 	def check_for_endgame(self):
 		"""
 		Checks to see if a player has run out of moves or pieces. If so, then return True. Else return False.
 		"""
+		# проходимось по всім полям
+		# дошка у нас 8 на 8
 		for x in range(8):
 			for y in range(8):
-				if self.board.location((x,y)).color == BLACK and self.board.location((x,y)).occupant != None and self.board.location((x,y)).occupant.color == self.turn:
+				# перевіряємо лише чорні поля, оскільки шашки тільки на них
+				# якщо на полі ще є шашки (перша умова перемоги: з'їсти всі шашки суперника)
+				# і якщо це шашки того гравця, хто ходить
+				if self.board.location((x,y)).color == BLACK and self.board.location((x,y)).busy != None and self.board.location((x,y)).busy.color == self.turn:
+					# якщо ще є шашки, то перевіряємо другу умову: чи є можливі ходи
+					# якщо ходи не пусті
 					if self.board.legal_moves((x,y)) != []:
+						# то гра ще не закінчується
 						return False
-
+		
+		# інакше гра закінчилась
 		return True
 
 

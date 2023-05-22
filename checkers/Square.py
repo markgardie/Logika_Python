@@ -1,4 +1,6 @@
+
+# Клас квадратного поля дошки
 class Square:
-	def __init__(self, color, occupant = None):
-		self.color = color # color is either BLACK or WHITE
-		self.occupant = occupant # occupant is a Square object
+	def __init__(self, color, busy = None):
+		self.color = color # колір квадрата, або чорний, або білий
+		self.busy = busy # чи зайняте поле шашкою
