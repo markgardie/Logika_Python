@@ -260,10 +260,19 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+        
+    # Функція, яка виставляє текст для кнопок і клавіші    
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
+        # виставлення надпису, заголовку вікна
         MainWindow.setWindowTitle(_translate("MainWindow", "Calculon"))
+        # setText - виставити текст кнопки
+        # setShortcut - виставити клавішу для кнопки
+        # pushButton_n - кнопки цифр
+        # mul, div, sub, add - кнопки операцій
+        # m, mr - зберегти в пам'яті, зчитати з пам'яті
+        # ac - all-clear, очистити калькулятор
+        # pc - знайти відсоток
         self.pushButton_n4.setText(_translate("MainWindow", "4"))
         self.pushButton_n4.setShortcut(_translate("MainWindow", "4"))
         self.pushButton_n1.setText(_translate("MainWindow", "1"))
