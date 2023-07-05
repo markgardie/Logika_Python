@@ -1,5 +1,4 @@
-import typing
-from PyQt5 import QtCore
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
 from random import randint
@@ -32,7 +31,6 @@ class RandomizerApp(QApplication):
         self.listener()
 
     def widgets(self):
-        self.app = QApplication([])
 
         self.window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
 
@@ -60,8 +58,6 @@ class RandomizerApp(QApplication):
         self.hintLabel.setText(WINNER_TEXT)
         number = randint(1, 100)
         self.numberLabel.setText(str(number))
-
-
 
 myApp = RandomizerApp()
 myApp.window.show()
