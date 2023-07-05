@@ -1,3 +1,5 @@
+import typing
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
 from random import randint
@@ -7,21 +9,32 @@ GENERATE_TEXT = "Згенерувати"
 HINT_TEXT = "Натисни, аби дізнатись переможця"
 WINNER_TEXT = "Переможець:"
 QUESTION_TEXT = "?"
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 500
+TITLE = "Randomizer"
 
 
-class RandomizerApp():
+class Window(QWidget):
+
+    def __init__(self, width, height, title):
+        super().__init__()
+
+        self.resize(width, height)
+        self.setWindowTitle(title)
+
+class RandomizerApp(QApplication):
 
     def __init__(self):
+        super().__init__([])
             
-        self.createWidgets()
-        self.setMyLayout()
+        self.widgets()
+        self.layout()
         self.listener()
-        self.startApp()
 
-    def createWidgets(self):
+    def widgets(self):
         self.app = QApplication([])
 
-        self.window = QWidget()
+        self.window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
 
         self.generateBtn = QPushButton(GENERATE_TEXT)
 
@@ -29,7 +42,7 @@ class RandomizerApp():
         self.numberLabel = QLabel(QUESTION_TEXT)
 
     
-    def setMyLayout(self):
+    def layout(self):
 
         column = QVBoxLayout()
 
@@ -48,10 +61,8 @@ class RandomizerApp():
         number = randint(1, 100)
         self.numberLabel.setText(str(number))
 
-    def startApp(self):
-        self.app.exec_
-        self.window.show()
 
 
 myApp = RandomizerApp()
-
+myApp.window.show()
+myApp.exec_()
