@@ -21,6 +21,14 @@ class Window(QWidget):
 
 class RandomizerApp(QApplication):
 
+    def __init__(self):
+        super().__init__()
+
+        self.createWidgets()
+        self.designLayout()
+        self.listener()
+
+
     def createWidgets(self):
         self.window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
 
@@ -47,3 +55,6 @@ class RandomizerApp(QApplication):
         self.hintLabel.setText(WINNER_TEXT)
 
 
+app = RandomizerApp()
+app.window.show()
+app.exec_()
