@@ -1,0 +1,26 @@
+
+TITLE = "Memo Card"
+
+QUESTION_SCREEN_WIDTH = 600
+QUESTION_SCREEN_HEIGHT = 500
+
+EDIT_SCREEN_WIDTH = 600
+EDIT_SCREEN_HEIGHT = 500
+
+TEST_QUESTION = "Яблуко"
+
+TEST_ANS1 = "building"
+TEST_ANS2 = "caterpillar"
+TEST_ANS3 = "application"
+TEST_ANS4 = "apple"
+
+MENU_BUTTON_TEXT = "Меню"
+REST_BUTTON_TEXT = "Відпочити"
+ANSWER_BUTTON_TEXT = "Відповісти"
+
+MINUTES_TEXT = "хвилин"
+
+QUESTION_GROUP_BOX_TEXT = "Варіанти відповідей"
+RESULT_GROUP_BOX_TEXT = "Результати"
+
+START_MINUTES = 30
