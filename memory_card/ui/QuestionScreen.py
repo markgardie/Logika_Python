@@ -1,4 +1,4 @@
-from utils.BaseScreen import BaseScreen
+from ui.BaseScreen import BaseScreen
 from utils.Constants import*
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (

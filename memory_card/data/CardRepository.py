@@ -1,4 +1,4 @@
-from models.Card import Card
+from domain.Card import Card
 
 class CardRepository():
 

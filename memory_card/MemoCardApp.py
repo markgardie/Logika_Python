@@ -1,5 +1,5 @@
 
-from screens.QuestionScreen import QuestionScreen
+from ui.QuestionScreen import QuestionScreen
 from PyQt5.QtWidgets import QApplication
 from utils.Constants import*
 
