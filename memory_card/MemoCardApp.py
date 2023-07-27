@@ -1,15 +1,7 @@
 
-from ui.QuestionScreen import QuestionScreen
+from ui.Navigation import Navigation
 from PyQt5.QtWidgets import QApplication
-from utils.Constants import*
 
-class MemoCardApp(QApplication):
-
-    def __init__(self):
-        super().__init__([])
-
-        self.questionScreen = QuestionScreen(QUESTION_SCREEN_WIDTH, QUESTION_SCREEN_HEIGHT, TITLE)
-
-app = MemoCardApp()
-app.questionScreen.show()
+app = QApplication([])
+navigation = Navigation()
 app.exec_()

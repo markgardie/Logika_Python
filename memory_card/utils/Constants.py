@@ -18,10 +18,13 @@ START_ANS4 = "application"
 MENU_BUTTON_TEXT = "Меню"
 REST_BUTTON_TEXT = "Відпочити"
 ANSWER_BUTTON_TEXT = "Відповісти"
+RESULT_BUTTON_TEXT = "Заново"
 
 MINUTES_TEXT = "хвилин"
 
 QUESTION_GROUP_BOX_TEXT = "Варіанти відповідей"
 RESULT_GROUP_BOX_TEXT = "Результати"
+RIGHT_ANSWER_TEXT = "Правильно"
+WRONG_ANSWER_TEXT = "Неправильно"
 
 START_MINUTES = 30
