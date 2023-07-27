@@ -10,12 +10,16 @@ from PyQt5.QtWidgets import (
     QHBoxLayout,
     QVBoxLayout
 )
+from data.CardRepository import CardRepository
+from random import randint
 
 class QuestionScreen(BaseScreen):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
-        
+
+        self.repository = CardRepository()
+        self.randomCard = self.repository.cardsList[0]
 
         self.createWidgets()
         self.createLayouts()
@@ -32,14 +36,14 @@ class QuestionScreen(BaseScreen):
         self.restSpinBox.setValue(START_MINUTES)
         self.minutesLabel = QLabel(MINUTES_TEXT)
 
-        self.questionLabel = QLabel(TEST_QUESTION)
+        self.questionLabel = QLabel(self.randomCard.question)
 
         self.questionGroupBox = QGroupBox(QUESTION_GROUP_BOX_TEXT)
 
-        self.ansRadioButton1 = QRadioButton(TEST_ANS1)
-        self.ansRadioButton2 = QRadioButton(TEST_ANS2)
-        self.ansRadioButton3 = QRadioButton(TEST_ANS3)
-        self.ansRadioButton4 = QRadioButton(TEST_ANS4)
+        self.ansRadioButton1 = QRadioButton(self.randomCard.rightAnswer)
+        self.ansRadioButton2 = QRadioButton(self.randomCard.wrongAnswer1)
+        self.ansRadioButton3 = QRadioButton(self.randomCard.wrongAnswer2)
+        self.ansRadioButton4 = QRadioButton(self.randomCard.wrongAnswer3)
 
         self.answerButton = QPushButton(ANSWER_BUTTON_TEXT)
 

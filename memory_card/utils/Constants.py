@@ -7,12 +7,13 @@ QUESTION_SCREEN_HEIGHT = 500
 EDIT_SCREEN_WIDTH = 600
 EDIT_SCREEN_HEIGHT = 500
 
-TEST_QUESTION = "Яблуко"
+START_QUESTION = "Яблуко"
 
-TEST_ANS1 = "building"
-TEST_ANS2 = "caterpillar"
-TEST_ANS3 = "application"
-TEST_ANS4 = "apple"
+START_ANS1 = "apple"
+START_ANS2 = "building"
+START_ANS3 = "caterpillar"
+START_ANS4 = "application"
+
 
 MENU_BUTTON_TEXT = "Меню"
 REST_BUTTON_TEXT = "Відпочити"

@@ -1,10 +1,12 @@
 from domain.Card import Card
+from utils.Constants import*
 
 class CardRepository():
 
     def __init__(self):
 
-        self.cardsList = []
+        startCard = Card(START_QUESTION, START_ANS1, START_ANS2, START_ANS3, START_ANS4)
+        self.cardsList = [startCard]
 
     def addCard(self, question, rightAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3):
         questionModel = Card(question, rightAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3)
