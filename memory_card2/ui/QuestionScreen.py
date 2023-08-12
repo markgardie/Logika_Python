@@ -11,8 +11,8 @@ from random import randint
 
 class QuestionScreen(BaseScreen):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
 
         self.createWidgets()
         self.createLayouts()
