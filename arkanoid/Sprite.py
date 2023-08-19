@@ -6,4 +6,4 @@ class Sprite():
         self.hitbox = pg.Rect(x, y, width, height)
 
         self.image = pg.image.load(image_path)
-        self.image = pg.transform.scale(self.image, (x, y))
+        self.image = pg.transform.scale(self.image, (width, height))
