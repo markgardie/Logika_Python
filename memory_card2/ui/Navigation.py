@@ -11,6 +11,7 @@ class Navigation():
         self.right = False
 
         self.questionScreen.show()
+        self.clickListeners()
 
     def clickListeners(self):
         self.questionScreen.ansRadioButton1.clicked.connect(self.setWin)
@@ -27,7 +28,12 @@ class Navigation():
     def setLose(self): self.right = False
 
     def navigateToResult(self):
+        self.resultScreen.putData(self.right, self.questionScreen.questionLabel.text)
         self.questionScreen.hide()
         self.resultScreen.show()
+
+    def navigateToQuestion(self):
+        self.questionScreen.show()
+        self.resultScreen.hide()
 
 

@@ -20,6 +20,7 @@ REST_BUTTON_TEXT = "Відпочити"
 ANSWER_BUTTON_TEXT = "Відповісти"
 RESULT_BUTTON_TEXT = "Заново"
 
+
 MINUTES_TEXT = "хвилин"
 
 QUESTION_GROUP_BOX_TEXT = "Варіанти відповідей"

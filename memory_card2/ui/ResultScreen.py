@@ -27,7 +27,7 @@ class ResultScreen(BaseScreen):
 
         self.resultGroupBox = QGroupBox(RESULT_GROUP_BOX_TEXT)
 
-        self.resultLabel = QLabel(RIGHT_ANSWER_TEXT)
+        self.resultLabel = QLabel()
 
         self.answerButton.setText(RESULT_BUTTON_TEXT)
 
@@ -46,6 +46,14 @@ class ResultScreen(BaseScreen):
         super().setMainLayout()
 
         self.row3.addWidget(self.resultGroupBox)
+
+    def putData(self, right, question):
+        self.questionLabel.setText(question)
+
+        if right:
+            self.resultLabel.setText(RIGHT_ANSWER_TEXT)
+        else:
+            self.resultLabel.setText(WRONG_ANSWER_TEXT)
 
 
 
