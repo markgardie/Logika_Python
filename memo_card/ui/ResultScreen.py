@@ -44,3 +44,11 @@ class ResultScreen(BaseScreen):
         super().setMainLayout()
 
         self.row3.addWidget(self.resultGroupBox)
+
+    def putData(self, right, question):
+        self.questionLabel.setText(question)
+
+        if right:
+            self.resultLabel.setText(RIGHT_ANSWER_TEXT)
+        else:
+            self.resultLabel.setText(WRONG_ANSWER_TEXT)

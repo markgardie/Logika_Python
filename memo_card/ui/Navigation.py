@@ -31,6 +31,7 @@ class Navigation():
         self.right = False
 
     def navigateToResult(self):
+        self.resultScreen.putData(self.right, self.questionScreen.questionLabel.text)
         self.questionScreen.hide()
         self.resultScreen.show()
 
