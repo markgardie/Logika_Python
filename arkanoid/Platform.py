@@ -5,9 +5,10 @@ class Platform(Sprite):
 
     def controls(self, left, right):
 
-        key_pressed = pg.key.get_pressed()
+        keys = pg.key.get_pressed()
 
-        if key_pressed[left] and self.hitbox.x > 0:
+        if keys[left] and self.hitbox.x > 0:
             self.hitbox.x -= PLATFORM_SPEED
 
-        # right - homework
+        if keys[right] and self.hitbox.x < WINDOW_WIDTH:
+            self.hitbox.x += PLATFORM_SPEED
