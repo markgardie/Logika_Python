@@ -3,7 +3,8 @@ from Sprite import Sprite
 from Platform import Platform
 from Ball import Ball
 from Constants import*
-
+import pygame as pg
+from random import randint
 
 class Game():
 
@@ -53,4 +54,39 @@ class Game():
             self.event_handler()
             self.win_lose()
 
+    def draw_objects(self):
+        self.window.screen.blit(self.platform.image, (self.platform.hitbox.x, self.platform.hitbox.y))
+        self.window.screen.blit(self.ball.image, (self.ball.hitbox.x, self.ball.hitbox.y))
 
+        for block in self.blocks:
+            self.window.screen.blit(block.image, (block.hitbox.x, block.hitbox.y))
+
+    def move_objects(self):
+
+        self.dir_x = 1
+        self.dir_y = -1
+
+        self.platform.controls(pg.K_a, pg.K_d)
+        self.ball.move(self.dir_x, self.dir_y)
+
+    def collisions(self):
+        
+        # ball, platform
+        if self.ball.hitbox.colliderect(self.platform.hitbox):
+            self.dir_y = -1
+            self.dir_x = randint(-1, 1)
+
+        # ball, blocks
+        for block in self.blocks:
+            if self.ball.hitbox.colliderect(self.block.hitbox):
+                self.dir_y = 1
+                self.dir_x = randint(-1, 1)
+
+        # ball, left border
+        if self.ball.hitbox.x < 0:
+            self.dir_x = 1
+
+    def event_handler(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.game = False
