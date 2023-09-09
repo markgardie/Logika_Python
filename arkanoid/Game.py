@@ -48,11 +48,14 @@ class Game():
         self.finish = False
 
         while self.game:
-            self.draw_objects()
-            self.move_objects()
-            self.collisions()
-            self.event_handler()
-            self.win_lose()
+            if self.finish: 
+                self.window.screen.blit(self.final_text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+            else:
+                self.draw_objects()
+                self.move_objects()
+                self.collisions()
+                self.event_handler()
+                self.win_lose()
 
     def draw_objects(self):
         self.window.screen.blit(self.platform.image, (self.platform.hitbox.x, self.platform.hitbox.y))
@@ -90,3 +93,16 @@ class Game():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.game = False
+
+    def win_lose(self):
+
+        font = pg.font.Font(None, FONT_SIZE)
+
+        if len(self.blocks) == 0:
+            self.finish = True
+            self.final_text = font.render(WIN_TEXT, True, BLACK)
+
+        if self.ball.hitbox.y > WINDOW_HEIGHT:
+            self.finish = True
+            self.final_text = font.render(LOSE_TEXT, True, BLACK)
+

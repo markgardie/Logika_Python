@@ -29,3 +29,5 @@ MAP = ["1111111111",
         "0001111000"]
 
 CAPTION = "Arkanoid"
+WIN_TEXT = "Перемога"
+LOSE_TEXT =  "Поразка"
