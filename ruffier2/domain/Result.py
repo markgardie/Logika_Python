@@ -9,7 +9,7 @@ class Result():
 
         self.ruffier_index = None
         self.level = None
-        self.result = None
+        self.final_result = None
 
     def calculate_ruffier(self):
 
@@ -24,26 +24,26 @@ class Result():
     def calculate_result(self):
 
         if self.ruffier_index > self.level:
-            self.result = 0 
+            self.final_result = 0 
 
         self.level -= 4
 
         if self.ruffier_index > self.level:
-            self.result = 1
+            self.final_result = 1
 
         self.level -= 5
 
         if self.ruffier_index > self.level:
-            self.result = 2
+            self.final_result = 2
 
         self.level -= 5.5
 
         if self.ruffier_index > self.level:
-            self.result = 3
+            self.final_result = 3
 
         self.level -= 5
 
         if self.ruffier_index < self.level:
-            self.result = 4
+            self.final_result = 4
 
          
