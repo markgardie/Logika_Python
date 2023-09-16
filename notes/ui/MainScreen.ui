@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainScreen</class>
+ <widget class="QWidget" name="MainScreen">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Розумні нотатки</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>771</width>
+     <height>581</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="mainRow">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMaximumSize</enum>
+    </property>
+    <item>
+     <widget class="QTextEdit" name="noteTextEdit"/>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="rightColumn">
+      <item>
+       <widget class="QLabel" name="notesLabel">
+        <property name="text">
+         <string>Список заміток</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="notesListWidget"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="createNoteBtn">
+          <property name="text">
+           <string>Створити замітку</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="deleteNoteBtn">
+          <property name="text">
+           <string>Видалити замітку</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveNoteBtn">
+        <property name="text">
+         <string>Зберегти замітку</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="tagsLabel">
+        <property name="text">
+         <string>Список тегів</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="tagsListWidget"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="searchLineEdit"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="addTagBtn">
+          <property name="text">
+           <string>Додати тег</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="deleteTagBtn">
+          <property name="text">
+           <string>Видалити тег</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="searchBtn">
+        <property name="text">
+         <string>Шукати по тегу</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
