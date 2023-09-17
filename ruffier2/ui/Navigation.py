@@ -20,15 +20,12 @@ class Navigation(ScreenManager):
         self.activity_screen = ActivityPulseScreen(name = "activity")
         self.result_screen = ResultScreen(name = "result")
 
-
-
     def add_screens(self):
         self.add_widget(self.instr_screen)
         self.add_widget(self.rest_screen)
         self.add_widget(self.squat_screen)
         self.add_widget(self.activity_screen)
         self.add_widget(self.result_screen)
-
 
     def click_listeners(self):
 
@@ -37,7 +34,6 @@ class Navigation(ScreenManager):
         self.squat_screen.next_button.on_press = self.navigate_to_activity
         self.activity_screen.next_button.on_press = self.navigate_to_result
         
-
     def navigate_to_rest(self):
 
         self.user = User(self.instr_screen.name_input.text, int(self.instr_screen.age_input.text))
@@ -75,7 +71,22 @@ class Navigation(ScreenManager):
         self.result_screen.ruffier_label.text = f"Ваш індекс Руф'є: {self.result.ruffier_index}"
         
         if self.result.final_result == 0:
-            level = "Погана"
+            level = "незадовільний"
+        if self.result.final_result == 1:
+            level = "слабкий"
+        if self.result.final_result == 2:
+            level = "задовільний"
+        if self.result.final_result == 3:
+            level = "добрий"
+        if self.result.final_result == 4:
+            level = "відмінний"
+
+        self.result_screen.level_label.text = f"Працездатність сердця: {level}"
+        
+
+        
+    
+
 
 
     
