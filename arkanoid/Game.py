@@ -32,8 +32,7 @@ class Game():
         pass
 
     def collisions(self):
-        if self.ball.hitbox.x < 0:
-            self.dir_x = 
+        pass
 
 
     def win_lose(self):
