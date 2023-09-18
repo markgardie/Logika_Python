@@ -7,5 +7,5 @@ class Platform(Sprite):
 
         keys = pg.key.get_pressed()
 
-        if keys[left]:
+        if keys[left] and self.hitbox.x > 0:
             self.hitbox.x -= PLATFORM_SPEED
