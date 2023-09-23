@@ -3,15 +3,16 @@ import json
 class NotesRepository():
 
     def __init__(self):
-        self.notes = []
-        self.path = r"D:\Mark\Desktop\Logika_Python\notes\data\notes.json"
+        self.path = r"notes\data\notes.json"
+        self.notes = self.readNotes()
+        
 
     def saveFile(self):
         with open(self.path, "w", encoding="utf-8") as file:
-            json.dump(self.notes)
+            json.dump(self.notes, file)
 
     def createNote(self, newNote):
-        self.notes.append(newNote.__dict__)
+        self.notes.append(newNote)
         self.saveFile()
         pass
 
@@ -19,18 +20,23 @@ class NotesRepository():
         with open(self.path, "r", encoding="utf-8") as file:
             self.notes = json.load(file)
 
-    def updateNote(self, id, updateNote):
+        return self.notes
+    
+    def getText(self, title):
+         for note in self.notes:
+            if title == note["title"]:
+                return note["text"]
+
+    def updateNote(self, title, text):
         for note in self.notes:
-            if id == note["id"]:
-                note["title"] = updateNote.title
-                note["text"] = updateNote.text
-                note["tags"] = updateNote.tags
+            if title == note["title"]:
+                note["text"] = text
         
         self.saveFile()
 
-    def deleteNote(self, id):
+    def deleteNote(self, title):
         for note in self.notes:
-            if id == note["id"]:
+            if title == note["title"]:
                 self.notes.remove(note)
 
         self.saveFile()
