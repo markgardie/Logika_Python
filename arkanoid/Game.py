@@ -68,12 +68,22 @@ class Game():
         if self.ball.hitbox.x < 0:
             self.dir_x = 1  
 
+        if self.ball.hitbox.x > WINDOW_WIDTH:
+            self.dir_x = -1 
+
+        if self.ball.hitbox.y < 0:
+            self.dir_y = 1 
+
     def win_lose(self):
         font = pg.font.Font(None, FONT_SIZE)
 
         if len(self.blocks) == 0:
             self.finish = True
             self.text = font.render(WIN_TEXT, True, BLACK)
+
+        if self.ball.hitbox.y > WINDOW_HEIGHT:
+            self.finish = True
+            self.text = font.render(LOSE_TEXT, True, BLACK)
 
         
 
@@ -87,8 +97,13 @@ class Game():
         self.finish = False
 
         while self.game:
-            self.draw_objects()
-            self.move_objects()
-            self.collisions()
-            self.win_lose()
-            self.update_window()
+            if self.finish:
+                self.window.screen.blit(self.text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+            else:
+                self.draw_objects()
+                self.move_objects()
+                self.collisions()
+                self.win_lose()
+                self.update_window()
+
+Game().game_loop()
