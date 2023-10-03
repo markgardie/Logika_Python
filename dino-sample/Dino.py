@@ -3,11 +3,11 @@ from Constants import*
 
 class Dino(Sprite):
 
-    def jump(self, jump, up, down, ground):
+    def jump(self, jump, up, down):
         
         keys = pg.key.get_pressed()
 
-        if keys[jump] and self.hitbox.colliderect(ground.hitbox):
+        if keys[jump] and self.hitbox.y > WINDOW_HEIGHT - 30:
             self.hitbox.y -= self.speed * JUMP_ACC
 
         if keys[up]:

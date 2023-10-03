@@ -10,7 +10,7 @@ class Game():
 
     def create_objects(self):
 
-        self.window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, BLUE)
+        self.window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, WHITE)
 
         self.dino = Dino(
             DINO_X, DINO_Y,
@@ -41,25 +41,7 @@ class Game():
         if self.obstacle.hitbox.x < 0:
             self.obstacle = None
     
-    def game_loop(self):
-
-        self.game = True
-        self.finish = False
-
-        self.create_objects()
-
-        while self.game:
-            if self.finish: 
-                self.window.screen.blit(self.final_text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
-            else:
-                self.create_obstacles()
-                self.destroy_obstacles()
-                self.draw_objects()
-                self.move_objects()
-                self.collisions()
-                self.event_handler()
-                self.win_lose()
-
+    
     def draw_objects(self):
         self.window.screen.blit(self.dino.image, 
                                 (self.dino.hitbox.x, self.dino.hitbox.y))
@@ -69,7 +51,7 @@ class Game():
 
     def move_objects(self):
 
-       self.dino.jump()
+       self.dino.jump(pg.K_SPACE, pg.K_w, pg.K_s)
        self.obstacle.move()
 
     def collisions(self):
@@ -92,5 +74,30 @@ class Game():
         # if self.ball.hitbox.y > WINDOW_HEIGHT:
         #     self.finish = True
         #     self.final_text = font.render(LOSE_TEXT, True, BLACK)
+
+    def update_window(self):
+        pg.display.update()
+        self.window.clock.tick(FPS)
+    
+    def game_loop(self):
+
+        self.game = True
+        self.finish = False
+
+        self.create_objects()
+
+        while self.game:
+            if self.finish: 
+                self.window.screen.blit(self.final_text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+            else:
+                self.create_obstacles()
+                self.destroy_obstacles()
+                self.draw_objects()
+                self.move_objects()
+                self.collisions()
+                self.event_handler()
+                self.win_lose()
+                self.update_window()
+
 
 Game().game_loop()
