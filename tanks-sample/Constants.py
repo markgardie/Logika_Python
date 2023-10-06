@@ -1,33 +1,57 @@
-import os
-
+import os 
 
 WINDOW_WIDTH = 880
 WINDOW_HEIGHT = 600
-BLOCK_WIDTH = 70
-BLOCK_HEIGHT = 30
-PLATFORM_WIDTH = 150
-PLATFORM_HEIGHT = 30
-BALL_WIDTH = 30
-BALL_HEIGHT = 30
-BLUE = (200, 255, 255)
-BLACK = (255, 255, 255)
-FONT_SIZE = 60
+
+TANK_WIDTH = 60
+TANK_HEIGHT = 40
+
+TANK1_X = 20
+TANK2_X = WINDOW_WIDTH - 70
+
+TANKS_Y = WINDOW_HEIGHT / 2 - TANK_HEIGHT
+
+BULLET_WIDTH = 20
+BULLET_HEIGHT = 20
+
+
+V_WALL_WIDTH = 20
+V_WALL_HEIGHT = 300
+
+H_WALL_WIDTH = 300
+H_WALL_HEIGHT = 20
+
+WALL1_X = 200
+WALL1_Y = 100
+
+WALL2_X = WINDOW_WIDTH - 200
+WALL2_Y = 100
+
+WALL3_X = 300
+WALL3_Y = 20
+
+WALL4_X = 300
+WALL4_Y = WINDOW_HEIGHT - 50
+
+
+PLAYER_SPEED = 8
+BULLET_SPEED = 8
+WALL_SPEED = 0
+
+
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+WHITE = (255, 255, 255)
+
 PROJECT_PATH = os.path.abspath(__file__ + "/..")
-IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
+RESOURCES_PATH = os.path.join(PROJECT_PATH, "resources")
 
-BLOCK_IMAGE_PATH = os.path.join(IMAGES_PATH, "block.png")
-BALL_IMAGE_PATH = os.path.join(IMAGES_PATH, "ball.png")
-PLATFORM_IMAGE_PATH = os.path.join(IMAGES_PATH, "platform.png")
+TANK1_IMAGE_PATH = os.path.join(RESOURCES_PATH, "tank1.png")
+TANK2_IMAGE_PATH = os.path.join(RESOURCES_PATH, "tank2.png")
+ENEMY_IMAGE_PATH = os.path.join(RESOURCES_PATH, "enemy.png")
+BULLET_IMAGE_PATH = os.path.join(RESOURCES_PATH, "bullet.png")
+WALL_IMAGE_PATH = os.path.join(RESOURCES_PATH, "wall.png")
 
-ICON_PATH = os.path.join(IMAGES_PATH, "icon.png")
-FONT_PATH = os.path.join(PROJECT_PATH, "fonts/font.ttf")
-PLATFORM_SPEED = 10
-BALL_SPEED = 5
-MAP = ["1111111111",
-        "0001111000",
-        "1111111111",
-        "0001111000"]
+FPS = 60
 
-CAPTION = "Arkanoid"
-WIN_TEXT = "Перемога"
-LOSE_TEXT =  "Поразка"
+CAPTION = "Tanks"

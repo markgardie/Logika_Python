@@ -2,7 +2,7 @@ import pygame as pg
 
 class Sprite():
 
-    def __init__(self, x, y, width, height, image_path, speed):
+    def __init__(self, width, height, x, y, image_path, speed):
         self.hitbox = pg.Rect(x, y, width, height)
 
         self.image = pg.image.load(image_path)
