@@ -134,7 +134,9 @@ class Game():
                 self.win_lose()
                 self.update_window()
             else:
-                self.window.screen.blit(self.final_text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+                self.window.screen.blit(self.final_text, (WINDOW_WIDTH / 2 - 150, WINDOW_HEIGHT / 2 - 100))
+                self.update_window()
+                self.event_handler()
                 
 
 
