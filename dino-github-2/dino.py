@@ -33,8 +33,6 @@ class Dino(pygame.sprite.Sprite):
          self.rect = pygame.rect.Rect(self.x, self.y, 44, 47)
 
          self.is_alive = True
-         self.is_jumping = False
-         self.is_crouching = False
 
 
      def update(self):
