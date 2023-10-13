@@ -5,8 +5,16 @@ from Card import Card
 from Constants import*
 import pygame as pg
 from random import randint
+from time import time
+
 
 class Game():
+
+    def __init__(self):
+        self.timer = 0
+        self.goal_card = 0
+        self.scores = 0
+        self.start_time = time()
 
     def create_objects(self):
 
@@ -41,15 +49,23 @@ class Game():
 
     def draw_cards(self):
 
-        card_num = randint(0, len(self.cards) - 1)
+        if self.timer == 0:
 
-        for card in self.cards:
-            pg.draw.rect(self.window.screen, card.color, card.hitbox)
+            self.timer = 60
+        
+            self.goal_card = randint(0, len(self.cards) - 1)
 
+            for card in self.cards:
+                card.set_color(YELLOW)
 
-    def move_objects(self):
+                pygame.draw.rect(self.window.screen, card.color, card.hitbox)
+                pygame.draw.rect(self.window.screen, BLUE, card.hitbox, OUTLINE_THICKNESS)
 
-        pass
+                if self.cards.index(card) == self.goal_card:
+                    self.window.screen.blit(card.text, (card.hitbox.x + TEXT_X_SHIFT, card.hitbox.y + TEXT_Y_SHIFT))
+        else:
+            self.timer -= 1
+
 
     def collisions(self):
         
@@ -59,14 +75,36 @@ class Game():
         x, y = e.pos
         for card in self.cards:
             if card.hitbox.collidepoint(x, y):
-                pass``
+                if self.cards.index(card) == self.goal_card:
+                    card.set_color(GREEN)
+                    self.scores += 1
+                else:
+                    card.set_color(RED) 
+                    self.scores -= 1
+
+                pygame.draw.rect(self.window.screen, card.color, card.hitbox)
+                
 
     def win_lose(self):
-       pass
+        font = pygame.font.Font(FINAL_TEXT_FONT, FINAL_TEXT_SIZE)
+
+        if self.end_time - self.start_time >= 11:
+            self.text = font.render(LOSE_TEXT, True, TEXT_COLOR)
+            self.finish = True
+
+        if scores[0] > 5:
+            self.text = font.render(WIN_TEXT, True, TEXT_COLOR)
+            self.finish = True
+
+
     
     def event_handler(self):
-        pass
-        
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                self.game = False
+            if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
+                self.click(e)
+            
     def update_window(self):
         self.window.clock.tick(FPS)
         pg.display.update()
@@ -79,10 +117,11 @@ class Game():
         while self.game:
             if self.finish:
                 self.window.screen.blit(self.text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+                self.update_window()
             else:
                 self.draw_objects()
-                self.move_objects()
                 self.collisions()
+                self.end_time = time()
                 self.win_lose()
                 self.update_window()
 
