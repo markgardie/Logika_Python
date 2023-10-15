@@ -8,6 +8,7 @@ class ImageRepository():
         self.originalDir = None
         self.filename = None
         self.saveDir = r"\Modified"
+        self.imageEditor = ImageEditor()
 
     def setOriginalDir(self, dir):
         self.originalDir = dir
@@ -35,6 +36,9 @@ class ImageRepository():
         if not(os.path.exists(path) or os.path.isdir(path)):
             os.mkdir(path)
         self.image.save(path)
+
+    def blackAndWhite(self):
+        self.image = self.imageEditor.blackAndWhite(self.image)
 
             
 
