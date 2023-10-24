@@ -16,11 +16,21 @@ class Game():
 
     def collisions(self):
         
-        pass
+        if self.ball.rect.colliderect(self.platform1.rect):
+            self.dir_x = 1
+            self.dir_y = randint(-1, 1)
+            
+        if self.ball.rect.colliderect(self.platform2.rect):
+            self.dir_x = -1
+            self.dir_y = randint(-1, 1)
+
+
+        if self.ball.rect.y < 10: 
+            self.dir_y = 1
 
     def win_lose(self):
        
-        pass
+        font = pg.font.Font
 
     
     def event_handler(self):
