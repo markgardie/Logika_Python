@@ -33,14 +33,30 @@ class NotesRepository():
 
         self.saveFile()
 
-    def addTag(self):
-        pass
+    def addTag(self, noteTitle, tag):
+        for note in self.notes:
+            if note["title"] == noteTitle:
+                note["tags"].append(tag)
 
-    def readTags(self):
-        pass
+        self.saveFile()
 
-    def deleteTag(self):
-        pass
+    def readTags(self, noteTitle):
+        for note in self.notes:
+            if note["title"] == noteTitle:
+                return note["tags"]
+    
+    def deleteTag(self, noteTitle, tag):
+        for note in self.notes:
+            if note["title"] == noteTitle:
+                note["tags"].remove(tag)
 
-    def searchByTag(self):
-        pass
+        self.saveFile()
+
+    def searchByTag(self, searchTag):
+        filteredNotes = []
+        for note in self.notes:
+            for tag in note["tags"]:
+                if tag == searchTag:
+                    filteredNotes.append(note)
+
+        return filteredNotes

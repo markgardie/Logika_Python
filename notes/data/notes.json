@@ -1,1 +1,1 @@
-[{"title": "test1", "text": "text1", "tags": []}, {"title": "test3", "text": "", "tags": []}, {"title": "test4", "text": "", "tags": []}]
+[{"title": "test1", "text": "text1", "tags": ["tag11", "tag13", "tag_common"]}, {"title": "test3", "text": "", "tags": ["tag21", "tag_common"]}, {"title": "test4", "text": "", "tags": []}, {"title": "test2", "text": "", "tags": []}]
