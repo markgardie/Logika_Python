@@ -10,28 +10,34 @@ class Navigation():
         self.mainScreen = Ui_MainScreen()
         self.mainScreen.setupUi(self.mainWidget)
 
+        self.mainWidget.show()
+
         self.repository = NotesRepository()
+        self.showNotesList()
+        self.setListeners()
 
     def setListeners(self):
 
         self.mainScreen.createNoteBtn.clicked.connect(self.createNote)
+        self.mainScreen.deleteNoteBtn.clicked.connect(self.deleteNote)
+        self.mainScreen.saveNoteBtn.clicked.connect(self.saveNote)
 
         self.mainScreen.notesListWidget.itemClicked.connect(self.showText)
 
     def showNotesList(self):
+        self.repository.readNotes()
         for note in self.repository.notes:
             self.mainScreen.notesListWidget.addItem(note["title"])
 
     def showText(self):
-        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
         for note in self.repository.notes:
             if  note["title"] == noteTitle:
                 noteText = note["text"]
-
-        self.mainScreen.noteTextEdit.setText(noteText)
+                self.mainScreen.noteTextEdit.setText(noteText)
 
     def createNote(self):
-        noteTitle, ok = QInputDialog.getText(self.mainScreen, "Додати нотатку", "Введіть нотатку")
+        noteTitle, ok = QInputDialog.getText(self.mainWidget, "Додати нотатку", "Введіть нотатку")
         if ok and noteTitle != "":
             note = {
                 "title": noteTitle,

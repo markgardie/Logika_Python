@@ -1,13 +1,1 @@
-[
-    {
-        "title": "About Sport",
-        "text": "asdsadasdasd",
-        "tags": ["asdsad", "asdsad"]
-    },
-
-    { 
-        "title": "About Sport",
-        "text": "asdsadasdasd",
-        "tags": ["asdsad", "asdsad"]
-    }
-]
+[{"title": "test1", "text": "text1", "tags": []}, {"title": "test3", "text": "", "tags": []}, {"title": "test4", "text": "", "tags": []}]

@@ -11,26 +11,24 @@ class NotesRepository():
             json.dump(self.notes, file)
 
     def createNote(self, newNote):
-        self.notes.append(newNote.__dict__)
+        self.notes.append(newNote)
         self.saveFile()
         pass
 
     def readNotes(self):
         with open(self.path, "r", encoding="utf-8") as file:
-            self.notes = file.read()
+            self.notes = json.load(file)
 
-    def updateNote(self, id, updateNote):
+    def updateNote(self, noteTitle, noteText):
         for note in self.notes:
-            if id == note["id"]:
-                note["title"] = updateNote.title
-                note["text"] = updateNote.text
-                note["tags"] = updateNote.tags
+            if note["title"] == noteTitle:
+                note["text"] = noteText
         
         self.saveFile()
 
-    def deleteNote(self, id):
+    def deleteNote(self, noteTitle):
         for note in self.notes:
-            if id == note["id"]:
+            if note["title"] == noteTitle:
                 self.notes.remove(note)
 
         self.saveFile()
