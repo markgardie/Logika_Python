@@ -1,5 +1,5 @@
 from Sprite import Sprite
-from constants import*
+from Constants import*
 
 class Enemy(Sprite):
 
