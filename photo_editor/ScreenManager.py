@@ -1,5 +1,5 @@
-from ui.MainScreen import MainScreen
-from data.ImageRepository import ImageRepository
+from MainScreen import MainScreen
+from ImageRepository import ImageRepository
 from PyQt5.QtWidgets import QWidget, QFileDialog
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
