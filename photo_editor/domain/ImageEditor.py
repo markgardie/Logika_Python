@@ -7,10 +7,10 @@ class ImageEditor():
         return image.convert("L")
     
     def left(self, image):
-        return image.transpose(Image.ROTATE_270)
+        return image.transpose(Image.ROTATE_90)
     
     def right(self, image):
-        return image.transpose(Image.ROTATE_90)
+        return image.transpose(Image.ROTATE_270)
     
     def mirror(self, image):
         return image.transpose(Image.FLIP_LEFT_RIGHT)

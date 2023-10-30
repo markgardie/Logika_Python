@@ -1,8 +1,8 @@
-from ScreenManager import ScreenManager
+from ui.ScreenManager import ScreenManager
 from PyQt5.QtWidgets import QApplication
 
 
-screenManager = ScreenManager()
 app = QApplication([])
+screenManager = ScreenManager()
 
 app.exec_()
