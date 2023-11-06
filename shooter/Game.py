@@ -16,6 +16,9 @@ class Game():
         
         self.create_enemies()
 
+        self.miss = 0
+        self.scores = 0
+
     def create_enemies(self):
         self.enemies = pg.sprite.Group()
 
@@ -41,10 +44,25 @@ class Game():
         
     def collisions(self):
         
-        pass
+        collides = pg.sprite.groupcollide(self.enemies, self.bullets, True, True)
+
+        for collide in collides:
+            self.scores += 1
+
+            x = randint(ENEMY_X_START, ENEMY_X_END)
+            speed = randint(1, 5)
+            
+            enemy = Enemy(ENEMY_WIDTH, ENEMY_HEGHT, 
+                          x, ENEMY_Y,
+                          ENEMY_IMAGE_PATH, speed)
+            
+            self.enemies.add(enemy)
 
     def win_lose(self):
-        pass
+        
+        if self.scores >= GOAL:
+            self.finish = True
+            self.text = font.render(WIN_TEXT, True, BLACK)
         
 
     def update_window(self):

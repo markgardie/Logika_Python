@@ -39,13 +39,22 @@ class Game():
         self.player.controls(pg.K_a, pg.K_d, pg.K_w, pg.K_s)
         self.enemy.move()
 
-    def collisions(self):
-        
-        pass
 
     def win_lose(self):
-        pass
+
+        font = pg.font.Font(None, FONT_SIZE)
+
+        if (self.player.hitbox.colliderect(self.enemy.hitbox)
+        or self.player.hitbox.colliderect(self.enemy.hitbox)
+        or self.player.hitbox.colliderect(self.enemy.hitbox)
+        or self.player.hitbox.colliderect(self.enemy.hitbox)):
+            self.finish = True
+            self.text = font.render(LOSE_TEXT, True, BLACK)
         
+
+        if self.player.hitbox.colliderect(self.goal.hitbox):
+            self.finish = True
+            self.text = font.render(WIN_TEXT, True, BLACK)
 
     def update_window(self):
         self.window.clock.tick(FPS)
