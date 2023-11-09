@@ -1,11 +1,17 @@
 from Sprite import Sprite
-from constants import*
+from Constants import*
 
 class Enemy(Sprite):
 
     def move(self):
-        while self.rect.x < ENEMY_RIGHT_POINT:
-            self.rect.x += ENEMY_SPEED
-        
-        while self.rect.x > ENEMY_LEFT_POINT:
-            self.rect.x -= ENEMY_SPEED
+
+        if self.rect.x <= MONSTER_RIGHT_POINT:
+            self.direction = "right"
+        if self.rect.x >= MONSTER_LEFT_POINT:
+            self.direction = "left"
+
+
+        if self.direction == "left":
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
