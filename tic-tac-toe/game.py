@@ -19,18 +19,21 @@ class Game():
         # дз: 9 комірок
         pass
 
-    def move_objects(self):
-
-        pass
-
-    def collisions(self):
-        pass
+    def collisions(self, x, y):
+        for cell in self.cells:
+            if cell.rect.collidepoint(x, y):
+                cell.click(self.player_id)
 
     def win_lose(self):
         pass
     
     def event_handler(self):
-        pass
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.game = False
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                x, y = event.pos
+                self.collisions(x, y)
         
     def update_window(self):
         self.window.clock.tick(FPS)
