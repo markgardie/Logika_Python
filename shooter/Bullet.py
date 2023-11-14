@@ -4,6 +4,7 @@ from Constants import*
 
 class Bullet(Sprite):
 
+    # постійний, автоматичний рух кулі вгору
     def move(self):
         self.rect.y -= self.speed
 
