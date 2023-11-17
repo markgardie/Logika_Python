@@ -12,10 +12,14 @@ class Cell(Sprite):
 
         # дз: зображення крестика
 
+        self.empty = True
+
     def click(self, player_id):
-        if player_id == 1:
-            self.image = self.cross_image
-        else:
-            self.image = self.zero_image
+        if self.empty:
+            if player_id == 1:
+                self.image = self.cross_image
+            else:
+                self.image = self.zero_image
+            self.empty = False
 
     

@@ -12,6 +12,11 @@ class Game():
         )
         
         self.player_id = 1
+
+        self.map = [0, 0, 0,
+                    0, 0, 0,
+                    0, 0, 0]
+
         # дз: 9 комірок
 
 
@@ -24,8 +29,21 @@ class Game():
             if cell.rect.collidepoint(x, y):
                 cell.click(self.player_id)
 
+                if cell.empty:
+                    self.map[self.cells.index(cell)] = self.player_id
+                    if self.player_id == 1:
+                        self.player_id = 2
+                    else:
+                        self.player_id = 1
+
     def win_lose(self):
-        pass
+
+        font = pg.font.Font(None, FONT_SIZE)
+
+        if self.map[0] == self.map[1] and self.map[1] == self.map[2]:
+            self.finish = True
+            self.text = font.render(f"Переміг гравець: {self.player_id}")
+
     
     def event_handler(self):
         for event in pg.event.get():
