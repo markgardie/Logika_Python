@@ -39,6 +39,22 @@ class Game():
                           WALL_X, WALL3_Y, 
                           WALL3_WIDTH, WALL3_HEIGHT
                           )
+        
+        self.wall4 = Wall(WALL_COLOR1, WALL_COLOR2, WALL_COLOR3, 
+                          WALL4_X, WALL4_Y, 
+                          WALL4_WIDTH, WALL4_HEIGHT
+                          )
+        
+        self.wall5 = Wall(WALL_COLOR1, WALL_COLOR2, WALL_COLOR3, 
+                          WALL5_X, WALL5_Y, 
+                          WALL5_WIDTH, WALL5_HEIGHT
+                          )
+        
+        self.wall6 = Wall(WALL_COLOR1, WALL_COLOR2, WALL_COLOR3, 
+                          WALL6_X, WALL6_Y, 
+                          WALL6_WIDTH, WALL6_HEIGHT
+                          )
+
 
     # малювання об'єктів
     def draw_objects(self):
@@ -50,6 +66,9 @@ class Game():
         self.window.screen.blit(self.wall1.image, (self.wall1.rect.x, self.wall1.rect.y))
         self.window.screen.blit(self.wall2.image, (self.wall2.rect.x, self.wall2.rect.y))
         self.window.screen.blit(self.wall3.image, (self.wall3.rect.x, self.wall3.rect.y))
+        self.window.screen.blit(self.wall4.image, (self.wall4.rect.x, self.wall4.rect.y))
+        self.window.screen.blit(self.wall5.image, (self.wall5.rect.x, self.wall5.rect.y))
+        self.window.screen.blit(self.wall6.image, (self.wall6.rect.x, self.wall6.rect.y))
 
         # нюанси: для малювання одиночних об'єктів використовуємо blit
         # а для групи - draw
