@@ -94,7 +94,10 @@ class Game():
         if (self.player.rect.colliderect(self.enemy.rect)
         or self.player.rect.colliderect(self.wall1.rect)
         or self.player.rect.colliderect(self.wall2.rect)
-        or self.player.rect.colliderect(self.wall3.rect)):
+        or self.player.rect.colliderect(self.wall3.rect)
+        or self.player.rect.colliderect(self.wall4.rect)
+        or self.player.rect.colliderect(self.wall5.rect)
+        or self.player.rect.colliderect(self.wall6.rect)):
             self.finish = True
             self.text = font.render(LOSE_TEXT, True, BLACK)
         
