@@ -10,7 +10,8 @@ class Cell(Sprite):
         self.cross_image = pg.image.load(cross_image_path)
         self.cross_image = pg.transform.scale(self.cross_image, (width, height))
 
-        # дз: зображення крестика
+        self.zero_image = pg.image.load(zero_image_path)
+        self.zero_image = pg.transform.scale(self.zero_image, (width, height))
 
         self.empty = True
 

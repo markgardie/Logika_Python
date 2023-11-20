@@ -1,6 +1,9 @@
 import pygame as pg
 from constants import*
 from window import Window
+from cell import Cell
+
+pg.init()
 
 class Game():
 
@@ -8,26 +11,41 @@ class Game():
         
         self.window = Window(
             WINDOW_WIDTH, WINDOW_HEIGHT,
-            BG_IMAGE_PATH, CAPTION
+            BG_COLOR, CAPTION
         )
         
         self.player_id = 1
 
-        self.map = [0, 0, 0,
-                    0, 0, 0,
-                    0, 0, 0]
+        self.map = [[0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0]]
 
-        # дз: 9 комірок
+        self.cells = []
+        self.create_cells()
 
+    def create_cells(self):
+        x = FIRST_CELL_X
+        y = FIRST_CELL_Y
+
+        for row in self.map:
+            for place in row:
+                cell = Cell(
+                    CELL_WIDTH, CELL_HEIGHT,
+                    START_IMAGE_PATH, CROSS_IMAGE_PATH, ZERO_IMAGE_PATH,
+                    x, y
+                )
+                self.cells.append(cell)
+                x += X_STEP
+            x = FIRST_CELL_X
+            y += Y_STEP
 
     def draw_objects(self):
-        # дз: 9 комірок
-        pass
+        for cell in self.cells:
+            self.window.screen.blit(cell.image, (cell.rect.x, cell.rect.y)) 
 
     def collisions(self, x, y):
         for cell in self.cells:
             if cell.rect.collidepoint(x, y):
-                cell.click(self.player_id)
 
                 if cell.empty:
                     self.map[self.cells.index(cell)] = self.player_id
@@ -36,13 +54,17 @@ class Game():
                     else:
                         self.player_id = 1
 
+                cell.click(self.player_id)
+
+               
+
     def win_lose(self):
 
         font = pg.font.Font(None, FONT_SIZE)
 
-        if self.map[0] == self.map[1] and self.map[1] == self.map[2]:
+        if self.map[0][0] == self.map[0][1] and self.map[0][1] == self.map[0][2]:
             self.finish = True
-            self.text = font.render(f"Переміг гравець: {self.player_id}")
+            self.text = font.render(f"Переміг гравець: {self.player_id}", True, BLACK)
 
     
     def event_handler(self):
@@ -65,11 +87,11 @@ class Game():
         while self.game:
             if self.finish:
                 self.window.screen.blit(self.text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+                self.update_window()
+                self.event_handler()
             else:
                 self.draw_objects()
-                self.move_objects()
-                self.collisions()
-                self.win_lose()
                 self.update_window()
+                self.event_handler()
 
 Game().game_loop()
