@@ -4,6 +4,7 @@ from window import Window
 from cell import Cell
 
 pg.init()
+font = pg.font.Font(None, FONT_SIZE)
 
 class Game():
 
@@ -16,19 +17,16 @@ class Game():
         
         self.player_id = 1
 
-        self.map = [[0, 0, 0],
-                    [0, 0, 0],
-                    [0, 0, 0]]
-
         self.cells = []
+        self.empty_cells = 9
         self.create_cells()
 
     def create_cells(self):
         x = FIRST_CELL_X
         y = FIRST_CELL_Y
 
-        for row in self.map:
-            for place in row:
+        for i in range(3):
+            for j in range(3):
                 cell = Cell(
                     CELL_WIDTH, CELL_HEIGHT,
                     START_IMAGE_PATH, CROSS_IMAGE_PATH, ZERO_IMAGE_PATH,
@@ -46,26 +44,104 @@ class Game():
     def collisions(self, x, y):
         for cell in self.cells:
             if cell.rect.collidepoint(x, y):
-
-                if cell.empty:
-                    self.map[self.cells.index(cell)] = self.player_id
+                    cell.click(self.player_id)
+                    self.empty_cells -= 1
                     if self.player_id == 1:
                         self.player_id = 2
                     else:
                         self.player_id = 1
 
-                cell.click(self.player_id)
-
-               
+                
 
     def win_lose(self):
 
-        font = pg.font.Font(None, FONT_SIZE)
-
-        if self.map[0][0] == self.map[0][1] and self.map[0][1] == self.map[0][2]:
+        if (
+            self.cells[0].filled != 0 and
+            self.cells[0].filled == self.cells[1].filled and 
+            self.cells[1].filled == self.cells[2].filled
+        ):
+            
             self.finish = True
-            self.text = font.render(f"Переміг гравець: {self.player_id}", True, BLACK)
+            self.create_final_text()
 
+        if (
+            self.cells[3].filled != 0 and
+            self.cells[3].filled == self.cells[4].filled and 
+            self.cells[4].filled == self.cells[5].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if (
+            self.cells[6].filled != 0 and
+            self.cells[6].filled == self.cells[7].filled and 
+            self.cells[7].filled == self.cells[8].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if (
+            self.cells[0].filled != 0 and
+            self.cells[0].filled == self.cells[3].filled and 
+            self.cells[3].filled == self.cells[6].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if (
+            self.cells[1].filled != 0 and
+            self.cells[1].filled == self.cells[4].filled and 
+            self.cells[4].filled == self.cells[7].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if (
+            self.cells[2].filled != 0 and
+            self.cells[2].filled == self.cells[5].filled and 
+            self.cells[5].filled == self.cells[8].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if (
+            self.cells[0].filled != 0 and
+            self.cells[0].filled == self.cells[4].filled and 
+            self.cells[4].filled == self.cells[8].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if (
+            self.cells[2].filled != 0 and
+            self.cells[2].filled == self.cells[4].filled and 
+            self.cells[4].filled == self.cells[6].filled
+        ):
+            
+            self.finish = True
+            self.create_final_text()
+
+        if self.empty_cells == 0:
+            self.finish = True
+            self.text = font.render(f"Нічия", True, BLACK)
+
+
+    def create_final_text(self):
+        if self.player_id == 1:
+            self.player_id = 2
+        else: 
+            self.player_id = 1
+
+        self.text = font.render(f"Переміг гравець: {self.player_id}", True, BLACK)
+        
+        
+        
     
     def event_handler(self):
         for event in pg.event.get():
@@ -86,12 +162,13 @@ class Game():
 
         while self.game:
             if self.finish:
-                self.window.screen.blit(self.text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+                self.window.screen.blit(self.text, (WINDOW_WIDTH / 2 - 200, WINDOW_HEIGHT / 2 - 100))
                 self.update_window()
                 self.event_handler()
             else:
-                self.draw_objects()
                 self.update_window()
+                self.win_lose()
+                self.draw_objects()
                 self.event_handler()
 
 Game().game_loop()

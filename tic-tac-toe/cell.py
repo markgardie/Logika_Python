@@ -13,14 +13,16 @@ class Cell(Sprite):
         self.zero_image = pg.image.load(zero_image_path)
         self.zero_image = pg.transform.scale(self.zero_image, (width, height))
 
-        self.empty = True
+        self.filled = 0
 
     def click(self, player_id):
-        if self.empty:
+        if self.filled == 0:
             if player_id == 1:
                 self.image = self.cross_image
+                self.filled = 1
             else:
                 self.image = self.zero_image
-            self.empty = False
+                self.filled = 2
+            
 
     
