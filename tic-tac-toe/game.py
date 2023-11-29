@@ -41,27 +41,43 @@ class Game():
         for cell in self.cells:
             self.window.screen.blit(cell.image, (cell.rect.x, cell.rect.y)) 
 
+    # перевіряє колізію кліка та комірок
     def collisions(self, x, y):
         for cell in self.cells:
+            # якщо клік було зроблено по комірці
             if cell.rect.collidepoint(x, y):
+                    # у комірки змінюється зображення
                     cell.click(self.player_id)
+                    # зменшується кількість пустих комірок
                     self.empty_cells -= 1
+
+                    # проводиться передача ходу
+                    # наступному гравцеві
                     if self.player_id == 1:
                         self.player_id = 2
                     else:
                         self.player_id = 1
 
                 
-
+    # перевірка перемоги поразки
     def win_lose(self):
 
+        # є 8 умов перемоги:
+        # 3 ряди, 3 стовпці і 2 діагоналі
         if (
+            # перевіряємо, аби комірки були не пусті (не нуль)
             self.cells[0].filled != 0 and
+
+            # перевяряємо аби всі три комірки в певній комбінації
+            # мали однакове число
             self.cells[0].filled == self.cells[1].filled and 
             self.cells[1].filled == self.cells[2].filled
         ):
             
+            # подаємо сигнал, що треба перемикатись 
+            # на фінальний екран
             self.finish = True
+            # створюємо текст перемоги
             self.create_final_text()
 
         if (
