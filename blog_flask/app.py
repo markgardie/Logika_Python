@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
 from data.posts_repository import PostsRepository
 
 app = Flask(__name__)
@@ -15,5 +15,17 @@ def post(post_id):
     post = repository.get_post(post_id)
     return render_template('post.html', post = post)
 
+@app.route('/create')
+def create():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
 
+        if not title:
+            flash('Title is required!')
+        else:
+            repository.create_post(title, content)
+            return redirect(url_for('index'))
+        
+    return render_template('create.html')
 

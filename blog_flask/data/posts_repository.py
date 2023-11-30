@@ -18,3 +18,10 @@ class PostsRepository():
         if post is None:
             abort(404)
         return post
+    
+    def create_post(title, content):
+        conn = get_connection()
+        conn.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
+                            (title, content))
+        conn.commit()
+        conn.close()
