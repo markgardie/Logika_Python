@@ -7,6 +7,7 @@ class Game(ShowBase):
  def __init__(self):
      ShowBase.__init__(self)
      # завантажуємо модель
+
      self.model = loader.loadModel('models/environment')
      # переміщення моделі в рендер, зміна батька
      self.model.reparentTo(render)
@@ -15,4 +16,4 @@ class Game(ShowBase):
      # спробуйте перемістити модель по всіх осях
      self.model.setPos(-2, 25, -3)
     
-Game.run()
+Game().run()
