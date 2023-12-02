@@ -80,7 +80,7 @@ class Game():
             # створюємо текст перемоги
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[3].filled != 0 and
             self.cells[3].filled == self.cells[4].filled and 
             self.cells[4].filled == self.cells[5].filled
@@ -89,7 +89,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[6].filled != 0 and
             self.cells[6].filled == self.cells[7].filled and 
             self.cells[7].filled == self.cells[8].filled
@@ -98,7 +98,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[0].filled != 0 and
             self.cells[0].filled == self.cells[3].filled and 
             self.cells[3].filled == self.cells[6].filled
@@ -107,7 +107,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[1].filled != 0 and
             self.cells[1].filled == self.cells[4].filled and 
             self.cells[4].filled == self.cells[7].filled
@@ -116,7 +116,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[2].filled != 0 and
             self.cells[2].filled == self.cells[5].filled and 
             self.cells[5].filled == self.cells[8].filled
@@ -125,7 +125,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[0].filled != 0 and
             self.cells[0].filled == self.cells[4].filled and 
             self.cells[4].filled == self.cells[8].filled
@@ -134,7 +134,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if (
+        elif (
             self.cells[2].filled != 0 and
             self.cells[2].filled == self.cells[4].filled and 
             self.cells[4].filled == self.cells[6].filled
@@ -143,7 +143,7 @@ class Game():
             self.finish = True
             self.create_final_text()
 
-        if self.empty_cells == 0:
+        elif self.empty_cells == 0:
             self.finish = True
             self.text = font.render(f"Нічия", True, BLACK)
 
