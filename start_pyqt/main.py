@@ -2,7 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
 from random import randint 
 
-app = QApplication([])
 
 class ScreenManager():
 
@@ -24,6 +23,11 @@ class ScreenManager():
 class MainScreen(QWidget):
 
     def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Генератор чисeл")
+        self.resize(800, 600)
+
         self.createWidgets()
         self.createLayouts()
         self.setupScreen()
@@ -34,8 +38,16 @@ class MainScreen(QWidget):
         self.infoLabel = QLabel("Натисни на кнопку")
 
     def createLayouts(self):
-        pass
+        self.mainColumn = QVBoxLayout()
 
     def setupScreen(self):
-        pass
+        self.mainColumn.addWidget(self.infoLabel, alignment = Qt.AlignCenter)
+        self.mainColumn.addWidget(self.numberLabel, alignment = Qt.AlignCenter)
+        self.mainColumn.addWidget(self.generateButton, alignment = Qt.AlignCenter)
+        
+        self.setLayout(self.mainColumn)
 
+app = QApplication([])
+scr = ScreenManager()
+
+app.exec_()
