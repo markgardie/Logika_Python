@@ -178,7 +178,7 @@ class Game():
 
         while self.game:
             if self.finish:
-                self.window.screen.blit(self.text, (WINDOW_WIDTH / 2 - 200, WINDOW_HEIGHT / 2 - 100))
+                self.window.screen.blit(self.text, (WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT / 2 - 100))
                 self.update_window()
                 self.event_handler()
             else:
