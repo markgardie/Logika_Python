@@ -8,7 +8,7 @@ repository = PostsRepository()
 @app.route("/")
 def index():
     posts = repository.get_posts()
-    return render_template("index.html", posts = posts)
+    return render_template('index.html', posts = posts)
 
 @app.route('/<int:post_id>')
 def post(post_id):
