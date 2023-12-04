@@ -1,4 +1,4 @@
-from direct.showbase.ShowBase import ShowBase, Loader
+from direct.showbase.ShowBase import ShowBase
 
 
 class Game(ShowBase):
@@ -6,15 +6,13 @@ class Game(ShowBase):
     def __init__(self):
         ShowBase.__init_(self)
 
-        loader = Loader()
-
         model = loader.loadModel('models/environment')
         model.reparentTo(render)
         model.setScale(0.1)
         model.setPos(-2, 25, -3)
 
 
-Game.run()
+Game().run()
 
         
 
