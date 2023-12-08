@@ -50,6 +50,8 @@ class MapManager():
                    x += 1
                y += 1
 
+       return x,y
+
     def clear(self):
        """обнуляє карту"""
        self.land.removeNode()
