@@ -21,16 +21,4 @@ class MainScreen(QWidget):
 
     def setupScreen(self):
 
-        self.row1.addWidget(self.questionLabel)
-
-        self.row2.addWidget(self.ansRadio1)
-        self.row2.addWidget(self.ansRadio2)
-
-        self.row3.addWidget(self.ansRadio3)
-        self.row3.addWidget(self.ansRadio4)
-
-        self.mainColumn.addLayout(self.row1)
-        self.mainColumn.addLayout(self.row2)
-        self.mainColumn.addLayout(self.row3)
-
-        self.setLayout(self.mainColumn)
+        pass
