@@ -18,6 +18,13 @@ KEY_TURN_RIGHT = 'm'    # поворот камери ліворуч (а сві�
 KEY_BUILD = 'b'     # побудувати блок перед собою
 KEY_DESTROY = 'v'
 
+HERO_COLOR = (1, 0.5, 0)
+SCALE = 0.3
+HEADING = 180
+
+CAMERA_POS = (0, 0, 1.5)
+
+
 class Hero():
    def __init__(self, pos, land):
        self.land = land
