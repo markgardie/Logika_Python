@@ -9,3 +9,17 @@ class PostsRepository():
         conn.close()
 
         return posts
+    
+    def edit_post(post_id, title, content):
+        conn = get_connection()
+        conn.execute("UPDATE posts SET title = ?, content = ? WHERE id = ?",
+                     (title, content, post_id))
+        conn.commit()
+        conn.close()
+
+    def delete_post(post_id):
+        conn = get_connection()
+        conn.execute("DELETE FROM posts WHERE id = ?",
+                     (post_id,))
+        conn.commit()
+        conn.close()
