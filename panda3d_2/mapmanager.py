@@ -53,6 +53,35 @@ class MapManager():
     def clear(self):
         self.land.removeNode()
         self.startNew()
+
+    
+    def findBlocks(self, pos):
+        return self.land.findAllMatches("=at=" + str(pos))
+    
+
+    def isEmpty(self, pos):
+        blocks = self.findBlocks(pos)
+
+        if blocks:
+            return False
+        else:
+            return True
+        
+
+    def findHighestEmpty(self, pos):
+        x, y, z = pos
+        z = 1
+        while not self.isEmpty((x, y, z)):
+            z += 1
+        return (x, y, z)
+    
+    def addBlock(self, pos):
+        self.block = loader.loadModel(self.model)
+        self.block.setTexture(loader.loadTexture(self.texture))
+        self.block.setPos(pos)
+        self.color = self.getColor(pos[2])
+        self.block.setColor(self.color)
+        self.block.reparentTo(self.land)
                 
 
 
