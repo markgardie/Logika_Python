@@ -1,4 +1,5 @@
 from direct.showbase.ShowBase import ShowBase
+import pickle
 
 class MapManager():
     def __init__(self):
@@ -97,5 +98,48 @@ class MapManager():
        pos = x, y, z - 1
        for block in self.findBlocks(pos):
                block.removeNode()
+
+    def saveMap(self):
+       """зберігає всі блоки, включаючи споруди, у бінарний файл"""
+
+
+       """повертає колекцію NodePath для всіх існуючих у карті світу блоків"""
+       blocks = self.land.getChildren()
+       # відкриваємо бінарний файл на запис
+       with open('my_map.dat', 'wb') as fout:
+
+
+           # зберігаємо на початок файлу кількість блоків
+           pickle.dump(len(blocks), fout)
+
+
+           # обходимо всі блоки
+           for block in blocks:
+               # зберігаємо позицію
+               x, y, z = block.getPos()
+               pos = (int(x), int(y), int(z))
+               pickle.dump(pos, fout)
+
+
+    def loadMap(self):
+       # видаляємо всі блоки
+       self.clear()
+
+
+       # відкриваємо бінарний файл на читання
+       with open('my_map.dat', 'rb') as fin:
+          
+           # зчитуємо кількість блоків
+           length = pickle.load(fin)
+
+
+           for i in range(length):
+               # зчитуємо позицію
+               pos = pickle.load(fin)
+
+
+               # створюємо новий блок
+               self.addBlock(pos)
+
 
 

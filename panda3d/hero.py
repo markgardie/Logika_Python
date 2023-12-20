@@ -24,6 +24,8 @@ HEADING = 180
 
 CAMERA_POS = (0, 0, 1.5)
 
+KEY_SAVEMAP = 'k'
+KEY_LOADMAP = 'l'
 
 class Hero():
    def __init__(self, pos, land):
@@ -231,3 +233,10 @@ class Hero():
 
        base.accept(KEY_BUILD, self.build)
        base.accept(KEY_DESTROY, self.destroy)
+
+    
+       base.accept(KEY_SAVEMAP, self.land.saveMap)
+       base.accept(KEY_LOADMAP, self.land.loadMap)
+
+
+
