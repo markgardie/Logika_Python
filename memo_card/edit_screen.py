@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QWidget, QPushButton, QHBoxLayout, QVBoxLayout, 
-    QLabel, QRadioButton, QSpinBox, QGroupBox, QButtonGroup, QLineEdit
+    QLabel, QRadioButton, QSpinBox, QGroupBox, QButtonGroup
 )
 
 WINDOW_WIDTH = 800
@@ -22,20 +22,13 @@ class QuestionScreen(QWidget):
         self.setupScreen()
 
     def createWidgets(self):
-        self.questionEdit = QLineEdit()
-        self.rightAnswerEdit = QLineEdit()
-        self.wrongAnswerEdit1 = QLineEdit()
-        self.wrongAnswerEdit2 = QLineEdit()
-        self.wrongAnswerEdit3 = QLineEdit()
+        self.назва_віджета = Назва_класу(текст)
 
 
     def createLayouts(self):
         
-        
-
-        
-
+        self.назва_віджета = Назва_класу()
 
     def setupScreen(self):
 
-       
+        pass
