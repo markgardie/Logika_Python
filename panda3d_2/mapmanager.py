@@ -82,7 +82,25 @@ class MapManager():
         self.color = self.getColor(pos[2])
         self.block.setColor(self.color)
         self.block.reparentTo(self.land)
-                
+
+    
+    def buildBlock(self, pos):
+        x, y, z = pos
+        new = self.findHighestEmpty(pos)
+        if new[2] < z + 1:
+            self.addBlock(new)
+
+    
+    def delBlock(self, pos):
+        blocks = self.findBlocks(pos)
+        for block in blocks:
+            block.removeNode() 
+
+    def delBlockFrom(self, pos):
+        x, y, z = self.findHighestEmpty(pos)
+        pos = x, y, z - 1
+        for block in self.findBlocks(pos):
+            block.removeNode()
 
 
     
