@@ -1,0 +1,57 @@
+
+import os
+import pygame as pg
+
+pg.init()
+
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
+
+PLAYER_WIDTH = 60
+PLAYER_HEIGHT = 80
+PLAYER_SPEED = 5
+
+ENEMY_WIDTH = 80
+ENEMY_HEGHT = 50
+ENEMY_Y = -40
+ENEMY_X_START = 80
+ENEMY_X_END = WINDOW_WIDTH - ENEMY_X_START
+
+BULLET_SPEED = 15
+BULLET_WIDTH = 15
+BULLET_HEIGHT = 20
+
+
+PROJECT_PATH = os.path.abspath(__file__ + "/..")
+RESOURCES_PATH = os.path.join(PROJECT_PATH, "resources")
+
+BACKGROUND_IMAGE_PATH = os.path.join(RESOURCES_PATH, "galaxy.jpg")
+PLAYER_IMAGE_PATH = os.path.join(RESOURCES_PATH, "rocket.png")
+ENEMY_IMAGE_PATH = os.path.join(RESOURCES_PATH, "ufo.png")
+BULLET_IMAGE_PATH = os.path.join(RESOURCES_PATH, "bullet.png")
+BACKGROUND_SOUND_PATH = os.path.join(RESOURCES_PATH, "space.ogg")
+FIRE_SOUND_PATH = os.path.join(RESOURCES_PATH, "fire.ogg")
+
+CAPTION = 'SHOOTER'
+
+FPS = 60
+
+ENEMY_NUMBER = 5
+
+FONT = pg.font.Font(None, 36)
+
+MISS_TEXT = "Пропущено:"
+SCORES_TEXT = "Рахунок:"
+WIN_TEXT = "Перемога"
+LOSE_TEXT = "Поразка"
+TEXT_COLOR = (255, 255, 255)
+
+MISS_TEXT_COR = (10, 50)
+
+SCORES_TEXT_COR = (10, 20)
+
+GOAL = 5
+MAX_MISS = 7
+
+BACKGROUND_SOUND = pg.mixer.Sound(BACKGROUND_SOUND_PATH)
+FIRE_SOUND = pg.mixer.Sound(FIRE_SOUND_PATH)

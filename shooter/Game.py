@@ -4,18 +4,28 @@ from random import randint
 class Game():
 
     def create_objects(self):
-        pass
+        self.enemies = pygame.sprite.Group()
 
     def create_enemy(self):
         x = randint(ENEMY_X_START, ENEMY_X_END)
         speed = randint(1, 5)
 
+        enemy = Enemy(
+                ENEMY_WIDTH, ENEMY_HEIGHT, 
+                x, ENEMY_Y,
+                ENEMY_IMAGE_PATH, speed
+            )
+        
+        self.enemies.add(enemy)
+
+
     def draw_objects(self):
-        pass
+        # blit
+        self.enemies.draw()
 
     def move_objects(self):
-
-        pass
+        # controls
+        self.enemies.update()
 
     def collisions(self):
         
