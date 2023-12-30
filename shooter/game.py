@@ -4,17 +4,22 @@ from random import randint
 class Game():
 
     def create_objects(self):
-        pass
+        self.enemies = pg.sprite.Group()
+        # група куль
+        # один гравець
 
     def create_enemy(self):
         pass
 
     def draw_objects(self):
-        pass
+        self.enemies.draw()
+        # група куль
+        # один гравець
 
     def move_objects(self):
-
-        pass
+        self.enemies.update()
+        # група куль
+        # один гравець
 
     def collisions(self):
         pass
