@@ -1,15 +1,44 @@
 import pygame as pg
 from random import randint
+from player import Player
+from enemy import Enemy
+from window import Window
+from constants import*
 
 class Game():
 
     def create_objects(self):
+
+        self.window = Window(
+            WINDOW_WIDTH, WINDOW_HEIGHT,
+            CAPTION, BACKGROUND_IMAGE_PATH
+        )
+
         self.enemies = pg.sprite.Group()
-        # група куль
-        # один гравець
+        self.bullets = pg.sprite.Group()
+        self.player = Player(
+            PLAYER_WIDTH, PLAYER_HEIGHT,
+            WINDOW_WIDTH / 2, WINDOW_HEIGHT - 50,
+            PLAYER_IMAGE_PATH, PLAYER_SPEED
+        )
+
+        self.scores = 0
+        self.miss = 0
+
+        for i in range(ENEMY_NUMBER):
+            self.create_enemy()
 
     def create_enemy(self):
-        pass
+        x = randint(ENEMY_X_START, ENEMY_X_END)
+        speed = randint(1, 5)
+
+        enemy = Enemy(
+                ENEMY_WIDTH, ENEMY_HEIGHT, 
+                x, ENEMY_Y,
+                ENEMY_IMAGE_PATH, speed
+            )
+        
+        self.enemies.add(enemy)
 
     def draw_objects(self):
         self.enemies.draw()
@@ -22,8 +51,11 @@ class Game():
         # один гравець
 
     def collisions(self):
-        pass
+        collides = pg.sprite.groupcollide(self.bullets, self.enemies, True, True)
 
+        for c in collides:
+            self.scores += 1
+            self.create_enemy()
 
     def win_lose(self):
        
