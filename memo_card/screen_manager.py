@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QMessageBox
 from edit_screen import EditScreen
 from question_screen import QuestionScreen
 from question import Question
+from random import choice, shuffle
+from time import sleep
 
 Q1 = Question('Яблуко', 'apple', 'application', 'pinapple', 'apply')
 Q2 = Question('Дім', 'house', 'horse', 'hurry', 'hour')
@@ -24,13 +26,41 @@ class ScreenManager():
             self.questionScreen.ansButton4,
         ]
 
+        self.setNewQuestion()
+
     def setListeners(self):
         pass
+    
+    
+    def setNewQuestion(self):
+        self.currentQuestion = choice(QUESTIONS)
+
+        self.questionScreen.questionLabel.setText(self.currentQuestion.question)
+        self.questionScreen.rightAnswerLabel.setText(self.currentQuestion.rightAnswer)
+
+        shuffle(self.radioAnswers)
+
+        self.radioAnswers[0].setText(self.currentQuestion.wrongAnswer1)
+        self.radioAnswers[1].setText(self.currentQuestion.wrongAnswer2)
+        self.radioAnswers[2].setText(self.currentQuestion.wrongAnswer3)
+        self.radioAnswers[3].setText(self.currentQuestion.rightAnswer)
+
     
     def checkAnswer(self):
         self.questionScreen.radioGroup.setExclusive(False)
 
-        # перевірка відповіді
+        for ansButton in self.radioAnswers:
+            if ansButton.isChecked():
+                if ansButton.text() == self.questionScreen.rightAnswerLabel.text():
+                    self.currentQuestion.gotRight()
+                    self.questionScreen.resultLabel.setText("Правильно")
+                    ansButton.setChecked(False)
+                    break
+
+        else:
+            self.currentQuestion.gotWrong()
+            self.questionScreen.resultLabel.setText("Не правильно")
+
 
         self.questionScreen.radioGroup.setExclusive(True)
 
