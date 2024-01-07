@@ -6,7 +6,7 @@ WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 TITLE = "Генератор чисeл"
 
-class Screen(QWidget):
+class MainScreen(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -25,7 +25,12 @@ class Screen(QWidget):
         self.generateButton = QPushButton("Згенерувати")
 
     def createLayouts(self):
-        pass
+        self.mainColumn = QVBoxLayout()
 
     def setupScreen(self):
-        pass
+        self.mainColumn.addWidget(self.infoLabel, alignment=Qt.AlignCenter)
+        self.mainColumn.addWidget(self.numberLabel, alignment=Qt.AlignCenter)
+        self.mainColumn.addWidget(self.generateButton, alignment=Qt.AlignCenter)
+
+        self.setLayout(self.mainColumn)
+
