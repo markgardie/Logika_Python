@@ -1,10 +1,29 @@
 import pygame as pg
 from random import randint
+from Constants import*
+from Enemy import*
+from Player import*
+from Window import*
 
 class Game():
 
     def create_objects(self):
-        self.enemies = pygame.sprite.Group()
+
+        self.window = Window(
+            WINDOW_WIDTH, WINDOW_HEIGHT,
+            CAPTION, BACKGROUND_IMAGE_PATH
+        )
+
+        self.enemies = pg.sprite.Group()
+        self.bullets = pg.sprite.Group()
+        self.player = Player(
+            PLAYER_WIDTH, PLAYER_HEIGHT,
+            WINDOW_WIDTH / 2, WINDOW_HEIGHT - 50,
+            PLAYER_IMAGE_PATH, PLAYER_SPEED
+        )
+
+        self.scores = 0
+        self.miss = 0
 
     def create_enemy(self):
         x = randint(ENEMY_X_START, ENEMY_X_END)
@@ -20,12 +39,16 @@ class Game():
 
 
     def draw_objects(self):
-        # blit
-        self.enemies.draw()
+        self.enemies.draw(self.window.screen)
+        self.bullets.draw(self.window.screen)
+        self.window.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
+
+
 
     def move_objects(self):
-        # controls
         self.enemies.update()
+        self.bullets.update()
+        self.player.controls(pg.K_a, pg.K_d)
 
     def collisions(self):
         
@@ -51,6 +74,8 @@ class Game():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.game = False
+            if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                self.player.fire()
             
     def update_window(self):
         self.window.clock.tick(FPS)
