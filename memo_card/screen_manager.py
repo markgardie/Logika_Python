@@ -65,4 +65,22 @@ class ScreenManager():
         self.questionScreen.radioGroup.setExclusive(True)
 
     def clickOk(self):
-        pass
+        
+        if self.questionScreen.nextButton.text() == "Відповісти":
+            self.checkAnswer()
+
+            self.questionScreen.questionGroupBox.hide()
+            self.questionScreen.answerGroupBox.show()
+
+            self.questionScreen.nextButton.setText("Наступне питання")
+        else:
+            self.setNewQuestion()
+
+            self.questionScreen.questionGroupBox.show()
+            self.questionScreen.answerGroupBox.hide()
+
+            self.questionScreen.nextButton.setText("Відповісти")
+
+    def clear(self):
+        self.editScreen.questionEdit.clear()
+        
