@@ -58,15 +58,21 @@ class Game():
             self.create_enemy()
 
     def win_lose(self):
+
        
-        pass
+        if self.scores > GOAL:
+            self.finish = True
+            self.text = FONT.render("Ти переміг", True, TEXT_COLOR)
 
     
     def event_handler(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.game = False
-            
+            if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                self.player.fire(self.bullets)
+
+
     def update_window(self):
         self.window.clock.tick(FPS)
         pg.display.update()
