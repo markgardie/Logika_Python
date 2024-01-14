@@ -67,7 +67,9 @@ class Game():
 
     def win_lose(self):
        
-        pass
+        if self.scores >= 5:
+            self.finish = True
+            self.text = FONT.render("Ти переміг", True, TEXT_COLOR)
 
     
     def event_handler(self):
