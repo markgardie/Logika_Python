@@ -11,7 +11,7 @@ Q2 = Question('Дім', 'house', 'horse', 'hurry', 'hour')
 Q3 = Question('Миша', 'mouse', 'mouth', 'muse', 'museum')
 Q4 = Question('Число', 'number', 'digit', 'amount', 'summary')
 
-QUESTIONS = [Q1, Q2, Q3, Q4]
+questions = [Q1, Q2, Q3, Q4]
 
 class ScreenManager():
 
@@ -29,11 +29,11 @@ class ScreenManager():
         self.setNewQuestion()
 
     def setListeners(self):
-        pass
+        self.екран.кнопка.clicked.connect(функція)
     
     
     def setNewQuestion(self):
-        self.currentQuestion = choice(QUESTIONS)
+        self.currentQuestion = choice(questions)
 
         self.questionScreen.questionLabel.setText(self.currentQuestion.question)
         self.questionScreen.rightAnswerLabel.setText(self.currentQuestion.rightAnswer)
@@ -81,6 +81,40 @@ class ScreenManager():
 
             self.questionScreen.nextButton.setText("Відповісти")
 
-    def clear(self):
+    def clearEdits(self):
         self.editScreen.questionEdit.clear()
+        self.editScreen.rightEdit.clear()
+        self.editScreen.wrongEdit1.clear()
+        self.editScreen.wrongEdit2.clear()
+        self.editScreen.wrongEdit3.clear()
+
+    def addQuestion(self):
+        newQuestion = Question(
+            self.editScreen.questionEdit.text(),
+            self.editScreen.rightEdit.text(),
+            self.editScreen.wrongEdit1.text(),
+            self.editScreen.wrongEdit2.text(),
+            self.editScreen.wrongEdit3.text()
+        )
+
+        questions.append(newQuestion)
+
+        self.clearEdits()
+
+
+    def generateStats(self):
+        if self.currentQuestion.countAsk == 0:
+            rate = 0
+        else:
+            rate = self.currentQuestion.countRight / self.currentQuestion.countAsk * 100
         
+        all_text = f"Разів відповіли: {self.currentQuestion.countAsk} \n" 
+        right_text = f"Вірних відповідей: {self.currentQuestion.countRight} \n" 
+        rate_text = f"Успішність: {round(rate, 2)} \n" 
+
+        self.editScreen.statsLabel.setText(all_text + right_text + rate_text)
+
+    def rest(self):
+        self.questionScreen.hide()
+        sleep(self.questionScreen.restSpinBox.value() * 60)
+        self.questionScreen.show()
