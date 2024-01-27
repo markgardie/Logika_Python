@@ -108,6 +108,7 @@ class ScreenManager():
         else:
             rate = self.currentQuestion.countRight / self.currentQuestion.countAsk * 100
         
+
         all_text = f"Разів відповіли: {self.currentQuestion.countAsk} \n" 
         right_text = f"Вірних відповідей: {self.currentQuestion.countRight} \n" 
         rate_text = f"Успішність: {round(rate, 2)} \n" 
