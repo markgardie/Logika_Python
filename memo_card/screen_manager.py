@@ -59,17 +59,50 @@ class ScreenManager():
             self.questionScreen.resultLabel.setText("Не правильно")
 
     def clickOk(self):
-        
-       pass
+        if self.questionScreen.okButton.text() == "Відповісти":
+            self.checkAnswer()
+            self.questionScreen.answerGroupBox.hide()
+            self.questionScreen.resultGroupBox.show()
+            self.questionScreen.okButton.setText("Наступне питання")
+        else:
+            self.setNewQuestion()
+            self.questionScreen.answerGroupBox.show()
+            self.questionScreen.resultGroupBox.hide()
+            self.questionScreen.okButton.setText("Відповісти")
 
     def clearEdits(self):
-        pass
+        self.editScreen.questionEdit.clear()
+        self.editScreen.rightEdit.clear()
+        self.editScreen.wrongEdit1.clear()
+        self.editScreen.wrongEdit2.clear()
+        self.editScreen.wrongEdit3.clear()
 
     def addQuestion(self):
-       pass
+        newQuestion = Question(
+            self.editScreen.questionEdit.text(),
+            self.editScreen.rightEdit.text(),
+            self.editScreen.wrongEdit1.text(),
+            self.editScreen.wrongEdit2.text(),
+            self.editScreen.wrongEdit3.text()
+        )
+
+        questions.append(newQuestion)
+
+        self.clearEdits()
 
     def generateStats(self):
-        pass
+        if self.currentQuestion.countAsk == 0:
+            rate = 0
+        else:
+            rate = self.currentQuestion.countRight / self.currentQuestion.countAsk * 100
+
+        all_text = f"Разів відповіли: {self.currentQuestion.countAsk} \n" 
+        right_text = f"Вірних відповідей: {self.currentQuestion.countRight} \n" 
+        rate_text = f"Успішність: {round(rate, 2)} \n" 
+
+        self.editScreen.statsLabel.setText(all_text + right_text + rate_text)
 
     def rest(self):
-       pass
+        self.questionScreen.hide()
+        sleep(self.questionScreen.minutesSpinBox.value() * 60)
+        self.questionScreen.show()
