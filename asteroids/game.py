@@ -21,15 +21,14 @@ class Game():
                                             x= SCORES_LABEL_X,
                                             y= SCORES_LABEL_Y)
         
-        player = pyglet.sprite.Sprite(img = resources.player_image,
+        self.player = pyglet.sprite.Sprite(img = resources.player_image,
                                       x = PLAYER_X,
                                       y = PLAYER_Y)
-        
-    def create_asteroids(self):
-        pass
 
+    @self.window.event
     def draw_objects(self):
-        pass
+        self.scores_label.draw()
+        self.player.draw()
 
     def game_loop(self):
         self.create_objects()
