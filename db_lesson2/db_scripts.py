@@ -27,9 +27,23 @@ def clear_db():
     do(query)
     close()
 
-    
+
 def create():
-    pass
+    open()
+
+    do(
+        '''
+            CREATE TABLE quiz_content (
+                id INTEGER PRIMARY KEY,
+                quiz_id INTEGER,
+                question_id INTEGER,
+                FOREIGN KEY (quiz_id) REFERENCES quiz (id),
+                FOREIGN KEY (question_id) REFERENCES question (id),
+            )
+        '''
+    )
+
+    close()
 
 def add_questions():
     pass
