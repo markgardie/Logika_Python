@@ -30,9 +30,17 @@ class ScreenManager():
         self.questionScreen.show()
 
     def setListeners(self):
-        pass
+        self.questionScreen.menuButton.clicked.connect(self.navigateToEdit)
     
     
+    def navigateToEdit(self):
+        self.questionScreen.hide()
+        self.editScreen.show()
+
+    def navigateToQuestion(self):
+        self.questionScreen.show()
+        self.editScreen.hide()
+   
     def setNewQuestion(self):
         self.currentQuestion = choice(questions)
 
