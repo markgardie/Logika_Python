@@ -8,6 +8,7 @@ class PhysicalObject(pyglet.sprite.Sprite):
 
         # In addition to position, we have velocity
         self.velocity_x, self.velocity_y = 0.0, 0.0
+        self.dead = False
 
     def update(self, dt):
         """This method should be called every frame."""
@@ -33,3 +34,14 @@ class PhysicalObject(pyglet.sprite.Sprite):
             self.y = max_y
         elif self.y > max_y:
             self.y = min_y
+
+    def collides_with(self, other_object):
+
+        collision_distance = self.image.width / 2 + other_object.image.width / 2
+
+        actual_distance = util.distance(self.position, other_object.position)
+
+        return (actual_distance <= collision_distance)
+    
+    def handle_collision_with(self, other_object):
+        self.dead = True
