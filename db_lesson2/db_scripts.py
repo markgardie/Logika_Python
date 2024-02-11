@@ -1,7 +1,7 @@
 import sqlite3
 db_name = 'quiz.sqlite'
 conn = None
-curor = None
+cursor = None
 
 def open():
     global conn, cursor
@@ -32,6 +32,7 @@ def create():
     open()
 
     do(
+
         '''
             CREATE TABLE quiz_content (
                 id INTEGER PRIMARY KEY,
@@ -46,16 +47,67 @@ def create():
     close()
 
 def add_questions():
-    pass
+
+
+    questions = [
+        ('Скільки місяців на рік мають 28 днів?', 'Всі', 'Один', 'Жодного', 'Два'),
+        ('Яким стане зелена скеля, якщо впаде в Червоне море?', 'Мокрим', 'Червоним', 'Не зміниться', 'Фіолетовим'),
+        ('Якою рукою краще розмішувати чай?', 'Ложкою', 'Правою', 'Лівою', 'Любою'),
+        ('Що не має довжини, глибини, ширини, висоти, а можна виміряти?', 'Час', 'Дурність', 'Море', 'Повітря'),
+        ('Коли сіткою можна витягнути воду?', 'Коли вода замерзла', 'Коли немає риби', 'Коли спливла золота рибка', 'Коли сітка порвалася'),
+        ('Що більше слона і нічого не важить?', 'Тінь слона', 'Повітряна куля', 'Парашут', 'Хмара')
+    ]
+
+    open()
+
+    cursor.executemany('''
+                        INSERT INTO question (question, answer, wrong1, wrong2, wrong3)
+                        VALUES (?, ?, ?, ?, ?)
+                        ''', questions)
+    
+    conn.commit()
+
+    close()
 
 def add_quiz():
-    pass
+    quizes = [
+        ('Своя гра', ),
+        ('Хто хоче стати мільйонером?', ),
+        ('Найрозумніший', )
+    ]
+
+    #dz
+
 
 def add_links():
-    pass
+    open()
+    cursor.execute('''PRAGMA foreign_keys=on''')
+    query = "INSERT INTO quiz_content (quiz_id, question_id) VALUES (?,?)"
+    answer = input("Додати зв'язок (y / n)?")
+    while answer != 'n':
+        quiz_id = int(input("id вікторини: "))
+        question_id = int(input("id питання: "))
+        cursor.execute(query, [quiz_id, question_id])
+        conn.commit()
+        answer = input("Додати зв'язок (y / n)?")
+    close()
+
 
 def get_question(question_id = 0, quiz_id=1):
-    pass
+    ''' повертає наступне питання після запитання з переданим id
+     для першого запитання передається значення за замовчуванням '''
+    open()
+    query = '''
+    SELECT quiz_content.id, question.question, question.answer, question.wrong1, question.wrong2, question.wrong3
+    FROM question, quiz_content
+    WHERE quiz_content.question_id == question.id
+    AND quiz_content.id > ? AND quiz_content.quiz_id == ?
+    ORDER BY quiz_content.id '''
+    cursor.execute(query, [question_id, quiz_id] )
+    result = cursor.fetchone()
+    close()
+    return result
+
 
 def show(table):
     query = 'SELECT * FROM ' + table
