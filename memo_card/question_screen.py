@@ -84,4 +84,38 @@ class MainScreen(QWidget):
         self.resultGroupBox.setLayout(self.resultColumn)
 
 
+        # головні лейаути
+        self.row1.addWidget(self.menuButton)
+        self.row1.addStretch(1)
+        self.row1.addWidget(self.restButton)
+        self.row1.addWidget(self.restSpinBox)
+        self.row1.addWidget(self.minutsLabel)
+
+        self.row2.addWidget(self.questionLabel, alignment=Qt.AlignCenter)
+
+        self.row3.addWidget(self.answerGroupBox)
+        self.row3.addWidget(self.resultGroupBox)
+
+        self.row4.addStretch(1)
+        self.row4.addWidget(self.okButton, stretch = 2)
+        self.row4.addStretch(1)
+
+        self.mainColumn.addLayout(self.row1, stretch = 1)
+        self.mainColumn.addLayout(self.row2, stretch = 2)
+        self.mainColumn.addLayout(self.row3, stretch = 8)
+        self.row4.addStretch(1)
+        self.mainColumn.addLayout(self.row4, stretch = 1)
+        self.row4.addStretch(1)
+
+        self.setLayout(self.mainColumn)
+
+        
+
+
+
+
+
+
+
+
 
