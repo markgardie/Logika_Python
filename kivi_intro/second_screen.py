@@ -1,6 +1,6 @@
 from kivy.uix.textinput import TextInput
 
-class MainScreen(Screen):
+class SecondScreen(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
