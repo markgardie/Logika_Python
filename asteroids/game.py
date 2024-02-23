@@ -54,28 +54,27 @@ class Game():
 
     def collisions(self):
 
+
         # To avoid handling collisions twice, we employ nested loops of ranges.
         # This method also avoids the problem of colliding an object with itself.
-        for i in range(len(game_objects)):
-            for j in range(i + 1, len(game_objects)):
+        for i in range(len(self.game_objects)):
+            for j in range(i + 1, len(self.game_objects)):
 
-                obj_1 = game_objects[i]
-                obj_2 = game_objects[j]
+                obj_1 = self.game_objects[i]
+                obj_2 = self.game_objects[j]
 
                 # Make sure the objects haven't already been killed
                 if not obj_1.dead and not obj_2.dead:
-                    if obj_1.collides_with(obj_2):
-                        obj_1.handle_collision_with(obj_2)
-                        obj_2.handle_collision_with(obj_1)
+                    obj_1.collides_with(obj_2)
 
         # Get rid of dead objects
 
-        for to_remove in [obj for obj in game_objects if obj.dead]:
+        for to_remove in [obj for obj in self.game_objects if obj.dead]:
             # Remove the object from any batches it is a member of
             to_remove.delete()
 
             # Remove the object from our list
-            game_objects.remove(to_remove)
+            self.game_objects.remove(to_remove)
 
     def game_loop(self):
         self.create_objects()
