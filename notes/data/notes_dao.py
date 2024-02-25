@@ -12,16 +12,39 @@ class NotesDao():
             "tags": []
         }
 
+        notes = self.getNotes()
+        notes.append(note)
+
+        self.saveFile(notes)
+        
+
     def getNotes(self):
-        pass
+
+        with open(path, "r", encoding="utf-8") as file:
+            notes = json.load(file)
+
+        return notes
 
     def updateNoteText(self, title, newText):
 
-        pass
+        notes = self.getNotes()
+
+        for note in notes:
+            if note["title"] == title:
+                note["text"] = newText
+        
+        self.saveFile(notes)
 
     def deleteNote(self, deleteTitle):
         
-       pass
+        notes = self.getNotes()
+
+        for note in notes:
+            if note["title"] == deleteTitle:
+                notes.remove(note)
+        
+        self.saveFile(notes)
+        
 
 
     def addTag(self, title, tag):
@@ -31,4 +54,5 @@ class NotesDao():
         pass
 
     def saveFile(self, notes):
-        pass
+        with open(path, "w", encoding="utf-8") as file:
+            json.dump(notes, file)
