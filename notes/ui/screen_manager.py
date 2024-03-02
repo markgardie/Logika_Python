@@ -8,6 +8,10 @@ class ScreenManager():
     def __init__(self):
 
         self.notesDao = NotesDao()
+        self.mainScreen = MainScreen()
+
+        self.showNotesList()
+        self.setListeners()
 
     def setListeners(self):
         pass
@@ -35,8 +39,18 @@ class ScreenManager():
             self.mainScreen.notesListWidget.addItem(title)
 
 
-    def showNoteText(self):
-        pass
+    def showNoteInfo(self):
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+
+        for note in self.notesDao.getNotes():
+            if note["title"] == noteTitle:
+                self.mainScreen.noteTextEdit.setText(note["text"])
+
+                self.mainScreen.tagsListWidget.clear()
+
+                for tag in note["tags"]:
+                    self.mainScreen.tagsListWidget.addItem(tag)
+
 
     def updateNoteText(self, title, newText):
 
