@@ -40,6 +40,7 @@ class ScreenManager():
 
 
     def showNoteInfo(self):
+        
         noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
 
         for note in self.notesDao.getNotes():
