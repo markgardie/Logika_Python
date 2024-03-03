@@ -21,22 +21,42 @@ class NotesScreenManager():
     def showNotesList(self):
         notesList = self.notesDao.getNotes()
         titleList = []
-        
 
+        for note in notesList:
+            titleList.append(note["title"])
 
-    def showNoteText(self):
-        pass
+        for title in titleList:
+            self.mainScreen.notesListWidget.addItem(title)
+
+    
+    def showNoteInfo(self):
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+        notes = self.notesDao.getNotes()
+
+        for note in notes:
+            if note["title"] == noteTitle:
+                self.mainScreen.noteTextEdit.setText(note["text"])
+
+                self.mainScreen.tagsListWidget.clear()
+                for tag in note["tags"]:
+                    self.mainScreen.tagsListWidget.addItem(tag)
 
     def updateNoteText(self, title, newText):
 
         pass
 
-    def deleteNote(self, deleteTitle):
+    def deleteNote(self):
         
         pass
 
-    def addTag(self, title, tag):
+    def addTag(self):
         pass
 
     def deleteTag(self):
-        pass
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+        tag = self.mainScreen.tagsListWidget.selectedItems()[0].text()
+
+        self.notesDao.deleteTag(noteTitle, tag)
+
+    def search(self):
+        
