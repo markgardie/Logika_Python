@@ -57,9 +57,13 @@ class ScreenManager():
 
         pass
 
-    def deleteNote(self, deleteTitle):
-        
-        pass
+    def deleteNote(self):
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+
+
+        self.notesDao.deleteNote(noteTitle)
+        self.mainScreen.notesListWidget.clear()
+        self.showNotesList()
 
     def addTag(self, title, tag):
         pass
