@@ -41,22 +41,43 @@ class NotesScreenManager():
                 for tag in note["tags"]:
                     self.mainScreen.tagsListWidget.addItem(tag)
 
-    def updateNoteText(self, title, newText):
-
-        pass
+    def updateNoteText(self):
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+        newText = self.mainScreen.noteTextEdit.text()
+        
+        self.notesDao.updateNoteText(noteTitle, newText)
 
     def deleteNote(self):
-        
-        pass
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+
+        self.notesDao.deleteNote(noteTitle)
+        self.mainScreen.notesListWidget.clear()
+        self.showNotesList()
 
     def addTag(self):
-        pass
+        noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
+        tag = self.mainScreen.searchLineEdit.text()
+        
+        if tag != "":
+            self.notesDao.addTag(noteTitle, tag)
+            self.mainScreen.tagsListWidget.addItem(tag)
 
     def deleteTag(self):
         noteTitle = self.mainScreen.notesListWidget.selectedItems()[0].text()
         tag = self.mainScreen.tagsListWidget.selectedItems()[0].text()
 
         self.notesDao.deleteTag(noteTitle, tag)
+        self.mainScreen.tagsListWidget.clear()
+        self.showNoteInfo()
+
 
     def search(self):
-        
+        searchTag = self.mainScreen.searchLineEdit.text()
+        self.mainScreen.notesListWidget.clear()
+
+        if searchTag != "":
+            filteredNotes = self.notesDao.search(searchTag)
+            for note in filteredNotes:
+                self.mainScreen.notesListWidget.addItem(note)
+        else:
+            self.showNotesList()

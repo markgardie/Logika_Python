@@ -67,7 +67,16 @@ class NotesDao():
         with open(path, "w", encoding="utf-8") as file:
             json.dump(notes, file)
 
-    def search(self, tag):
-        pass
+    def search(self, searchTag):
+        filteredNotes = []
+        notes = self.getNotes()
+
+        for note in notes:
+            for tag in note["tags"]:
+                if tag == searchTag:
+                    filteredNotes.append(note)
+
+        return filteredNotes
+
         
         
