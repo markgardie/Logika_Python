@@ -1,17 +1,24 @@
 from random import randint
+from data.quiz_dao import QuizDao
+from flask import session, redirect, url_for
 
 class MainController():
 
     def __init__(self):
-        self.quiz = 0
-        self.last_question = 0
+        self.dao = QuizDao()
 
     def index(self):
-        self.quiz = randint(1, 3)
         return '<a href="/quiz">Тест</a>'
         
     def quiz(self):
-        return "This is quiz"
+        question_id = randint(0, 3)
+        result = self.dao.get_question(question_id)
+
+
+        if result is None or len(result) == 0:   
+           return redirect(url_for('result'))
+        else:
+            return '<h1>' + str(result) + '</h1>'
         
     def result(self):
         return "Quiz result"
