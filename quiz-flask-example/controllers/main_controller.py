@@ -11,8 +11,8 @@ class MainController():
         return '<a href="/quiz">Тест</a>'
         
     def quiz(self):
-        question_id = randint(0, 3)
-        result = self.dao.get_question(question_id)
+        session["question_id"] = randint(0, 3)
+        result = self.dao.get_question(session["question_id"])
 
 
         if result is None or len(result) == 0:   
