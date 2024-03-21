@@ -1,6 +1,6 @@
-from random import randint
+from random import randint, shuffle
 from data.quiz_dao import QuizDao
-from flask import session, redirect, url_for, render_template
+from flask import session, redirect, url_for, render_template, request
 
 class MainController():
 
@@ -8,18 +8,35 @@ class MainController():
         self.dao = QuizDao()
 
     def index(self):
-        questions = self.dao.get_all_questions()
-        return render_template('index.html', questions = questions)
+        if request.method == "GET":
+            questions = self.dao.get_all_questions()
+            return render_template('index.html', questions = questions)
+        else:
+            session["question_id"] = request.form.get("quiz")
+            return  redirect(url_for("quiz"))
         
     def quiz(self):
-        session["question_id"] = randint(0, 3)
-        result = self.dao.get_question(session["question_id"])
 
-
-        if result is None or len(result) == 0:   
-           return redirect(url_for('result'))
+        if not ('question_id' in session) or int(session['question_id']) < 0:
+            return redirect(url_for('index'))
         else:
-            return '<h1>' + str(result) + '</h1>'
+            question = self.dao.get_question(session['question_id'])
+
+            if request.method == "POST":
+                answer = request.form.get('ans_text')
+                if answer == question[2]:
+                    session["result"] = "Правильно"
+                else:
+                    session["result"] = "Неправильно"
+
+                return redirect(url_for("result.html"))
+
+            else:
+                answers = list(question[2:])
+                shuffle(answers)
+                return render_template("quiz.html", 
+                                       question = question, 
+                                       answers_list = answers)
         
     def result(self):
         return "Quiz result"
