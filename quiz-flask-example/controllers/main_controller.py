@@ -1,6 +1,6 @@
 from random import randint
 from data.quiz_dao import QuizDao
-from flask import session, redirect, url_for
+from flask import session, redirect, url_for, render_template
 
 class MainController():
 
@@ -8,7 +8,8 @@ class MainController():
         self.dao = QuizDao()
 
     def index(self):
-        return '<a href="/quiz">Тест</a>'
+        questions = self.dao.get_all_questions()
+        return render_template('index.html', questions = questions)
         
     def quiz(self):
         session["question_id"] = randint(0, 3)

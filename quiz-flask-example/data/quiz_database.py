@@ -8,9 +8,6 @@ class QuizDatabase():
         self.conn = None
         self.cursor = None
 
-        self.create_tables()
-        self.add_questions()
-
     def open_db(self):
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()
