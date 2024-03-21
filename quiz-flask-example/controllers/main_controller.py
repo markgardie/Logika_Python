@@ -29,7 +29,7 @@ class MainController():
                 else:
                     session["result"] = "Неправильно"
 
-                return redirect(url_for("result.html"))
+                return redirect(url_for("result"))
 
             else:
                 answers = list(question[2:])
@@ -39,4 +39,5 @@ class MainController():
                                        answers_list = answers)
         
     def result(self):
-        return "Quiz result"
+        
+        return render_template("result.html", result = session["result"])
