@@ -2,6 +2,7 @@ from random import randint, shuffle
 from data.quiz_dao import QuizDao
 from flask import session, redirect, url_for, render_template, request
 
+
 class MainController():
 
     def __init__(self):
