@@ -7,8 +7,8 @@ class EditPhotoUseCase():
     def __init__(self):
         self.dao = EditorDao()
 
-    def open(self, path):
-        return self.dao.open(path)
+    def open(self, name):
+        return self.dao.open(name)
 
     def save(self, path, image):
         self.dao.save(path, image)
@@ -18,3 +18,16 @@ class EditPhotoUseCase():
 
     def blackAndWhite(self, original):
         return original.convert("L")
+    
+    def left(self, original):
+        return original.transpose(Image.ROTATE_270)
+    
+    def right(self, original):
+        return original.transpose(Image.ROTATE_90)
+    
+    def mirror(self, original):
+        return original.transpose(Image.FLIP_LEFT_RIGHT)
+    
+    def sharpen(self, original):
+        return original.filter(SHARPEN)
+    

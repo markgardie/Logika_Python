@@ -7,6 +7,7 @@ class EditorDao():
         self.extensions = ['.jpg','.jpeg', '.png', '.gif', '.bmp']
 
     def filterFiles(self, path):
+        self.dirPath = path
         allFiles = os.listdir(path)
         filteredFiles = []
 
@@ -17,8 +18,8 @@ class EditorDao():
 
         return filteredFiles
     
-    def open(self, path):
-        return Image.open(path)
+    def open(self, name):
+        return os.path.join(self.dirPath, name)
     
     def save(self, path, image):
         image.save(path)
