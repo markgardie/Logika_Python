@@ -45,7 +45,7 @@ class QuestionScreen(QWidget):
         self.restSpinBox = QSpinBox()
 
         self.questionGroupBox = QGroupBox('Варіанти відповідей')
-        self.answerGroupBox = QGroupBox('Результат')
+        self.resultGroupBox = QGroupBox('Результат')
 
 
     def createLayouts(self):
@@ -76,3 +76,39 @@ class QuestionScreen(QWidget):
 
         # ряд 2
         self.row2.addWidget(self.questionLabel, alignment=(Qt.AlignHCenter | Qt.AlignVCenter))
+
+
+        # questionGroupBox
+        self.radioColumn1.addWidget(self.ansButton1)
+        self.radioColumn1.addWidget(self.ansButton2)
+        self.radioColumn2.addWidget(self.ansButton3)
+        self.radioColumn2.addWidget(self.ansButton4)
+
+        self.radioRow.addLayout(self.radioColumn1)
+        self.radioRow.addLayout(self.radioColumn2)
+
+        self.questionGroupBox.setLayout(self.radioRow)
+
+        # resultGroupBox
+        self.resultColumn.addWidget(self.resultLabel)
+        self.resultColumn.addWidget(self.rightAnswerLabel)
+
+        self.resultGroupBox.setLayout(self.resultColumn)
+
+        # ряд 3
+        self.row3.addWidget(self.questionGroupBox)
+        self.row3.addWidget(self.resultGroupBox)
+        self.resultGroupBox.hide()
+
+        # ряд 4
+        self.row4.addStretch(1)
+        self.row4.addWidget(self.nextButton, stretch=2)
+        self.row4.addStretch(1)
+
+        # головна колонка
+        self.mainColumn.addLayout(self.row1, stretch=1)
+        self.mainColumn.addLayout(self.row2, stretch=2)
+        self.mainColumn.addLayout(self.row3, stretch=8)
+        self.mainColumn.addLayout(self.row4)
+        self.mainColumn.setSpacing(5)
+        self.setLayout(self.mainColumn)

@@ -18,6 +18,7 @@ class ScreenManager():
     def __init__(self):
 
         self.questionScreen = QuestionScreen()
+        self.editScreen = EditScreen()
 
         self.radioAnswers = [
             self.questionScreen.ansButton1,
@@ -28,8 +29,19 @@ class ScreenManager():
 
         self.setNewQuestion()
 
+        self.questionScreen.show()
+        self.setListeners()
+
+        self.countAsk = 0
+        self.countRight = 0
+
     def setListeners(self):
-        self.екран.кнопка.clicked.connect(функція)
+        self.questionScreen.nextButton.clicked.connect(self.clickOk)
+        self.questionScreen.restButton.clicked.connect(self.rest)
+        self.questionScreen.menuButton.clicked.connect(self.generateStats)
+        self.editScreen.backButton.clicked.connect(self.navigateToQuestion)
+        self.editScreen.clearButton.clicked.connect(self.clearEdits)
+        self.editScreen.addQuestionButton.clicked.connect(self.addQuestion)
     
     
     def setNewQuestion(self):
@@ -52,13 +64,14 @@ class ScreenManager():
         for ansButton in self.radioAnswers:
             if ansButton.isChecked():
                 if ansButton.text() == self.questionScreen.rightAnswerLabel.text():
-                    self.currentQuestion.gotRight()
+                    self.countAsk += 1
+                    self.countRight += 1
                     self.questionScreen.resultLabel.setText("Правильно")
                     ansButton.setChecked(False)
                     break
 
         else:
-            self.currentQuestion.gotWrong()
+            self.countAsk += 1
             self.questionScreen.resultLabel.setText("Не правильно")
 
 
@@ -70,14 +83,14 @@ class ScreenManager():
             self.checkAnswer()
 
             self.questionScreen.questionGroupBox.hide()
-            self.questionScreen.answerGroupBox.show()
+            self.questionScreen.resultGroupBox.show()
 
             self.questionScreen.nextButton.setText("Наступне питання")
         else:
             self.setNewQuestion()
 
             self.questionScreen.questionGroupBox.show()
-            self.questionScreen.answerGroupBox.hide()
+            self.questionScreen.resultGroupBox.hide()
 
             self.questionScreen.nextButton.setText("Відповісти")
 
@@ -103,19 +116,29 @@ class ScreenManager():
 
 
     def generateStats(self):
-        if self.currentQuestion.countAsk == 0:
+        if self.countAsk == 0:
             rate = 0
         else:
-            rate = self.currentQuestion.countRight / self.currentQuestion.countAsk * 100
+            rate = self.countRight / self.countAsk * 100
         
 
-        all_text = f"Разів відповіли: {self.currentQuestion.countAsk} \n" 
-        right_text = f"Вірних відповідей: {self.currentQuestion.countRight} \n" 
+        all_text = f"Разів відповіли: {self.countAsk} \n" 
+        right_text = f"Вірних відповідей: {self.countRight} \n" 
         rate_text = f"Успішність: {round(rate, 2)} \n" 
 
         self.editScreen.statsLabel.setText(all_text + right_text + rate_text)
+
+        self.navigateToEdit()
 
     def rest(self):
         self.questionScreen.hide()
         sleep(self.questionScreen.restSpinBox.value() * 60)
         self.questionScreen.show()
+
+    def navigateToQuestion(self):
+        self.editScreen.hide()
+        self.questionScreen.show()
+
+    def navigateToEdit(self):
+        self.editScreen.show()
+        self.questionScreen.hide()

@@ -13,10 +13,3 @@ class Question():
         self.isAnswer = False
         self.countAsk = 0
         self.countRight = 0
-
-    def gotRight(self):
-        self.countAsk += 1
-        self.countRight += 1
-
-    def gotWrong(self):
-        self.countAsk += 1
