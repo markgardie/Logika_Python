@@ -2,21 +2,24 @@ import pandas as pd
 df = pd.read_csv('GoogleApps.csv')
 
 # Скільки коштує (Price) найдешевший платний додаток (Type == 'Paid)?
-df[df["Type"] == "Paid"]["Price"].min()
+print(df[df["Type"] == "Paid"]["Price"].min())
 
 # Чому дорівнює медіанна (median) кількість установок (Installs)
 # додатків із категорії (Category) "ART_AND_DESIGN"?
-
+print(df[df["Category"] == "ART_AND_DESIGN"]["Installs"].median())
 
 # На скільки максимальна кількість відгуків (Reviews) для безкоштовних програм (Type == 'Free')
 # більше максимальної кількості відгуків для платних програм (Type == 'Paid')?
+paid = df[df["Type"] == "Paid"]["Reviews"].max()
+free = df[df["Type"] == "Free"]["Reviews"].max()
+print(free - paid)
 
 
 # Який мінімальний розмір (Size) програми для тинейджерів (Content Rating == 'Teen')?
 
 
 # *До якої категорії (Category) відноситься додаток із найбільшою кількістю відгуків (Reviews)?
-
+print(df[df["Reviews"] == df["Reviews"].max()]["Category"])
 
 # *Який середній (mean) рейтинг (Rating) додатків вартістю (Price) понад 20 доларів
 # з кількістю установок (Installs) понад 10000?
