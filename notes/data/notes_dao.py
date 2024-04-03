@@ -1,6 +1,6 @@
 import json
 
-path = "D:\Mark\Desktop\Logika_Python\notes\data\notes.json"
+path = r"D:\Mark\Desktop\Logika_Python\notes\data\notes.json"
 
 class NotesDao():
 
@@ -50,10 +50,35 @@ class NotesDao():
             if note["title"] == title:
                 note["tags"].append(tag)
 
-    def deleteTag(self):
-        pass
+        self.saveFile(notes)
+
+    def deleteTag(self, title, tag):
+        notes = self.getNotes()
+
+        for note in notes:
+            if note["title"] == title:
+                note["tags"].remove(tag)
+
+        self.saveFile()
 
     def saveFile(self, notes):
         with open(path, "w", encoding="utf-8") as file:
             json.dump(notes, file)
+
+    def search(self, searchTag):
+         # список нотаток, які мають шуканий тег
+        filteredNotes = []
+
+        notes = self.getNotes()
+
+        # перебираємо список нотаток
+        # і забираємо (фільтруємо) тільки ті, що мають шуканий тег
+        for note in notes:
+            for tag in note["tags"]:
+                if tag == searchTag:
+                    filteredNotes.append(note)
+
+        # повертаємо відфільтровані нотатки
+        return filteredNotes    
+
 
