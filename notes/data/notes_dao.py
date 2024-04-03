@@ -66,19 +66,19 @@ class NotesDao():
             json.dump(notes, file)
 
     def search(self, searchTag):
-         # список нотаток, які мають шуканий тег
+         
         filteredNotes = []
 
         notes = self.getNotes()
 
-        # перебираємо список нотаток
-        # і забираємо (фільтруємо) тільки ті, що мають шуканий тег
+        
+        
         for note in notes:
             for tag in note["tags"]:
                 if tag == searchTag:
                     filteredNotes.append(note)
 
-        # повертаємо відфільтровані нотатки
+        
         return filteredNotes    
 
 
