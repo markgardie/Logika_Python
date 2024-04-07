@@ -59,7 +59,7 @@ class NotesDao():
             if note["title"] == title:
                 note["tags"].remove(tag)
 
-        self.saveFile()
+        self.saveFile(notes)
 
     def saveFile(self, notes):
         with open(path, "w", encoding="utf-8") as file:

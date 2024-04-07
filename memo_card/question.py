@@ -8,8 +8,3 @@ class Question():
         self.wrongAnswer1 = wrongAnswer1
         self.wrongAnswer2 = wrongAnswer2
         self.wrongAnswer3 = wrongAnswer3
-
-        
-        self.isAnswer = False
-        self.countAsk = 0
-        self.countRight = 0
