@@ -7,13 +7,14 @@ print(df["Category"].value_counts())
 
 # 2 Чому дорівнює співвідношення кількості додатків для підлітків ('Teen') і для дітей старше 10 ('Everyone 10+')?
 # Відповідь запиши з точністю до сотих.
-
-
+content_rating_groups = df["Content Rating"].value_counts()
+ratio = content_rating_groups["Teen"] / content_rating_groups["Everyone 10+"]
+print(round(ratio, 2))
 
 # 3.1 Чому дорівнює середній рейтинг ('Rating') платних ('Paid') додатків?
 # Відповідь запиши з точністю до сотих.
-
-
+temp = df.groupby(by = "Type")["Rating"].mean()
+print(round(temp["Paid"], 2))
 
 # 3.2 На скільки середній рейтинг ('Rating') безкоштовних ('Free') додатків менший за середній рейтинг платних ('Paid')?
 # Відповідь запиши з точністю до сотих.
@@ -22,6 +23,8 @@ print(df["Category"].value_counts())
 
 # 4 Чому дорівнює мінімальний та максимальний розмір ('Size') додатків у категорії ('Category') 'COMICS'?
 # Запиши відповіді з точністю до сотих.
+print(df.groupby(by = "Category")["Size"].min())
+
 
 
 
