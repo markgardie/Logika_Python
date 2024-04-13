@@ -9,7 +9,5 @@ class EditorDao():
 
     def open(self, name):
         return os.path.join(self.dirPath, name)
-    
 
-C:/User/Desktop/Images/dog.png
     
