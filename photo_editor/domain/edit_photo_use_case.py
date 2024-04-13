@@ -7,11 +7,15 @@ class EditPhotoUseCase:
         self.dao = EditorDao()
 
     def open(self, path):
-        self.dao.open(path)
+        return self.dao.open(path)
 
-    def save(self, path):
-        self.dao.save(path)
+    def save(self, path, image):
+        self.dao.save(path, image)
+
+    def filterFiles(self, path):
+        self.dao.filterFiles(path)
 
     def gray(self, original):
         return original.convert("L")
+
 
