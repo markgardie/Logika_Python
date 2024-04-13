@@ -11,5 +11,5 @@ class EditorDao():
         return os.path.join(self.dirPath, name)
     
 
-
+C:/User/Desktop/Images/dog.png
     
