@@ -15,14 +15,16 @@ class Navigation(ScreenManager):
         self.screen2 = Screen2(name = "screen2")
 
     def add_screens(self):
-        pass
+        self.add_widget(self.screen1)
+        self.add_widget(self.screen2)
 
     def click_listeners(self):
-        pass
+        self.screen1.next_button.on_press = self.navigate_to_second
 
     def navigate_to_second(self):
         self.transition.direction = "left"
         self.current = "screen2"
 
     def navigate_to_first(self):
-        pass
+        self.transition.direction = "right"
+        self.current = "screen1"
