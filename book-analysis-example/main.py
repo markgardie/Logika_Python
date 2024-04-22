@@ -6,43 +6,124 @@ import io
 import os
 import json
 import numpy as np
-from keras.layers import Dense
-from keras.models import Sequential
-from sklearn.model_selection import train_test_split
+
+# відкриття книг та їх завантаження в словник
+def open_books():
+
+    # збір цікавих книг
+    interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\interesting"
+
+    interesting = {}
+
+    # відкриваємо папку з цікавими книгами
+    interesting_files = os.listdir(interesting_path)
 
 
-def analyze_one_file():
+    # читаємо кожен файл і записуємо в словник
+    for file in interesting_files:
+        book_path = os.path.join(interesting_path, file)
 
-    path = r""
+        with io.open(book_path,  encoding='utf-8') as book:
+            text = book.read()
+            # Ставимо мітку, що книга є цікавою, список сентиментів поки пустий
+            interesting[file] = {"interesting": True, "text": text, "sentiment": []}
 
-    text = ""
+    # не цікаві
+    not_interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\not_interesting"
 
-    with io.open(path, "r") as file:
-        text = file.read()
+    not_interesting = {}
 
-    sentences = nltk.sent_tokenize(text)
+    not_interesting_files = os.listdir(not_interesting_path)
 
-    sentiment_analyzer = SentimentIntensityAnalyzer()
+    for file in not_interesting_files:
+        book_path = os.path.join(not_interesting_path, file)
 
-    scores = []
+        with io.open(book_path,  encoding='utf-8') as book:
+            text = book.read()
+            # ставимо мітку, що книга не є цікавою
+            not_interesting[file] = {"interesting": False, "text": text, "sentiment": []}
 
-    for sentence in sentences:
-        score = sentiment_analyzer.polarity_scores(sentence)["compound"]
-        scores.append(score)
+    # об'єднуємо два словники
+    all_books = {**interesting, **not_interesting}
 
-    
-    scores_dct = dct(scores, norm = "ortho", type = 2)
-    scores_dct[10:] = 0
-    scores_filtered = idct(scores_dct, norm="ortho")
+    # повертаємо результуючий словник
+    return all_books
 
-    narrative_time = 100
+# сентимент-аналіз
+def sentiment_analysis(books):
 
-    scores_normalized = np.interp(np.linspace(0, 1, narrative_time), np.linspace(0, 1, len(scores_filtered)), scores_filtered)
+    # шлях до json-файлу, в який будемо записувати результат
+    json_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\sentiments.json"
+
+    # аналізатор сентиментів
+    analyzer = SentimentIntensityAnalyzer()
+
+    sentiments = {}
+
+    # відкриваємо кожну книгу в словнику
+    for book in books:
+        text = books[book]["text"]
+
+        # токенізуємо текст до рівня речень
+        sentences = nltk.sent_tokenize(text)
+
+        scores = []
+
+        # для кожного речення отримуємо оцінки сентиментів
+        for sentence in sentences:
+            scores.append(analyzer.polarity_scores(sentence)["compound"])
+
+        # для згладжування графіку використовуємо алгоритм DCT-II
+        scores_dct = dct(scores, norm='ortho', type=2)
+        scores_lpf = scores_dct.copy()
+        # ставимо фільтр 10, але також його можна змінити на 5, аби подивитись тип сюжету
+        scores_lpf[10:] = 0
 
 
-    plt.plot(scores_normalized)
-    plt.title("Terminator Genisys")
-    plt.savefig(r"C:\Users\Марк\Desktop\Logika_Python\text_analysis\Terminator Genisys")
+        filtered_scores = idct(scores_lpf, norm='ortho')
 
+        # нормалізований наративний час, 100% замість абсолютних значень речень
+        normalized_narrative = 100
 
-analyze_one_file()
+        # нормалізація часу, отримання 100 оцінок
+        filtered_scores = np.interp(np.linspace(0, 1, normalized_narrative), np.linspace(0, 1, len(filtered_scores)), filtered_scores)
+
+        # запис сентиментів в словник
+        sentiments[book] = {"interesting": books[book]["interesting"], "sentiments": filtered_scores.tolist()}
+
+    # збереження в json-файл
+    with io.open (json_path, "w") as json_file:
+        json.dump(sentiments, json_file)
+
+# створення графіків
+def create_plots():
+
+    # шляхи до папок, куди будемо зберігати створені графіки
+    interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\interesting_plots"
+    not_interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\not_interesting_plots"
+
+    # підгрузка датасету
+    path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\sentiments.json"
+    with open(path, "r") as f:
+        data = json.load(f)
+
+    # проходимось по всім книжкам
+    for book in data.keys():
+
+        book_name = book.split(".")[0] # отримуємо тільки назву книги, відкидаючи формат txt
+        book_format = book_name + ".jpg" # додаємо формат зображення, аби графік можна було зберегти в цьому форматі
+
+        plt.plot(data[book]["sentiments"]) # створюємо графік сентиментів
+        plt.title(book_name) # додаємо заголовок сюжету
+
+        if data[book]["interesting"] == True:  
+            path = os.path.join(interesting_path, book_format) # якщо книга є цікавою, то зберігаємо в папці для цікавих книг
+        else:
+            path = os.path.join(not_interesting_path, book_format) # якщо книга не є цікавоб, то зберігаємо в папці для нецікавих книг
+
+        plt.savefig(path) # зберігаємо графік у вигляді зображення в папки
+        plt.clf() # очищаємо графік для наступних книг
+
+books = open_books()
+sentiment_analysis(books)
+create_plots()
