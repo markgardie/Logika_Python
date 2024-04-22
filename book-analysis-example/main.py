@@ -11,7 +11,7 @@ import numpy as np
 def open_books():
 
     # збір цікавих книг
-    interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\interesting"
+    interesting_path = os.path.join(__file__, "..", "interesting")
 
     interesting = {}
 
@@ -29,7 +29,7 @@ def open_books():
             interesting[file] = {"interesting": True, "text": text, "sentiment": []}
 
     # не цікаві
-    not_interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\not_interesting"
+    not_interesting_path = os.path.join(__file__, "..", "not_interesting")
 
     not_interesting = {}
 
@@ -53,7 +53,7 @@ def open_books():
 def sentiment_analysis(books):
 
     # шлях до json-файлу, в який будемо записувати результат
-    json_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\sentiments.json"
+    json_path = os.path.join(__file__, "..", "sentiments.json")
 
     # аналізатор сентиментів
     analyzer = SentimentIntensityAnalyzer()
@@ -99,11 +99,11 @@ def sentiment_analysis(books):
 def create_plots():
 
     # шляхи до папок, куди будемо зберігати створені графіки
-    interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\interesting_plots"
-    not_interesting_path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\not_interesting_plots"
+    interesting_path = os.path.join(__file__, "..", "interesting_plots")
+    not_interesting_path =os.path.join(__file__, "..", "not_interesting_interesting_plots")
 
     # підгрузка датасету
-    path = r"D:\Mark\Desktop\Logika_Python\book-analysis-example\sentiments.json"
+    path = os.path.join(__file__, "..", "sentiments.json")
     with open(path, "r") as f:
         data = json.load(f)
 
