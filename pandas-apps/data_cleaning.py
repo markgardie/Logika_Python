@@ -9,11 +9,12 @@ df["Rating"].fillna(-1, inplace=True)
 
 # Визнач, яке ще значення розміру ('Size') зберігається в датасеті крім Кілобайтів та Мегабайтів, заміни його на -1.
 # Перетвори розміри додатків ('Size') у числовий формат (float). Розмір усіх програм повинен вимірюватися в Мегабайтах.
-df["Price"] = df["Price"].apply(float)
-
 def set_size(size):
-    if "M" in size:
-        return size
+    if size[-1] == "M":
+        return float(size[0:-1]) 
+    elif size[-1] == "k":
+        return float(size[0:-1]) / 1024
+    return -1
 
 df["Size"] = df["Size"].apply(set_size)
 
