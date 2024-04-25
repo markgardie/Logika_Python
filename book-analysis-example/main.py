@@ -11,7 +11,7 @@ import numpy as np
 def open_books():
 
     # збір цікавих книг
-    interesting_path = os.path.join(__file__, "..", "interesting")
+    interesting_path = os.path.join(__file__, "..", "nikita/interesting")
 
     interesting = {}
 
@@ -29,7 +29,7 @@ def open_books():
             interesting[file] = {"interesting": True, "text": text, "sentiment": []}
 
     # не цікаві
-    not_interesting_path = os.path.join(__file__, "..", "not_interesting")
+    not_interesting_path = os.path.join(__file__, "..", "nikita/not_interesting")
 
     not_interesting = {}
 
@@ -99,8 +99,8 @@ def sentiment_analysis(books):
 def create_plots():
 
     # шляхи до папок, куди будемо зберігати створені графіки
-    interesting_path = os.path.join(__file__, "..", "interesting_plots")
-    not_interesting_path =os.path.join(__file__, "..", "not_interesting_interesting_plots")
+    interesting_path = os.path.join(__file__, "..", "nikita/interesting_plots")
+    not_interesting_path =os.path.join(__file__, "..", "nikita/not_interesting_plots")
 
     # підгрузка датасету
     path = os.path.join(__file__, "..", "sentiments.json")
