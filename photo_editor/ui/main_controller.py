@@ -5,26 +5,43 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 import os
 
+
 class MainController():
 
     def __init__(self):
-        pass
+        self.mainScreen = MainScreen()
+        self.useCase = EditPhotoUseCase()
 
     def clickListeners(self):
-        pass
+        self.mainScreen.leftButton.clicked.connect(self.left)
 
     def chooseDir(self):
         self.path = QFileDialog.getExistingDirectory()
         self.showPhotoList()
 
     def showPhotoList(self):
-        pass
+        photoNameList = self.useCase.filterFiles(self.path)
+        self.mainScreen.photoListWidget.clear()
+        for photo in photoNameList:
+            self.mainScreen.photoListWidget.addItem(photo)
+
 
     def getImagePath(self):
         pass
 
     def showPhoto(self):
-        pass
+        path = self.getImagePath()
+        pixmapImage = QPixmap(path)
+
+        pixmapImage = pixmapImage.scaled(
+            self.mainScreen.photoLabel.width(),
+            self.mainScreen.photoLabel.height(),
+            Qt.KeepAspectRatio
+        )
 
     def left(self):
-        pass
+        path = self.getImagePath()
+        original = self.useCase.loadImage(path)
+        leftImage = self.useCase.left(original)
+        self.showPhoto()
+        self.useCase.save(path, leftImage)

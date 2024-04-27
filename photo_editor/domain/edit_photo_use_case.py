@@ -14,7 +14,7 @@ class EditPhotoUseCase:
         self.dao.save(path, image)
 
     def filterFiles(self, path):
-        self.dao.filterFiles(path)
+        return self.dao.filterFiles(path)
 
     def gray(self, original):
         return original.convert("L")
