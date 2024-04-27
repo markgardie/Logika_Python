@@ -5,7 +5,6 @@ class PostDao():
 
     def __init__(self):
         self.db_builder = DatabaseBuilder()
-        self.db_builder.build()
 
     def get_posts(self):
         conn = self.db_builder.get_connection()
