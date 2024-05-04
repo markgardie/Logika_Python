@@ -27,7 +27,9 @@ class MainController():
 
 
     def getImagePath(self):
-        pass
+        if self.mainScreen.photoListWidget.currentRow() >= 0:
+            photoName = self.mainScreen.photoListWidget.currentItem().text()
+            return self.useCase.open(photoName)
 
     def showPhoto(self):
         path = self.getImagePath()
