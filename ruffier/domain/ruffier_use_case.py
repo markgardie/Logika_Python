@@ -19,3 +19,13 @@ def get_level(index, age):
         return "слабкий"
     
     level -= 5
+
+    if index > level:
+        return "задовільний"
+    
+    level -= 4.5
+
+    if index > level:
+        return "добрий"
+    
+    return "чудовий"
