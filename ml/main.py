@@ -17,3 +17,24 @@ def fill_age(row):
     return row["Age"]
 
 df["Age"] = df.apply(fill_age, axis=1)
+
+def fill_sex(row):
+    if row["Sex"] == "male":
+        return 1
+    return 0
+   
+df["Sex"] = df.apply(fill_sex, axis=1)
+
+df["Embarked"].fillna("S", inplace=True)
+
+df[list(pd.get_dummies(df["Embarked"].columns))] = pd.get_dummies(df["Embarked"])
+
+df.drop(["PassengerId", "Name", "Ticket", "Cabin", "Embarked"], axis = 1, inplace=True)
+
+
+# Крок 2. Створення моделі
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score
+
