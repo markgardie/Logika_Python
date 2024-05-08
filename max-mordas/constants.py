@@ -1,0 +1,62 @@
+import pygame
+import os
+
+# Вікно
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 800
+CAPTION = "P2W Dinosaur"
+
+# Швидкості
+PLAYER_SPEED = 3
+OBSTACLE_SPEED = 5
+BUTTON_SPEED = 0
+LABLE_SPEED = 0
+
+BUTTON_WIDTH = 200
+BUTTON_HEIGHT = 75
+BUTTON_X = WINDOW_WIDTH / 2
+
+PBUTTON_Y = WINDOW_HEIGHT / 4
+SBUTTON_Y = PBUTTON_Y + BUTTON_HEIGHT + 10
+EBUTTON_Y = SBUTTON_Y + BUTTON_HEIGHT + 10
+BBUTTON_Y = WINDOW_HEIGHT - WINDOW_HEIGHT / 4
+
+LABLE_WIDTH = 300
+LABLE_HEIGHT = 300
+LABLE_Y = WINDOW_HEIGHT / 4
+LABLE_X = WINDOW_WIDTH / 2
+
+# Розміри персонажів
+PLAYER_WIDTH = 50
+PLAYER_HEIGHT = 70
+PLAYER_Y = WINDOW_HEIGHT - WINDOW_HEIGHT / 4
+PLAYER_X = WINDOW_WIDTH / 4
+
+PTERO_WIDTH = 50
+PTERO_HEIGHT = 25
+PTERO_Y = WINDOW_HEIGHT - WINDOW_HEIGHT / 4 - 60
+
+CACTUS_HEIGHT = 50
+CACTUS1_WIDTH = 50
+CACTUS2_WIDTH = 100
+CACTUS_Y = WINDOW_HEIGHT - WINDOW_HEIGHT / 4
+
+# Кольори
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+# Картинки персонажів
+PROJECT_PATH = os.path.abspath(__file__ + "/..")
+IMAGES_PATH = os.path.join(PROJECT_PATH, "images")
+
+PLAYER_PATH = os.path.join(IMAGES_PATH, "dinosaur.png")
+CACTUS1_PATH = os.path.join(IMAGES_PATH, "cactus1.png")
+CACTUS2_PATH = os.path.join(IMAGES_PATH, "cactus2.png")
+PTERO_PATH = os.path.join(IMAGES_PATH, "ptero.png")
+
+PBUTTON_PATH = os.path.join(IMAGES_PATH, "pbutton.png")
+SBUTTON_PATH = os.path.join(IMAGES_PATH, "sbutton.png")
+EBUTTON_PATH = os.path.join(IMAGES_PATH, "ebutton.png")
+BBUTTON_PATH = os.path.join(IMAGES_PATH, "bbutton.png")
+
+LABLE_PATH = os.path.join(IMAGES_PATH, "lable.png")
