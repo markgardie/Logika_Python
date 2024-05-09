@@ -36,6 +36,8 @@ asitwas.set_volume(0.3)
 
 asitwas.play()
 
+pygame.init()
+
 # rocket variables
 rocket_counter = 0
 rocket_active = False
@@ -150,6 +152,13 @@ all_enemies = pygame.sprite.Group()
 all_accelerations = pygame.sprite.Group()
 all_decelerations = pygame.sprite.Group()
 
+def draw_pause():
+    pygame.draw.rect(surface, (128, 128, 128, 150), [0, 0, WIDTH, HEIGHT])
+    pygame.draw.rect(surface, 'dark gray', [200, 150, 600, 50], 0, 10)
+    surface.blit(font.render('Game Paused. Press P to Resume', True, 'black'), (220, 160))
+    surface.blit(font.render('Continue', True, 'black'), (220, 360))
+    screen.blit(surface, (0, 0))
+
 # all the code to move lines across screen and draw bg images
 def draw_screen(line_list, lase):
     screen.fill('black')
@@ -213,8 +222,8 @@ def draw_player():
     pygame.draw.circle(screen, 'black', (138, player_y + 12), 3)
     return play
 
-def check_colliding(player):
-    global coin_count, restart_cmd
+def check_colliding():
+    global coin_count
     coll = [False, False]
     rstrt = False
     screen.blit(font.render(f'Coin Count: {int(coin_count)} ', True, 'white'), (10, 40))
@@ -230,11 +239,11 @@ def check_colliding(player):
         coll[1] = True
 
     if laser_line.colliderect(player):
-        restart_cmd = True
+        rstrt = True
 
     if rocket_active:
         if rocket.colliderect(player):
-            restart_cmd = True
+            rstrt = True
 
     return coll, rstrt
 
@@ -275,19 +284,14 @@ def draw_pause():
     pygame.draw.rect(surface, (128, 128, 128, 150), [0, 0, WIDTH, HEIGHT])
     pygame.draw.rect(surface, 'dark gray', [200, 150, 600, 50], 0, 10)
     surface.blit(font.render('Game Paused. Escape Btn Resumes', True, 'black'), (220, 160))
-    
-    # Оновлення кнопки restart
     restart_btn = pygame.draw.rect(surface, 'white', [200, 220, 280, 50], 0, 10)
-    surface.blit(font.render('Restart', True, 'black'), (restart_btn.x + 20, restart_btn.y + 10))
-    
-    # Оновлення кнопки quit
+    surface.blit(font.render('Restart', True, 'black'), (220, 230))
     quit_btn = pygame.draw.rect(surface, 'white', [520, 220, 280, 50], 0, 10)
-    surface.blit(font.render('Quit', True, 'black'), (quit_btn.x + 20, quit_btn.y + 10))
-    
-    # Створення кнопки continue
-    proceed_btn = pygame.draw.rect(surface, 'white', [200, 300, 280, 50], 0, 10)
-    surface.blit(font.render('Continue', True, 'black'), (proceed_btn.x + 20, proceed_btn.y + 10))
-    
+    surface.blit(font.render('Quit', True, 'black'), (540, 230))
+    proceed_btn = pygame.draw.rect(surface, 'white', [200, 220, 280, 50], 0, 10)
+    surface.blit(font.render('Continue', True, 'black'), (220, 360))
+    pygame.draw.rect(surface, 'dark gray', [200, 300, 600, 50], 0, 10)
+    surface.blit(font.render(f'Lifetime Distance Ran: {int(lifetime)}', True, 'black'), (220, 310))
     screen.blit(surface, (0, 0))
     return restart_btn, quit_btn, proceed_btn
 
@@ -323,7 +327,7 @@ while run:
         new_laser = False
     lines, top_plat, bot_plat, laser, laser_line = draw_screen(lines, laser)
     if pause:
-        restart, quits, proceed_btn = draw_pause()
+        restart, quits, proceed = draw_pause()
 
     if not rocket_active and not pause:
         rocket_counter += 1
@@ -352,7 +356,7 @@ while run:
     all_accelerations.draw(screen)
     all_decelerations.draw(screen)
     player = draw_player()
-    colliding, restart_cmd = check_colliding(player)
+    colliding, restart_cmd = check_colliding()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -360,6 +364,9 @@ while run:
             run = False
         
         if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    run = False
             if event.key == pygame.K_p:  # Натиснуто клавішу 'p'
                 pause = not pause
             if event.key == pygame.K_ESCAPE:
@@ -373,12 +380,11 @@ while run:
             if event.key == pygame.K_SPACE:
                 booster = False
         if event.type == pygame.MOUSEBUTTONDOWN and pause:
-            mouse_x, mouse_y = event.pos
-            if restart.collidepoint(mouse_x, mouse_y):
-                restart_game()  # Виклик функції перезапуску гри
-            elif proceed_btn.collidepoint(mouse_x, mouse_y):
+            if restart.collidepoint(event.pos):
+                restart_cmd = True
+            if proceed.collidepoint(event.pos):
                 pause = False
-            elif quits.collidepoint(mouse_x, mouse_y):
+            if quits.collidepoint(event.pos):
                 modify_player_info()
                 run = False
     if pause:
@@ -407,11 +413,8 @@ while run:
         new_bg = distance
         bg_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
-    if random.randint(0, 100) < 5:  # Шанс створення ворога 5%
-        all_enemies.add(generate_enemy())
-
-    def restart_game():
-        global coin_count, distance, rocket_active, rocket_counter, pause, player_y, y_velocity, new_laser, high_score
+    if restart_cmd:
+        modify_player_info()
         coin_count = 0 
         distance = 0
         rocket_active = False
@@ -419,8 +422,8 @@ while run:
         pause = False
         player_y = init_y
         y_velocity = 0
+        restart_cmd = 0
         new_laser = True
-        high_score = 0 
 
     if distance > high_score:
         high_score = int(distance)
