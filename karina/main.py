@@ -213,8 +213,8 @@ def draw_player():
     pygame.draw.circle(screen, 'black', (138, player_y + 12), 3)
     return play
 
-def check_colliding(player):
-    global coin_count, restart_cmd
+def check_colliding():
+    global coin_count
     coll = [False, False]
     rstrt = False
     screen.blit(font.render(f'Coin Count: {int(coin_count)} ', True, 'white'), (10, 40))
@@ -230,11 +230,11 @@ def check_colliding(player):
         coll[1] = True
 
     if laser_line.colliderect(player):
-        restart_cmd = True
+        rstrt = True
 
     if rocket_active:
         if rocket.colliderect(player):
-            restart_cmd = True
+            rstrt = True
 
     return coll, rstrt
 
@@ -352,7 +352,7 @@ while run:
     all_accelerations.draw(screen)
     all_decelerations.draw(screen)
     player = draw_player()
-    colliding, restart_cmd = check_colliding(player)
+    colliding, restart_cmd = check_colliding()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -410,6 +410,8 @@ while run:
     if random.randint(0, 100) < 5:  # Шанс створення ворога 5%
         all_enemies.add(generate_enemy())
 
+    
+
     def restart_game():
         global coin_count, distance, rocket_active, rocket_counter, pause, player_y, y_velocity, new_laser, high_score
         coin_count = 0 
@@ -421,6 +423,10 @@ while run:
         y_velocity = 0
         new_laser = True
         high_score = 0 
+
+    
+    if restart_cmd:
+        restart_game()
 
     if distance > high_score:
         high_score = int(distance)
