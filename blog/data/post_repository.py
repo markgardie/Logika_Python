@@ -19,7 +19,14 @@ class PostRepository():
         conn.close()
 
     def delete_post(self, id):
-        pass
+        conn = self.db.get_connection()
+        conn.execute("DELETE FROM posts WHERE id = ?", (id,))
+        conn.commit()
+        conn.close()
 
     def update_post(self, id, title, content):
-        pass
+        conn = self.db.get_connection()
+        conn.execute("UPDATE posts SET title = ?, content = ? WHERE id = ?", 
+                     (title, content, id))
+        conn.commit()
+        conn.close()
