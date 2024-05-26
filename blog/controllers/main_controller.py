@@ -7,7 +7,8 @@ class MainController():
         self.repository = PostRepository()
 
     def index(self):
-        pass
+        posts = self.repository.get_posts()
+        render_template("index.html", post_list = posts)
     
     def post(self, post_id):
         pass
@@ -16,7 +17,14 @@ class MainController():
         if request.method == "POST":
             title = request.form["title"]
             content = request.form["content"]
-            self.repository.create_post(title, content)
+    
+            if title != "":
+                self.repository.create_post(title, content)
+                redirect(url_for("index"))
+            else:
+                flash("Пустий заголовок")
+        else:
+            return render_template("create.html")
 
     def edit(self, post_id):
         pass

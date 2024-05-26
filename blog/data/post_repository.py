@@ -7,7 +7,10 @@ class PostRepository():
         self.db = BlogDatabase()
 
     def get_posts(self):
-        pass
+        conn = self.db.get_connection()
+        posts = conn.execute("SELECT * FROM posts", ).fetchall()
+        conn.close()
+        return posts
 
     def get_post(self, id):
         pass
