@@ -13,7 +13,7 @@ class Navigation(ScreenManager):
         
 
     def add_screens(self):
-        pass
+        self.add_widget(self.intro_screen)
 
     def navigate_to_second(self):
         self.current = "start_pulse_screen"
