@@ -13,7 +13,10 @@ class PostRepository():
         return posts
 
     def get_post(self, id):
-        pass
+        conn = self.db.get_connection()
+        post = conn.execute("SELECT * FROM posts WHERE id = ?", (id,) ).fetchone()
+        conn.close()
+        return post
 
     def create_post(self, title, content):
         conn = self.db.get_connection()
