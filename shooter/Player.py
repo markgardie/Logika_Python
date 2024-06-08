@@ -1,16 +1,23 @@
-from Sprite import*
+from shooter.HitboxSprite import*
 from Constants import*
 from Bullet import*
 
-class Player(Sprite):
+class Player(HitboxSprite):
 
     
     def controls(self, left, right):
         keys = pg.key.get_pressed()
 
-        if keys[left] and self.hitbox.x > 5:
-            self.hitbox.x -= self.speed
+        if keys[left] and self.rect.x > 5:
+            self.rect.x -= self.speed
+
+        if keys[right] and self.rect.x < WINDOW_WIDTH - 5:
+            self.rect.x += self.speed
 
 
     def fire(self, bullets):
-        pass
+        bullet = Bullet(BULLET_WIDTH, BULLET_HEIGHT, 
+                        self.rect.centerx, self.rect.top, 
+                        BULLET_IMAGE_PATH, BULLET_SPEED)
+        bullets.add(bullet)
+        
