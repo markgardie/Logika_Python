@@ -43,4 +43,10 @@ special_applicants = [p for p in predictions if p['has_benefits']]
 regular_applicants.sort(key=lambda x: x['rating_score'], reverse=True)
 special_applicants.sort(key=lambda x: x['rating_score'], reverse=True)
 
+admitted_regular = [p for p in regular_applicants if p['prediction'] == 1][:315]
+admitted_special = [p for p in special_applicants if p['prediction'] == 1][:35]
 
+admitted_applicants = admitted_special + admitted_regular
+
+admitted_df = pd.DataFrame(admitted_applicants)
+admitted_df.to_csv('admitted_applicants.csv', index=False)
