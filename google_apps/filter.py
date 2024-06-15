@@ -15,8 +15,11 @@ print(med_inst)
 
 #На скільки максимальна кількість відгуків (Reviews) для безкоштовних програм (Type == 'Free')
 # більше максимальної кількості відгуків для платних програм (Type == 'Paid')?
-
-
+free = df[df["Type"] == "Free"]
+paid = df[df["Type"] == "Paid"]
+free_max = free["Reviews"].max()
+paid_max = paid["Reviews"].max()
+print(free_max - paid_max)
 
 # Який мінімальний розмір (Size) програми для тинейджерів (Content Rating == 'Teen')?
 
