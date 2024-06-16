@@ -11,6 +11,9 @@ class Player(HitboxSprite):
         if keys[right] and self.rect.x < WINDOW_WIDTH:
             self.rect.x += self.speed
 
+        if keys[left] and self.rect.x > 0:
+            self.rect.x -= self.speed
+
 
     def fire(self, bullets):
         bullet = Bullet(BULLET_WIDTH, BULLET_HEIGHT, 

@@ -8,21 +8,40 @@ from Window import*
 class Game():
 
     def create_objects(self):
-
-        pass
+        self.enemies = pg.sprite.Group()
 
     def create_enemy(self):
-        pass
+        x = randint(ENEMY_X_START, ENEMY_X_END)
+        speed = randint(1, 5)
+
+        enemy = Enemy(
+                ENEMY_WIDTH, ENEMY_HEIGHT, 
+                x, ENEMY_Y,
+                ENEMY_IMAGE_PATH, speed
+            )
+        
+        self.enemies.add(enemy)
 
     def draw_objects(self):
-        pass
+        self.enemies.draw(self.window.screen)
+
 
     def move_objects(self):
-        pass
+        self.enemies.update()
+
 
     def collisions(self):
-        
-        pass
+        collides = pg.sprite.groupcollide(self.enemies, self.bullets, True, True)
+
+        for c in collides:
+            self.create_enemy()
+            self.scores += 1
+
+        for enemy in self.enemies.sprites():
+            if enemy.rect.colliderect(self.player.rect):
+                self.miss += 1
+                enemy.kill()
+                self.create_enemy()
 
     def win_lose(self):
        
