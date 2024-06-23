@@ -44,14 +44,22 @@ class Game():
                 self.create_enemy()
 
     def win_lose(self):
-       
-        pass
+       if self.scores >= 5:
+           self.finish = True
+           self.text = FONT.render("Перемога", True, TEXT_COLOR)
+
 
     def event_handler(self):
-        pass
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.game = False
+            #  if event.type == pg.KEYDOWN and event.key == pg.K_w:
+
             
     def update_window(self):
-        pass
+        pg.display.update()
+        self.window.clock.tick()
+
 
     def game_loop(self):
         self.create_objects()
@@ -60,7 +68,8 @@ class Game():
 
         while self.game:
             if self.finish:
-                pass
+                self.window.screen.blit(self.text, (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+                self.update_window()
             else:
                 self.draw_objects()
                 self.move_objects()
