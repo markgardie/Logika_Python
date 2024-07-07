@@ -5,5 +5,14 @@ from say_hello.models import Message
 
 @app.route("/", methods = ["GET", "POST"])
 def index():
+    form = HelloForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        body = form.body.data
+        new_message = Message(name = name, body = body)
+        db.session.add(new_message)
+        db.session.commit()
+        flash("Повідомлення успішно додано")
+        return redirect(url_for("index"))
     messages = Message.query.order_by(Message.timestamp.desc()).all()
     return render_template("index.html", messages = messages)
