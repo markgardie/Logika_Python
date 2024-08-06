@@ -1,0 +1,3 @@
+import os
+
+OPENWEATHERMAP_API_KEY = "b92688f24089dfccb0be687d2465c4c9"
