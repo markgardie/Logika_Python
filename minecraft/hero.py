@@ -139,6 +139,14 @@ class Hero():
             if self.land.isEmpty(pos):
                 self.model.setPos(pos)
 
+    def build(self):
+        angle = self.model.getH() % 360
+        pos = self.look_at(angle)
+        if self.mode:
+            self.land.addBlock(pos)
+        else:
+            self.land.buildBlock(pos)
+
     def accept_events(self):
         base.accept(key_left, self.move_left)
         base.accept(key_left + '-repeat', self.move_left)

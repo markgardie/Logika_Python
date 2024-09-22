@@ -52,3 +52,79 @@ class Mapmanager():
                        block = self.addBlock((x, y, i))
                    x += 1
                y += 1
+
+    
+    def findBlocks(self, pos):
+       return self.land.findAllMatches("=at=" + str(pos))
+
+
+    def isEmpty(self, pos):
+       blocks = self.findBlocks(pos)
+       if blocks:
+           return False
+       else:
+           return True
+
+
+    def findHighestEmpty(self, pos):
+       x, y, z = pos
+       z = 1
+       while not self.isEmpty((x, y, z)):
+           z += 1
+       return (x, y, z)
+
+    
+    
+    def buildBlock(self, pos):
+        x, y, z = pos
+        new = self.findHighestEmpty(pos)
+        if new[2] <= z + 1:
+            self.addBlock(new)
+    
+    def delBlock(self, position):
+        blocks = self.findBlocks(position)
+        for block in blocks:
+            block.removeNode()
+
+    def delBlockFrom(self, position):
+        x, y, z = self.findHighestEmpty(position)
+        pos = x, y, z - 1
+        blocks = self.findBlocks(pos)
+        for block in blocks:
+            block.removeNode()
+
+    def saveMap(self):
+       """зберігає всі блоки, включаючи споруди, у бінарний файл"""
+       """повертає колекцію NodePath для всіх існуючих у карті світу блоків"""
+       blocks = self.land.getChildren()
+       # відкриваємо бінарний файл на запис
+       with open('my_map.dat', 'wb') as fout:
+           # зберігаємо на початок файлу кількість блоків
+           pickle.dump(len(blocks), fout)
+           # обходимо всі блоки
+           for block in blocks:
+               # зберігаємо позицію
+               x, y, z = block.getPos()
+               pos = (int(x), int(y), int(z))
+               pickle.dump(pos, fout)
+
+    def loadMap(self):
+       # видаляємо всі блоки
+       self.clear()
+
+
+       # відкриваємо бінарний файл на читання
+       with open('my_map.dat', 'rb') as fin:
+          
+           # зчитуємо кількість блоків
+           length = pickle.load(fin)
+
+
+           for i in range(length):
+               # зчитуємо позицію
+               pos = pickle.load(fin)
+
+               # створюємо новий блок
+               self.addBlock(pos)
+
+
