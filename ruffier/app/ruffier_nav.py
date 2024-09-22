@@ -1,5 +1,5 @@
 from kivy.uix.screenmanager import ScreenManager
-from instr_screen import InstrScreen
+from ruffier.ui.instr_screen import InstrScreen
 from pulse_screen1 import PulseScreen1
 from squat_screen import SquatScreen
 from pulse_screen2 import PulseScreen2
