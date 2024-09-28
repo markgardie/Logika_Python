@@ -11,17 +11,14 @@ class RuffierNavigation(ScreenManager):
         super().__init__(**kwargs)
         self.create_screens()
         self.add_screens()
-        self.click_listeners()
 
     def create_screens(self):
-        self.instr_screen = InstrScreen(name = "instr_screen")
-
+        self.intro_screen = IntroScreen(name = "intro_screen")
+        
     def add_screens(self):
-        self.add_widget(self.instr_screen)
+        self.add_widget(self.intro_screen)
 
-    def click_listeners(self):
-        self.instr_screen.btn.on_press = self.navigate_to_p1
-
-    def navigate_to_p1(self):
-        self.current = "pulse_screen1"
+    def navigate_to_second(self):
+        self.current = "start_pulse_screen"
+        self.transition.direction = "left"
 
