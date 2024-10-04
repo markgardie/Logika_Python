@@ -10,39 +10,38 @@ class MainController():
 
 
     def click_listeners(self):
-        self.instr_screen.next_button.on_press = self.create_user()
-        self.start_pulse_screen.next_button.on_press = self.save_p1()
-        self.squat_screen.next_button.on_press = self.navigator.navigate_to_fourth()
-        self.activity_pulse_screen.next_button.on_press = self.finish()
-        self.result_screen.finish_button.on_press = self.navigator.navigate_to_first()
+        self.navigator.instr_screen.next_button.on_press = self.create_user()
+        self.navigator.pulse_screen1.next_button.on_press = self.save_p1()
+        self.navigator.squat_screen.next_button.on_press = self.navigator.navigate_to_pulse2()
+        self.navigator.pulse_screen2.next_button.on_press = self.finish()
 
 
     def create_user(self):
         self.user = User(
-            self.instr_screen.name_input.text,
-            self.instr_screen.age_input.text
+            self.navigator.instr_screen.name_input.text,
+            self.navigator.instr_screen.age_input.text
         )
 
-        self.navigator.navigate_to_second()
+        self.navigator.navigate_to_pulse1()
     
     def save_p1(self):
-        self.p1 = self.start_pulse_screen.pulse_input.text
-        self.navigator.navigate_to_third()
+        self.p1 = self.navigator.pulse_screen1.pulse_input.text
+        self.navigator.navigate_to_squat()
     
 
     def finish(self):
         index = ruffier_index(
             self.p1,
-            self.rest_pulse_screen.pulse_input2.text,
-            self.rest_pulse_screen.pulse_input3.text
+            self.navigator.pulse_screen2.pulse_input2.text,
+            self.navigator.pulse_screen2.pulse_input3.text
         )
 
         level = get_level(index, self.user.age)
 
-        self.result_screen.result_label.text = f''' 
+        self.navigator.result_screen.result_label.text = f''' 
             Шановний, {self.user.name}
             Ваш індекс: {index}
             Ваш рівень: {level}
         '''
 
-        self.navigator.navigate_to_fifth()
+        self.navigator.navigate_to_result()
