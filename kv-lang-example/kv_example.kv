@@ -1,0 +1,12 @@
+<MyScreenManager>:
+    id: my_manager
+    Screen:
+        name: "first_screen"
+        Button:
+            text: "Screen1"
+            on_press: my_manager.navigate_to_second()
+    Screen:
+        name: "second_screen"
+        Button:
+            text: "Screen2"
+            on_press: my_manager.navigate_to_first()
