@@ -20,10 +20,12 @@ free_reviews = free["Reviews"].max()
 
 print(free_reviews - paid_reviews)
 # Який мінімальний розмір (Size) програми для тинейджерів (Content Rating == 'Teen')?
-
+teen = df[df["Content Rating"] == "Teen"]
+min_size = teen["Size"].min()
 
 # *До якої категорії (Category) відноситься додаток із найбільшою кількістю відгуків (Reviews)?
 
 
 # *Який середній (mean) рейтинг (Rating) додатків вартістю (Price) понад 20 доларів
-
+price = df[df["Price"] > 20]
+mean_ratin = price["Rating"].mean()
