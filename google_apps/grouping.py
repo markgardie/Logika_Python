@@ -1,20 +1,26 @@
 import pandas as pd
-df = pd.read_csv(r"google_apps\GoogleApps.csv")
+df = pd.read_csv(r"google_apps\grouping.py")
 
 
 # 1 Скільки всього програм з категорією ('Category') 'BUSINESS'?
-category_groups = df["Category"].value_counts()
-print(category_groups)
+business_count = df["Category"].value_counts()
+print(business_count["BUSINESS"])
+
+# 1.1 Скільки платних додатків (група Paid, розбивка по колонці Type)
+business_count = df["Type"].value_counts()
+print(business_count["Paid"])
+
+# 1.2 Скільки додатків створено для підлітків (Content Rating, Teen)
+
 
 # 2 Чому дорівнює співвідношення кількості додатків для підлітків ('Teen') і для дітей старше 10 ('Everyone 10+')?
 # Відповідь запиши з точністю до сотих.
 
 
+
 # 3.1 Чому дорівнює середній рейтинг ('Rating') платних ('Paid') додатків?
 # Відповідь запиши з точністю до сотих.
-temp = df.groupby(by = "Type")
-mean_rating = temp["Rating"].mean()
-print(mean_rating)
+
 
 # 3.2 На скільки середній рейтинг ('Rating') безкоштовних ('Free') додатків менший за середній рейтинг платних ('Paid')?
 # Відповідь запиши з точністю до сотих.
@@ -23,8 +29,8 @@ print(mean_rating)
 # 4 Чому дорівнює мінімальний та максимальний розмір ('Size') додатків у категорії ('Category') 'COMICS'?
 # Запиши відповіді з точністю до сотих.
 
-
 # Бонус 1. Скільки додатків з рейтингом ('Rating') більше 4.5 у категорії ('Category') 'FINANCE'?
+
 
 
 # Бонус 2. Чому дорівнює співвідношення безкоштовних ('Free') і платних ('Paid') ігор з рейтингом ('Rating') більше 4.9?
