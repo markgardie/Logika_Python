@@ -17,4 +17,11 @@ class QuizDao():
         return result
 
     def get_question(self, question_id = 0):
-        pass
+        self.db.open_db()
+
+        self.db.cursor.execute("SELECT * FROM question WHERE id = ?", question_id)
+        result = self.db.cursor.fetchone()
+
+        self.db.close_db()
+
+        return result
