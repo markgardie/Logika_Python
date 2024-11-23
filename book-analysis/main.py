@@ -54,6 +54,23 @@ def sentiment_analysis(books):
     with open(json_path, encoding="utf-8") as json_file:
         json.dump(sentiments, json_file)
 
+def create_plots():
+    json_path = os.path.join(folder_path, "sentiments.json")
+    with open(json_path) as file:
+        books = json.load(file)
+    
+    for book in books.keys():
+        book_name = book.split(".")[0]
+        book_format = book_name + ".jpg"
+
+        plt.plot(books[book]["sentiments"])
+        plt.title(book_name)
+
+        path = os.path.join(folder_path, "plots", book_format)
+
+        plt.savefig(path)
+        plt.clf()
+
 
 def analyze_one_book():
     book_path = r"book-analysis\matrix.txt"
@@ -86,4 +103,6 @@ def analyze_one_book():
     plt.title("Example Book")
     plt.show()
 
-analyze_one_book()
+books = open_books()
+sentiment_analysis(books)
+create_plots()
