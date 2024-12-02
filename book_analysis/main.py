@@ -7,6 +7,69 @@ import os
 import json
 import numpy as np
 
+folder_path = r"book_analysis\books"
+
+def open_books():
+
+    books = {}
+
+    filenames = os.listdir(folder_path)
+
+    for file in filenames:
+        book_path = os.path.join(folder_path, file)
+        with open(book_path, encoding="utf-8") as book_file:
+            text = book_file.read()
+            books[file] = {"text": text, "sentiments": []}
+
+    return books
+
+def sentiment_analysis(books):
+    analyzer = SentimentIntensityAnalyzer()
+    sentiments = {}
+    json_path = os.path.join(folder_path, "sentiments.json")
+
+    for book in books:
+        text = books[book]["text"]
+        sentences = nltk.sent_tokenize(text)
+        scores = []
+
+        for sent in sentences:
+            score = analyzer.polarity_scores(sent)["compound"]
+            scores.append(score)
+
+        scores_dct = dct(scores, norm='ortho', type=2)
+        scores_lpf = scores_dct.copy()
+       
+        scores_lpf[10:] = 0
+
+
+        filtered_scores = idct(scores_lpf, norm='ortho')
+
+        normalized_narrative = 100
+
+        filtered_scores = np.interp(np.linspace(0, 1, normalized_narrative), np.linspace(0, 1, len(filtered_scores)), filtered_scores)
+        sentiments[book] = {"sentiments": filtered_scores.tolist()}
+
+    with open(json_path, encoding="utf") as json_file:
+        json.dump(sentiments, json_file)
+
+def create_plots():
+    json_path = os.path.join(folder_path, "sentiments.json")
+    with open(json_path, encoding="utf-8") as file:
+        books = json.load(file)
+
+    for book in books.keys():
+        book_name = book.split(".")[0]
+        book_format = book_name + ".jpg"
+
+        plt.plot(books[book]["sentiments"])
+        plt.title(book_name)
+
+        path = os.path.join(folder_path, "plots", book_format)
+
+        plt.savefig(path)
+        plt.clf()
+
 
 def analyze_one_book():
 
@@ -39,4 +102,5 @@ def analyze_one_book():
     plt.title("")
     plt.show()
 
-analyze_one_book()
+sentiment_analysis(open_books())
+create_plots()
