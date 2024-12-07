@@ -29,4 +29,20 @@ df[list(pd.get_dummies(df['Embarked']).columns)] = pd.get_dummies(df['Embarked']
 df['Embarked'].fillna("S", axis = 1)
 df.drop(["Embarked"], axis = 1)
 
-     
+y = df["Survived"]
+X = df.drop(["Survived", "PassengerId", "Name", "Ticket", "Fare", "Cabin"], axis=1)
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+classifier = KNeighborsClassifier()
+
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred) * 100
+print(accuracy)
