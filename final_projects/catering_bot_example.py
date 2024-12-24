@@ -3,6 +3,7 @@ from datetime import datetime
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 import sqlite3
+import os
 
 # Налаштування логування
 logging.basicConfig(
@@ -18,16 +19,24 @@ MENU = {
     'meal4': 'Паста Карбонара',
 }
 
+TOKEN = "7758745066:AAEZ3AFQwgbptrDcxXC_vKyl5haAD66XJjY"
+
 # ID адміністратора (потрібно замінити на реальний)
-ADMIN_ID = 123456789
+ADMIN_ID = 45811064
+
+# Визначаємо шлях до бази даних
+DB_PATH = 'final_projects/lunch_orders.db'
 
 # Створення бази даних
 def init_db():
-    conn = sqlite3.connect('lunch_orders.db')
+    # Створюємо директорію, якщо вона не існує
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('''
         CREATE TABLE IF NOT EXISTS orders
-        (user_id INTEGER, username TEXT, meal TEXT, order_date DATE, order_time TIME)
+        (user_id INTEGER, username TEXT, meal TEXT, order_date TEXT, order_time TEXT)
     ''')
     conn.commit()
     conn.close()
@@ -68,10 +77,10 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     meal = MENU[query.data]
     
     # Зберігаємо замовлення в базу даних
-    conn = sqlite3.connect('lunch_orders.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    current_date = datetime.now().date()
-    current_time = datetime.now().time()
+    current_date = datetime.now().date().isoformat()
+    current_time = datetime.now().strftime('%H:%M:%S')
     
     c.execute('''
         INSERT INTO orders (user_id, username, meal, order_date, order_time)
@@ -93,9 +102,9 @@ async def get_orders(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("У вас немає доступу до цієї команди.")
         return
 
-    conn = sqlite3.connect('lunch_orders.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    current_date = datetime.now().date()
+    current_date = datetime.now().date().isoformat()
     
     c.execute('''
         SELECT username, meal, order_time 
@@ -122,7 +131,7 @@ def main():
     init_db()
     
     # Створення і налаштування бота
-    application = Application.builder().token('YOUR_BOT_TOKEN').build()
+    application = Application.builder().token(TOKEN).build()
 
     # Додавання обробників команд
     application.add_handler(CommandHandler("start", start))
