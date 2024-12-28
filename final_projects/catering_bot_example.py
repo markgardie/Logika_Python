@@ -22,7 +22,7 @@ MENU = {
 TOKEN = "7758745066:AAEZ3AFQwgbptrDcxXC_vKyl5haAD66XJjY"
 
 # ID адміністратора (потрібно замінити на реальний)
-ADMIN_ID = 45811064
+ADMIN_ID = 7218927446
 
 # Визначаємо шлях до бази даних
 DB_PATH = 'final_projects/lunch_orders.db'
