@@ -19,7 +19,11 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 
 # x, y
+y = df["ExamScore"]
+X = df.drop(["ExamScore", "Gender"])
+
 # train test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 lr = LinearRegression()
 lr.fit(X_train, y_train)
