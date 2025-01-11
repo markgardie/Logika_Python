@@ -4,10 +4,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Кореляції
-
 df = pd.read_csv('StudentPerformanceFactors.csv')
 
-df_numeric = df.select_dtypes(include=['number'])
+df_numeric = df.select_dtypes(include=['number']) 
 corr_matrix = df_numeric.corr()[['Exam Score']]
 
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', linewidths=0.5, vmin=1, vmax=1)
