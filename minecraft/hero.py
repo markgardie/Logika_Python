@@ -31,11 +31,55 @@ class Hero():
     def __init__(self):
         pass
 
+
+    def cameraBind(self):
+        base.disableMouse()
+        base.camera.setH(180)
+        base.camera.reparantTo(self.heroModel)
+        base.camera.setPos(CAMERA_POS)
+        self.cameraBinded = True
+
+    def cameraUnbind(self):
+        pass
+    
+    def move_to(self, angle):
+        if self.isFreeMode:
+            self.just_move(angle)
+        else:
+            self.try_move(angle)
+
+    def just_move(self, angle):
+        pos = self.look_at(angle)
+        self.heroModel.setPos(pos)
+
+    def try_move(self, angle):
+        pos = self.look_at(angle)
+        if self.land.isEmpty(pos):
+            pos = self.land.findHighestEmpty(pos)
+            self.heroModel.setPos(pos)
+        else:
+            pos = pos[0], pos[1], pos[2] + 1
+            if self.land.isEmpty(pos):
+                self.heroModel.setPos(pos)
+
     def left(self):
-        angle = (self.getH() + 90) % 360
+        angle = (self.heroModel.getH() + 90) % 360
         self.moveTo(angle)
 
+    def turn_left(self):
+        newAngle = (self.heroModel.getH() + 5) % 360
+        self.heroModel.setH(newAngle)
+
+    def up(self):
+        if self.isFreeMode:
+            self.heroModel.setZ(self.heroModel.getZ() + 1)
     
     def accept_events(self):
-        base.accept(KEY_LEFT, left)
-        base.accept(KEY_LEFT + '-repeat', left)
+        base.accept(KEY_LEFT, self.left)
+        base.accept(KEY_LEFT + '-repeat', self.left)
+
+        base.accept(KEY_TURN_LEFT, self.turn_left)
+        base.accept(KEY_TURN_LEFT + '-repeat', self.turn_left)
+
+        base.accept(KEY_UP, self.up)
+        base.accept(KEY_UP + '-repeat', self.up)
