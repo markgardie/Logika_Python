@@ -3,7 +3,15 @@ import pickle
 
 class MapManager():
    def __init__(self):
-      pass
+      self.model = 'block.egg' # модель кубика лежить у файлі block.egg
+       # # використовуються такі текстури:
+      self.texture = 'block.png'        
+      self.colors = [
+           (0.2, 0.2, 0.35, 1),
+           (0.2, 0.5, 0.2, 1),
+           (0.7, 0.2, 0.2, 1),
+           (0.5, 0.3, 0.0, 1)
+      ] #rgba
 
    def startNew(self):
       self.land = render.attachNewNode("Land")
@@ -55,22 +63,41 @@ class MapManager():
 
 
    def findHighestEmpty(self, pos):
-       pass
+       x, y, z = pos
+       z = 1
+       while not self.isEmpty((x, y, z)):
+           z += 1
+       return (x, y, z)
 
 
    def buildBlock(self, pos):
-       pass
+       """Ставимо блок з урахуванням гравітації: """
+       x, y, z = pos
+       new = self.findHighestEmpty(pos)
+       if new[2] <= z + 1:
+           self.addBlock(new)
 
 
    def delBlock(self, position):
-       pass
+       """видаляє блоки у зазначеній позиції """
+       blocks = self.findBlocks(position)
+       for block in blocks:
+           block.removeNode()
 
 
    def delBlockFrom(self, position):
        pass
 
    def saveMap(self):
-       pass
+      blocks = self.land.getChildren()
+      with open('my_map.dat', 'wb') as file:
+         pickle.dump(len(blocks), file)
+
+         for block in blocks:
+            x, y, z = block.getPos()
+            pos = (int(x), int(y), int(z))
+            pickle.dump(pos, file)
+            
 
 
    def loadMap(self):

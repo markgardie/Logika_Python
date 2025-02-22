@@ -66,6 +66,14 @@ class Hero():
        else:
            self.land.buildBlock(pos)
 
+    def destroy(self):
+       angle = self.hero.getH() % 360
+       pos = self.look_at(angle)
+       if self.isFreeMode:
+           self.land.delBlock(pos)
+       else:
+           self.land.delBlockFrom(pos)
+
     def changeView(self):
         if self.cameraBinded:
             self.cameraUnbind()
