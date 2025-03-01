@@ -78,7 +78,16 @@ class MapManager():
       pass
 
    def saveMap(self):
-      pass
+      blocks = self.land.getChildren()
+      with open('my_map.dat', 'wb') as file:
+
+         pickle.dump(len(blocks),file)
+
+         for block in blocks:
+            x, y, z = block.getPos()
+            pos = (int(x), int(y), int(z))
+            pickle.dump(pos, file)
+
 
 
    def loadMap(self):
