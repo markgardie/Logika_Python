@@ -1,0 +1,355 @@
+:root {
+    --primary-color: #3498db;
+    --primary-dark: #2980b9;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --light-bg: #f5f6fa;
+    --card-bg: #ffffff;
+    --text-color: #2c3e50;
+    --text-muted: #7f8c8d;
+    --border-color: #ecf0f1;
+    --shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+}
+
+/* Статистика та прогрес */
+.stats-overview {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.progress-circle-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 8;
+}
+
+.progress-circle {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.streak-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.streak-display small {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Форми */
+.add-habit-section, .habits-section {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--primary-dark);
+}
+
+.danger-btn {
+    background-color: var(--danger-color);
+}
+
+.danger-btn:hover {
+    background-color: #c0392b;
+}
+
+.secondary-btn {
+    background-color: #95a5a6;
+}
+
+.secondary-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* Список звичок */
+#habits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.habit-item {
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.habit-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.habit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.habit-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.delete-habit {
+    background: none;
+    color: var(--danger-color);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.habit-progress {
+    margin-bottom: 10px;
+}
+
+.habit-count {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #e6e6e6;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.5s ease-out;
+}
+
+.habit-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.increase-btn, .decrease-btn {
+    flex: 1;
+    padding: 8px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.increase-btn {
+    background-color: var(--success-color);
+}
+
+.increase-btn:hover {
+    background-color: #27ae60;
+}
+
+.decrease-btn {
+    background-color: var(--warning-color);
+}
+
+.decrease-btn:hover {
+    background-color: #d35400;
+}
+
+.no-habits {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Підвал */
+footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Модальне вікно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow);
+}
+
+.modal h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Анімаційні класи */
+.highlight {
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Адаптивність */
+@media (max-width: 600px) {
+    .stats-overview {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .habit-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .habit-header .delete-habit {
+        align-self: flex-end;
+        margin-top: -30px;
+    }
+    
+    footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    footer button {
+        width: 100%;
+    }
+}
