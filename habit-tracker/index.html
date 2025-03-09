@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Щоденний трекер звичок</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Трекер щоденних звичок</h1>
+            <div class="stats-overview">
+                <div class="stat-item">
+                    <div class="progress-circle-container">
+                        <svg class="progress-ring" width="100" height="100">
+                            <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress-circle" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span id="completion-rate">0%</span>
+                        </div>
+                    </div>
+                    <p>Виконання на сьогодні</p>
+                </div>
+                <div class="stat-item">
+                    <div class="streak-display">
+                        <span id="streak-days">0</span>
+                        <small>днів</small>
+                    </div>
+                    <p>Поточна серія</p>
+                </div>
+            </div>
+        </header>
+        
+        <section class="add-habit-section">
+            <h2>Додати нову звичку</h2>
+            <form id="add-habit-form">
+                <div class="form-group">
+                    <label for="habit-name">Назва звички:</label>
+                    <input type="text" id="habit-name" placeholder="Наприклад: Ранкова пробіжка" required>
+                </div>
+                <div class="form-group">
+                    <label for="goal-count">Ціль (кількість на день):</label>
+                    <input type="number" id="goal-count" min="1" value="1" required>
+                </div>
+                <button type="button" id="add-habit">Додати звичку</button>
+            </form>
+        </section>
+        
+        <section class="habits-section">
+            <h2>Мої звички</h2>
+            <div id="habits-list">
+                <!-- Тут будуть відображатись звички -->
+            </div>
+        </section>
+        
+        <footer>
+            <button id="clear-all" class="danger-btn">Очистити всі дані</button>
+            <button id="export-data" class="secondary-btn">Експорт даних</button>
+        </footer>
+    </div>
+    
+    <!-- Модальне вікно для підтвердження видалення -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3>Підтвердження</h3>
+            <p>Ви впевнені, що хочете видалити всі дані?</p>
+            <div class="modal-buttons">
+                <button id="confirm-delete" class="danger-btn">Видалити</button>
+                <button id="cancel-delete" class="secondary-btn">Скасувати</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
