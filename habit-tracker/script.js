@@ -33,6 +33,8 @@ function updateProgressCircle(completionRate) {
     })
 }
 
+
+// dz
 function isAllHabitsCompletedYesterday() {
     if (habits.length === 0) return false;
 
@@ -42,5 +44,105 @@ function isAllHabitsCompletedYesterday() {
 
     for (const habit of habits) {
         const yesterdayRecord = habit.history.find(h => h.date == yesterdayStr)
+        if (!yesterdayRecord || yesterdayRecord.completed < habit.goal) {
+            return false
+        }
+    }
+
+    return true
+}
+
+// saveData
+function saveData() {
+    localStorage.setItem('habits', JSON.stringify(habits));
+    localStorage.setItem('currentStreak', currentStreak);
+    localStorage.setItem('lastCheckDate', lastCheckDate);
+}
+
+function createHabitElement(habit, index) {
+    const today = new Date().toDateString()
+    const todayRecord = habit.history.find(h => h.date === today) || { completed: 0 }
+    
+    const habitElement = document.createElement('div')
+    habitElement.className = 'habit-item'
+    habitElement.innerHTML = `
+        <div class="habit-header">
+            <h3>${habit.name}</h3>
+            <button class="delete-habit" data-index="${index}">×</button>
+        </div>
+        <div class="habit-progress">
+            <span class="habit-count">${todayRecord.completed}/${habit.goal}</span>
+            <div class="progress-bar">
+                <div class="progress" style="width: ${Math.min(100, (todayRecord.completed / habit.goal) * 100)}%"></div>
+            </div>
+        </div>
+        <div class="habit-actions">
+            <button class="decrease-btn" data-index="${index}">-</button>
+            <button class="increase-btn" data-index="${index}">+</button>
+        </div>
+    `
+
+    return habitElement
+
+}
+
+function renderHabits() {
+    habitsList.innerHTML = ''
+
+    if (habits.length === 0) {
+        habitsList.innerHTML = '<p class="no-habits">Додайте свою першу звичку!</p>'
+        return
+    }
+
+
+    habits.forEach((habit, index) => {
+        const habitElement = createHabitElement(habit, index)
+        habitsList.appendChild(habitElement)
+    })
+
+    document.querySelectorAll('.increase-btn').forEach((btn) => {
+        btn.addEventListener('click', increaseHabitCount)
+    })
+
+}
+
+function addHabit() {}
+
+function deleteHabit() {}
+
+function increaseHabitCount(e) {
+    const index = e.target.dataset.index
+    const today = new Date().toDateString()
+    const todayRecord = habits[index].history.find(h => h.date === today)
+
+    if (todayRecord && todayRecord.completed < habits[index].goal) {
+        todayRecord.completed++
+        saveDate()
+        renderHabits()
+        updateStatistics()
+
+        if (todayRecord.completed === habits[index].goal) {
+            anime({
+                targets: e.target.closest('.habit-item'),
+                backgroundColor: ['#f8f9fa', '#e6fffa', '#f8f9fa'],
+                borderLeftColor: ['#3498db', '#2ecc71', '#3498db'],
+                duration: 1500,
+                easing: 'easeOutExpo'
+            });
+        }
+
     }
 }
+
+function decreaseHabitCount() {}
+
+function clearAllData() {}
+
+function confirmDelete() {}
+
+function cancelDelete() {}
+
+function exportData() {}
+
+function init() {}
+
