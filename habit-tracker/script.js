@@ -106,7 +106,47 @@ function renderHabits() {
 
 }
 
-function addHabit() {}
+function addHabit() {
+    const name = habitNameInput.value.trim()
+    const goal = parseInt(goalCountInput.value)
+
+    if (!name || goal <= 0) {
+        anime({
+            targets: '#add-habit-form',
+            translateX: [0, -10, 10, -10, 10, 0],
+            duration: 500,
+            easing: 'easeInOutSine'
+        });
+        return;
+    }
+
+    const today = new Date().toDateString()
+    const newHabit = {
+        name,
+        goal,
+        history: [{date: today, completed: 0}]
+    }
+    habits.push(newHabit)
+
+    saveData()
+    renderHabits()
+    updateStatistics()
+
+    habitNameInput = ''
+    goalCountInput = '1';
+
+    if (habitsList.lastChild) {
+
+        anime({
+            targets: habitsList.lastChild,
+            translateY: [50, 0],
+            opacity: [0, 1],
+            duration: 800,
+            easing: 'easeOutQuint'
+        });
+    }
+
+}
 
 function deleteHabit() {}
 
@@ -134,15 +174,81 @@ function increaseHabitCount(e) {
     }
 }
 
-function decreaseHabitCount() {}
+function decreaseHabitCount() {
+    const index = e.target.dataset.index;
+    const today = new Date().toDateString();
+    const todayRecord = habits[index].history.find(h => h.date === today);
+    
+    if (todayRecord && todayRecord.completed > 0) {
+        todayRecord.completed--;
+        saveData();
+        renderHabits();
+        updateStatistics();
+    }
+}
 
-function clearAllData() {}
+function clearAllData() {
+    confirmModal.style.display = 'flex';
+}
 
-function confirmDelete() {}
+function confirmDelete() {
+    habits = []
+    currentStreak = 0
+    lastCheckDate = ''
 
-function cancelDelete() {}
+    saveData()
+    renderHabits()
+    updateStatistics()
 
-function exportData() {}
+    confirmModal.style.display = 'none'
 
-function init() {}
+    anime({
+        targets: '.progress-circle',
+        strokeDashoffset: CIRCLE_CIRCUMFERENCE,
+        duration: 800,
+        easing: 'easeInOutQuad'
+    });
+}
+
+function cancelDelete() {
+    confirmModal.style.display = 'none';
+}
+
+function exportData() {
+
+    const dataStr = JSON.stringify(
+        {
+            habits,
+            currentStreak,
+            lastCheckDate
+        }, null, 2)
+
+    const blob = new Blob([dataStr], {type: 'application/json'})
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `habits_tracker_export_${new Date().toISOString().split('T')[0]}.json`
+    document.body.appendChild(a)
+    a.click()
+
+    setTimeout(() => {
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+    }, 0)
+
+   
+}
+
+function init() {
+
+    habitNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            addHabit()
+        }
+
+    })
+
+}
 
