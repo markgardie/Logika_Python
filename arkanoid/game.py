@@ -50,16 +50,51 @@ class Game():
                 self.dir_x = randint(-1, 1)
                 self.blocks.remove(block)
 
+        if self.main_ball.hitbox.colliderect(block.hitbox):
+            self.dir_y = 1
+            self.dir_x = randint(-1, 1)
+
         if self.main_ball.hitbox.x > WINDOW_WIDTH:
             self.dir_x = -1
 
-        
+        if self.main_ball.hitbox.x > WINDOW_WIDTH:
+            self.dir_x = -1
 
-    def win_lose():
-        pass
+    def win_lose(self):
+        font = pg.font.Font(None, FONT_SIZE)
 
-    def update_window():
-        pass
+        if len(self.blocks) == 0:
+            self.finish = True
+            self.text = font.render(WIN_TEXT, True, BLACK)
 
-    def game_loop():
-        pass
+        if len(self.blocks) == 0:
+            self.finish = True
+            self.text = font.render(WIN_TEXT, True, BLACK)
+
+    def update_window(self):
+        self.main_window.clock.tick(60)
+        pg.display.update()
+
+    def event_handler(self):
+        for e in pg.event.get():
+            if e.type == pg.QUIT:
+                self.game = False
+
+    def game_loop(self):
+        self.create_objects()
+        self.game = True
+        self.finish = False
+
+        while self.game:
+            self.event_handler()
+            if self.finish:
+                self.main_window.background.blit(
+                    self.text,
+                    (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+                )
+            else:
+                self.draw_objects()
+                self.move_objects()
+                self.collisions()
+                self.win_lose()
+                self.update_window()
