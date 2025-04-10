@@ -1,16 +1,31 @@
 from constants import*
 from sprite import Sprite
 from window import Window
-from platform import Platform
 from ball import Ball
+from my_platform import Platform
 from random import randint
 import pygame as pg
 
 class Game():
 
     def create_objects(self):
+        pg.font.init()
         self.main_window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, BLUE)
+
+        self.main_ball = Ball(BALL_WIDTH, BALL_HEIGHT, 
+                              WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 
+                              BALL_IMAGE_PATH)
+        
+        self.main_platform = Platform(PLATFORM_WIDTH, PLATFORM_HEIGHT, 
+                                 WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100,
+                                 PLATFORM_IMAGE_PATH)
+    
         self.blocks = []
+        self.create_blocks()
+
+                
+        self.dir_x = 1
+        self.dir_y = -1
         
 
     def create_blocks(self):
@@ -27,18 +42,25 @@ class Game():
             x = 20    
 
     def draw_objects(self):
+        self.main_window.background.fill(BLUE)
         self.main_window.background.blit(
             self.main_platform.image,
             (self.main_platform.hitbox.x, self.main_platform.hitbox.y)
         )
 
+        self.main_window.background.blit(
+            self.main_ball.image,
+            (self.main_ball.hitbox.x, self.main_ball.hitbox.y)
+        )
+
         for block in self.blocks:
-            pass
+            self.main_window.background.blit(
+            block.image,
+            (block.hitbox.x, block.hitbox.y)
+        )
 
     def move_objects(self):
-        
-        self.dir_x = 1
-        self.dir_y = -1
+
 
         self.main_ball.move(self.dir_x, self.dir_y)
         self.main_platform.controls(pg.K_a, pg.K_d)
@@ -50,15 +72,18 @@ class Game():
                 self.dir_x = randint(-1, 1)
                 self.blocks.remove(block)
 
-        if self.main_ball.hitbox.colliderect(block.hitbox):
-            self.dir_y = 1
+        if self.main_ball.hitbox.colliderect(self.main_platform.hitbox):
+            self.dir_y = -1
             self.dir_x = randint(-1, 1)
 
         if self.main_ball.hitbox.x > WINDOW_WIDTH:
             self.dir_x = -1
 
-        if self.main_ball.hitbox.x > WINDOW_WIDTH:
-            self.dir_x = -1
+        if self.main_ball.hitbox.x < 0:
+            self.dir_x = 1
+
+        if self.main_ball.hitbox.y < 0:
+            self.dir_y = 1
 
     def win_lose(self):
         font = pg.font.Font(None, FONT_SIZE)
@@ -67,9 +92,9 @@ class Game():
             self.finish = True
             self.text = font.render(WIN_TEXT, True, BLACK)
 
-        if len(self.blocks) == 0:
+        if self.main_ball.hitbox.y > WINDOW_HEIGHT:
             self.finish = True
-            self.text = font.render(WIN_TEXT, True, BLACK)
+            self.text = font.render(LOSE_TEXT, True, BLACK)
 
     def update_window(self):
         self.main_window.clock.tick(60)
@@ -87,6 +112,7 @@ class Game():
 
         while self.game:
             self.event_handler()
+            self.update_window()
             if self.finish:
                 self.main_window.background.blit(
                     self.text,
@@ -97,4 +123,6 @@ class Game():
                 self.move_objects()
                 self.collisions()
                 self.win_lose()
-                self.update_window()
+                
+
+Game().game_loop()
