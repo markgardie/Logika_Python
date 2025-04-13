@@ -1,0 +1,48 @@
+import pygame as pg
+
+pg.init()
+
+BACKGROUND_COLOR = (200, 255, 255)
+YELLOW = (255,255,0)
+DARK_BLUE = (0,0,100)
+BLUE = (80,80,255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 51)
+
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 500
+
+CAPTION = "Fast Clicker"
+
+CARD_WIDTH = 70
+CARD_HEIGHT = 100
+
+TEXT_X_SHIFT = 10
+TEXT_Y_SHIFT = 30
+TEXT_COLOR = (0, 0, 0)
+TEXT_SIZE = 15
+TEXT = "CLICK"
+FONT = "verdana"
+
+SCORES_TEXT = "Рахунок:"
+SCORES_TEXT_SIZE = 30
+SCORES_TEXT_COR = (350, 50)
+SCORES_FONT = pg.font.Font(None, SCORES_TEXT_SIZE)
+
+FINAL_TEXT_SIZE = 60
+FINAL_TEXT_FONT = None
+WIN_TEXT = "Ти переміг"
+LOSE_TEXT = "Ти програв"
+
+START_X = 70
+CARDS_DISTANCE = 100
+
+CARDS_Y = 170
+
+OUTLINE_THICKNESS = 10
+
+CARDS_NUM = 4
+
+FPS = 60
+
+scores = [0]
