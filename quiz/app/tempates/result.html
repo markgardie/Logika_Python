@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Вікторина - Результати{% endblock %}
+
+{% block content %}
+<div class="result">
+    <h2>Ваш результат</h2>
+    <div class="score">
+        {{ correct }} правильних відповідей із {{ total }} ({{ percentage|round(1) }}%)
+    </div>
+    {% if percentage >= 80 %}
+        <p>Відмінно! Ви чудово впоралися!</p>
+    {% elif percentage >= 60 %}
+        <p>Добре! Але є над чим попрацювати.</p>
+    {% else %}
+        <p>Спробуйте ще раз, щоб покращити свій результат.</p>
+    {% endif %}
+    <div class="back">
+        <a href="{{ url_for('quiz.index') }}">Почати спочатку</a>
+    </div>
+</div>
+{% endblock %}

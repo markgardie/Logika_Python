@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Вікторина - Питання{% endblock %}
+
+{% block content %}
+<div class="question">
+    <h2>{{ question.question }}</h2>
+    <form method="post" action="{{ url_for('quiz.question', question_id=question.id) }}">
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="answer" value="1" required> {{ question.option1 }}
+            </label>
+            <label class="option">
+                <input type="radio" name="answer" value="2"> {{ question.option2 }}
+            </label>
+            <label class="option">
+                <input type="radio" name="answer" value="3"> {{ question.option3 }}
+            </label>
+            <label class="option">
+                <input type="radio" name="answer" value="4"> {{ question.option4 }}
+            </label>
+        </div>
+        <button type="submit">Відповісти</button>
+    </form>
+</div>
+{% endblock %}
