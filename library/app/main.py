@@ -1,13 +1,37 @@
-from fastapi import FastAPI, Depends, HTTPException, Path, Body, Query
+from fastapi import FastAPI, Depends, HTTPException, Path, Body, Query, status
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Annotated
+from datetime import timedelta
 
 from .database import engine, get_db
-from . import models, schemas
+from . import models, schemas, auth
+from .models import User
 
 schemas.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Book Catalog API")
+
+
+@app.post("/token", response_model=schemas.Token)
+async def login_for_access_token(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    db: Session = Depends(get_db)
+):
+    # user auth
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Невірний логін або пароль",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    access_token_expire = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = auth.create_access_token(
+        data={"sub": user.login}, expires_delta=access_token_expire
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
 
 @app.post("/books/", status_code=201, response_model=models.Book)
 async def create_book(book: models.BookCreate, db: Session = Depends(get_db)):
