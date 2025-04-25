@@ -1,0 +1,238 @@
+/* Загальні стилі */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button, .btn {
+    display: inline-block;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #0055aa;
+    text-decoration: none;
+}
+
+/* Шапка */
+header {
+    background-color: #0066cc;
+    color: white;
+    padding: 1rem 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+header h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Основний контент */
+main {
+    padding: 2rem 0;
+    min-height: calc(100vh - 160px);
+}
+
+/* Форма скорочення URL */
+.url-form {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    margin-top: 15px;
+}
+
+.form-group input[type="url"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f0f7ff;
+    border-radius: 6px;
+}
+
+.url-display {
+    display: flex;
+    margin: 10px 0;
+}
+
+.url-display input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+.copy-btn {
+    border-radius: 0 4px 4px 0;
+}
+
+.error-message {
+    padding: 10px;
+    background-color: #ffebee;
+    color: #c62828;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Таблиця статистики */
+.stats {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.url-list {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f5f5f5;
+}
+
+.original-url {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Інформація про URL */
+.url-info {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.url-details {
+    margin: 20px 0;
+}
+
+.url-details p {
+    margin-bottom: 10px;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+/* Підвал */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .form-group {
+        flex-direction: column;
+    }
+
+    .form-group input[type="url"] {
+        margin-bottom: 10px;
+    }
+
+    .form-group button {
+        width: 100%;
+    }
+
+    .url-display {
+        flex-direction: column;
+    }
+
+    .url-display input {
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .copy-btn {
+        border-radius: 4px;
+        width: 100%;
+    }
+}

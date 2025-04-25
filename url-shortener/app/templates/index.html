@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}URL Shortener - Скорочення URL{% endblock %}
+
+{% block content %}
+<section class="url-form">
+    <h2>Скоротіть ваше посилання</h2>
+    
+    {% if error %}
+    <div class="error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+    
+    <form method="post">
+        <div class="form-group">
+            <input type="url" name="url" id="url" placeholder="https://example.com/very-long-url..." required value="{{ original_url if original_url }}">
+            <button type="submit">Скоротити</button>
+        </div>
+    </form>
+    
+    {% if short_url %}
+    <div class="result">
+        <h3>Ваше скорочене посилання:</h3>
+        <div class="url-display">
+            <input type="text" value="{{ short_url }}" id="short-url" readonly>
+            <button onclick="copyToClipboard()" class="copy-btn">Копіювати</button>
+        </div>
+        <p>Оригінальний URL: <a href="{{ original_url }}" target="_blank">{{ original_url }}</a></p>
+    </div>
+    {% endif %}
+</section>
+
+<script>
+function copyToClipboard() {
+    var copyText = document.getElementById("short-url");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Скопійовано в буфер обміну: " + copyText.value);
+}
+</script>
+{% endblock %}

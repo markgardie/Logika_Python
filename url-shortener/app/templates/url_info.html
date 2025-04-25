@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}URL Shortener - Інформація про URL{% endblock %}
+
+{% block content %}
+<section class="url-info">
+    <h2>Інформація про скорочений URL</h2>
+    
+    <div class="url-details">
+        <p><strong>Скорочений URL:</strong> <a href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+        <p><strong>Оригінальний URL:</strong> <a href="{{ url.original_url }}" target="_blank">{{ url.original_url }}</a></p>
+        <p><strong>Створено:</strong> {{ url.created_at }}</p>
+        <p><strong>Кількість переходів:</strong> {{ url.clicks }}</p>
+    </div>
+    
+    <div class="actions">
+        <a href="{{ url_for('main.stats') }}" class="btn">Повернутися до статистики</a>
+    </div>
+</section>
+{% endblock %}
