@@ -5,16 +5,39 @@ bp = Blueprint('quiz', __name__)
 
 @bp.before_app_first_request
 def initialize_database():
-    pass
+    init_db()
 
 @bp.route('/')
 def index():
-    pass
+    db_questions = get_all_questions()
+
+    session["correct_answers"] = 0
+    session["total_answers"] = 0
+
+    return render_template("index.html", questions = db_questions)
+
 
 @bp.route('/question/<int:question_id>', methods=['GET', 'POST'])
 def question(question_id):
-    pass
 
+    if request.method == "POST":
+
+        correct_answer = get_question_by_id(question_id)["correct_answer"]
+        selected_answer = int(request.form.get("answer"))
+
+        session["total_answers"] += 1
+        if selected_answer == correct_answer:
+            session["correct_answers"] += 1
+
+        return redirect(url_for("quiz.result"))
+    else:
+        db_question = get_question_by_id(question_id)
+
+        if db_question:
+            return render_template("question.html", question = db_question)
+        else:
+            return redirect(url_for("quiz.index"))
+       
 
 @bp.route('/result')
 def result():
