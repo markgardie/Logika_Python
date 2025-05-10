@@ -22,7 +22,15 @@ def close_db(e=None):
 class URL:
     @staticmethod
     def create(original_url, short_code):
-       pass
+       db = get_db()
+       cursor = db.cursor()
+
+       cursor.execute(
+           "INSERT INTO urls (original_url, short_code) VALUES (?, ?)",
+           (original_url, short_code)
+       )
+       db.commit()
+       return cursor.lastrowid
     
     @staticmethod
     def get_by_short_code(short_code):
@@ -30,8 +38,19 @@ class URL:
     
     @staticmethod
     def increment_clicks(short_code):
-        pass
+        db = get_db()
+        cursor = db.cursor()
+
+        cursor.execute(
+            "UPDATE urls SET clicks = clicks + 1 WHERE short_code = ?",
+            (short_code,)
+        )
+
+        db.commit()
     
     @staticmethod
     def get_all():
-        pass
+        db = get_db()
+        cursor = db.cursor()
+        urls = cursor.execute("SELECT * FROM urls").fetchall()
+        return urls
