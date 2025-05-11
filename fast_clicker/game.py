@@ -5,6 +5,7 @@ from card import Card
 from label import Label
 from random import randint
 import pygame as pg
+from time import time
 
 class Game():
 
@@ -14,9 +15,14 @@ class Game():
         self.start_time = time()
         self.goal_card = 0
 
-    def create_objects(self):
         pg.font.init()
-        pass
+
+    def create_objects(self):
+        self.main_window = Window(
+            WINDOW_WIDTH, WINDOW_HEIGHT, CAPTION, BLUE
+        )
+        
+        self.cards = self.create_cards()
 
     def create_cards(self):
         cards = []
@@ -34,9 +40,8 @@ class Game():
 
         return cards
         
-
     def draw_objects(self):
-        pass
+        self.draw_cards()
 
     def draw_cards(self):
         if self.timer == 0:
@@ -58,14 +63,32 @@ class Game():
         else:
             self.timer -= 1
 
-    def move_objects(self):
-        pass
-
     def collisions(self):
-        pass
+        self.click()
+
+    def click(self, e):
+        x, y = e.pos
+        for card in self.cards:
+            if card.hitbox.collidepoint(x, y):
+                if self.cards.index(card) == self.goal_card:
+                    card.set_color(GREEN)
+                    self.scores += 1
+                else:
+                    card.set_color(RED)
+                    self.scores -= 1
+
+                pg.draw.rect(self.main_window.background, card.color, card.hitbox)
 
     def win_lose(self):
-        pass
+        font = pg.font.Font(FINAL_TEXT_FONT, FINAL_TEXT_SIZE)
+
+        if self.end_time - self.start_time >= 11:
+            self.text = font.render(LOSE_TEXT, True, TEXT_COLOR)
+            self.finish = True
+        
+        if self.scores > 5: 
+            self.text = font.render(WIN_TEXT, True, TEXT_COLOR)
+            self.finish = True
 
     def update_window(self):
         self.main_window.clock.tick(60)
@@ -75,6 +98,8 @@ class Game():
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 self.game = False
+            if e.type == pg.MOUSEBUTTONDOWN and e.button == 1:
+                self.click(e)
 
     def game_loop(self):
         self.create_objects()
@@ -91,9 +116,9 @@ class Game():
                 )
             else:
                 self.draw_objects()
-                self.move_objects()
                 self.collisions()
                 self.win_lose()
+                self.end_time = time()
                 
 
 Game().game_loop()

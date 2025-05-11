@@ -9,6 +9,6 @@ class Card(Sprite):
         self.font = pg.font.Font(None, CLICK_TEXT_SIZE)
         self.text = self.font.render(CLICK_TEXT, True, BLACK)
 
-    def change_color(self, new_color):
+    def set_color(self, new_color):
         self.color = new_color
        
