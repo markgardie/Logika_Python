@@ -2,5 +2,5 @@ import os
 
 class Config:
     SECRET_KEY = 'your_secret_key_here'
-    DATABASE_URI = 'instance\quiz.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///quiz.db'
     DEBUG = True
