@@ -1,4 +1,4 @@
-from constants import*
+from constants import *
 from sprite import Sprite
 from window import Window
 from card import Card
@@ -11,9 +11,13 @@ class Game():
 
     def __init__(self):
         self.timer = 0
-        self.score = 0
+        self.scores = 0  
         self.start_time = time()
         self.goal_card = 0
+        self.end_time = 0
+        self.finish = False 
+        self.game = True 
+        self.text = None 
 
         pg.font.init()
 
@@ -23,6 +27,12 @@ class Game():
         )
         
         self.cards = self.create_cards()
+        
+        self.score_label = Label(
+            SCORES_TEXT_COR[0], SCORES_TEXT_COR[1], 
+            SCORES_TEXT_SIZE, TEXT_COLOR, 
+            f"{SCORES_TEXT} {self.scores}"
+        )
 
     def create_cards(self):
         cards = []
@@ -41,7 +51,11 @@ class Game():
         return cards
         
     def draw_objects(self):
+        self.main_window.background.fill(BLUE)  
         self.draw_cards()
+     
+        self.score_label.change_text(f"{SCORES_TEXT} {self.scores}")
+        self.main_window.background.blit(self.score_label.text, (self.score_label.x, self.score_label.y))
 
     def draw_cards(self):
         if self.timer == 0:
@@ -55,16 +69,25 @@ class Game():
                 pg.draw.rect(self.main_window.background, BLUE, card.hitbox, OUTLINE_THICKNESS)
 
                 if self.cards.index(card) == self.goal_card:
-                    self.main_window.blit(card.text, 
+                    self.main_window.background.blit(card.text, 
                                           (card.hitbox.x + TEXT_X_SHIFT, 
                                            card.hitbox.y + TEXT_Y_SHIFT
                                            )
                                           )
         else:
             self.timer -= 1
+            
+            for card in self.cards:
+                pg.draw.rect(self.main_window.background, card.color, card.hitbox)
+                pg.draw.rect(self.main_window.background, BLUE, card.hitbox, OUTLINE_THICKNESS)
+                
+                if self.cards.index(card) == self.goal_card:
+                    self.main_window.background.blit(card.text, 
+                                          (card.hitbox.x + TEXT_X_SHIFT, 
+                                           card.hitbox.y + TEXT_Y_SHIFT
+                                           )
+                                          )
 
-    def collisions(self):
-        self.click()
 
     def click(self, e):
         x, y = e.pos
@@ -80,6 +103,7 @@ class Game():
                 pg.draw.rect(self.main_window.background, card.color, card.hitbox)
 
     def win_lose(self):
+        self.end_time = time()
         font = pg.font.Font(FINAL_TEXT_FONT, FINAL_TEXT_SIZE)
 
         if self.end_time - self.start_time >= 11:
@@ -91,7 +115,7 @@ class Game():
             self.finish = True
 
     def update_window(self):
-        self.main_window.clock.tick(60)
+        self.main_window.clock.tick(FPS) 
         pg.display.update()
 
     def event_handler(self):
@@ -108,17 +132,19 @@ class Game():
 
         while self.game:
             self.event_handler()
-            self.update_window()
+            
             if self.finish:
+                self.main_window.background.fill(BLUE)
+                text_rect = self.text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
                 self.main_window.background.blit(
                     self.text,
-                    (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+                    text_rect
                 )
             else:
                 self.draw_objects()
-                self.collisions()
                 self.win_lose()
-                self.end_time = time()
-                
+            
+            self.update_window()
 
-Game().game_loop()
+if __name__ == "__main__":
+    Game().game_loop()

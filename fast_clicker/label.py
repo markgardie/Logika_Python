@@ -12,4 +12,3 @@ class Label():
 
     def change_text(self, new_text):
         self.text = self.font.render(new_text, True, self.text_color)
-        
