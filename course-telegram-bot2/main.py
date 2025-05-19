@@ -210,3 +210,50 @@ async def send_delayed_message(context: CallbackContext) -> None:
     
     except Exception as e:
         logger.error(f"Помилка при відправці повідомлення курсу: {e}")
+
+async def admin_confirm(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if not context.args or len(context.args) != 1:
+        await update.message.reply_text("Формат команди: /confirm USER_ID")
+        return
+    
+    user_id = context.args[0]
+
+    try:
+        sheet = connect_to_sheets()
+        all_data = sheet.get_all_records()
+
+        for idx, row in enumerate(all_data):
+            if str(row.get('user_id')) == user_id:
+                sheet.update_cell(idx + 2, 8, "Підтверджено")
+                await update.message.reply_text(f"Курс для користувача {user_id} підтверджено")
+
+                await send_course_messages(context, int(user_id), idx + 2)
+                return
+        await update.message.reply_text(f"Користувача {user_id} не існує")
+
+    except Exception as e:
+        logger.error(f"Помилка при підтвердженні курсу: {e}")
+        await update.message.reply_text(f"Помилка при підтвердженні курсу: {e}")
+
+def main() -> None:
+
+    app = Application.builder().token("").build()
+
+    conv_handler = ConversationHandler(
+        entry_points= [CommandHandler('start', start)],
+        states = {
+            NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_name)],
+            CITY: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_city)],
+            CONTACT: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_contact)],
+            TARIFF: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_tariff)]
+        },
+        fallbacks= [CommandHandler('cancel', cancel)]
+    )
+
+    app.add_handler(conv_handler)
+    app.add_handler(CommandHandler('confirm', admin_confirm))
+
+    job_queue = app.job_queue
+    job_queue.run_repeating(check_course_starts, interval=60, first = 10)
+
+    app.run_polling()
