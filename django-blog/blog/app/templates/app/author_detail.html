@@ -1,0 +1,61 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ author }} | Блог{% endblock %}
+
+{% block content %}
+<div class="row my-5">
+    <div class="col-md-4">
+        <div class="card">
+            {% if author.profile_pic %}
+                <img src="{{ author.profile_pic.url }}" class="card-img-top" alt="{{ author }}">
+            {% else %}
+                <div class="bg-light text-center py-5">
+                    <span class="display-1 text-muted">👤</span>
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <h2 class="card-title">{{ author }}</h2>
+                <p class="card-text">{{ author.bio|linebreaks }}</p>
+                
+                {% if author.website %}
+                <p class="card-text">
+                    <a href="{{ author.website }}" target="_blank" class="btn btn-outline-primary">Веб-сайт</a>
+                </p>
+                {% endif %}
+                
+                <p class="card-text">
+                    <small class="text-muted">Публікацій: {{ author.get_posts_count }}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <h3 class="mb-4">Публікації автора</h3>
+        
+        {% if posts %}
+            {% for post in posts %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{% url 'post-detail' slug=post.slug %}" class="text-decoration-none">
+                                {{ post.title }}
+                            </a>
+                        </h4>
+                        <p class="card-text text-muted">
+                            {{ post.content|truncatewords:30 }}
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">Опубліковано: {{ post.published_date|date:"d.m.Y" }}</small>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">
+                Автор ще не опублікував жодного поста.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
