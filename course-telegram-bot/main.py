@@ -263,7 +263,7 @@ async def admin_confirm(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 
 def main() -> None:
     # Створюємо екземпляр програми
-    application = Application.builder().token("YOUR_BOT_TOKEN").build()
+    application = Application.builder().token("7318894522:AAGePLzL9LEB_hpU_UioOD4bbPtmy6VaeBA").build()
     
     # Додаємо обробник розмови для реєстрації
     conv_handler = ConversationHandler(
