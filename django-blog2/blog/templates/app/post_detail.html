@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }} | Блог{% endblock %}
+
+{% block content %}
+<article class="post-detail my-5">
+    <header class="mb-4">
+        <h1 class="display-5 fw-bold">{{ post.title }}</h1>
+        <div class="text-muted mb-2">
+            Опубліковано: {{ post.published_date|date:"d.m.Y H:i" }} | 
+            Автор: <a href="{% url 'author-detail' pk=post.author.id %}">{{ post.author }}</a>
+            {% if post.author.user == user %}
+                | <a href="{% url 'post-edit' slug=post.slug %}" class="text-decoration-none">Редагувати</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if post.featured_image %}
+        <div class="mb-4">
+            <img src="{{ post.featured_image.url }}" class="img-fluid rounded" alt="{{ post.title }}">
+        </div>
+    {% endif %}
+
+    <div class="post-content">
+        {{ post.content|linebreaks }}
+    </div>
+</article>
+{% endblock %}
