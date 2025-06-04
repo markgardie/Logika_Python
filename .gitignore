@@ -1,3 +1,7 @@
 
 *.pyc
+<<<<<<< HEAD
 course-telegram-bot/credentials.json
+=======
+course-telegram-bot/chat-bot-460913-a4724f150a4b.json
+>>>>>>> f0164d3326bad5a48e3a0140f93ba166038851df
