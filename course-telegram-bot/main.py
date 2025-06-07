@@ -44,7 +44,7 @@ SCOPE = [
 
 # Функція для підключення до Google Sheets
 def connect_to_sheets():
-    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', SCOPE)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('course-telegram-bot/credentials.json', SCOPE)
     client = gspread.authorize(creds)
     # Відкриваємо таблицю за її назвою
     sheet = client.open('Telegram Bot Users').sheet1
@@ -62,14 +62,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     username = user.username if user.username else "No username"
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    # Записуємо базову інформацію в таблицю
-    try:
-        sheet = connect_to_sheets()
-        write_to_sheet(sheet, [user_id, username, start_time])
-    except Exception as e:
-        logger.error(f"Помилка запису в таблицю: {e}")
-    
-    # Зберігаємо ID користувача в контексті
+    # Зберігаємо ID користувача в контексті (БЕЗ запису в таблицю на цьому етапі)
     context.user_data['user_id'] = user_id
     context.user_data['username'] = username
     context.user_data['start_time'] = start_time
@@ -121,7 +114,7 @@ async def get_tariff(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     tariff = update.message.text
     context.user_data['tariff'] = tariff
     
-    # Записуємо всі дані користувача в таблицю
+    # Записуємо ВСІ дані користувача в таблицю ОДИН РАЗ
     try:
         sheet = connect_to_sheets()
         # Отримуємо збережені дані
@@ -132,8 +125,8 @@ async def get_tariff(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         city = context.user_data.get('city')
         contact = context.user_data.get('contact')
         
-        # Додаємо дані до таблиці
-        write_to_sheet(sheet, [user_id, username, start_time, name, city, contact, tariff, "Не підтверджено"])
+        # Додаємо всі дані до таблиці одним записом
+        write_to_sheet(sheet, [user_id, username, start_time, name, city, contact, tariff, "Не підтверджено", ""])
         
     except Exception as e:
         logger.error(f"Помилка запису в таблицю: {e}")
@@ -163,10 +156,17 @@ async def check_course_starts(context: CallbackContext) -> None:
         all_data = sheet.get_all_records()
         
         for idx, row in enumerate(all_data):
-            # Перевіряємо чи підтверджено курс для користувача
-            if row.get('Статус') == 'Підтверджено' and row.get('Повідомлення відправлені') != 'Так':
+            # Перевіряємо чи підтверджено курс для користувача та чи не відправлялися вже повідомлення
+            if (row.get('Статус') == 'Підтверджено' and 
+                (row.get('Повідомлення відправлені') == '' or 
+                 row.get('Повідомлення відправлені') is None or
+                 row.get('Повідомлення відправлені') == 'Не підтверджено')):
+                
                 # Отримуємо дані користувача
                 user_id = row.get('user_id')
+                
+                # Одразу позначаємо, що розпочато відправку повідомлень
+                sheet.update_cell(idx + 2, 9, "Розпочато відправку")
                 
                 # Відправляємо повідомлення користувачу
                 await send_course_messages(context, user_id, idx + 2)  # +2 оскільки idx починається з 0 і є заголовок
@@ -198,7 +198,8 @@ async def send_course_messages(context: CallbackContext, user_id, row_idx) -> No
                     'user_id': user_id,
                     'message': message,
                     'row_idx': row_idx,
-                    'message_idx': i
+                    'message_idx': i,
+                    'total_messages': len(COURSE_MESSAGES) - 1
                 }
             )
     
@@ -212,6 +213,7 @@ async def send_delayed_message(context: CallbackContext) -> None:
     message = job_data.get('message')
     row_idx = job_data.get('row_idx')
     message_idx = job_data.get('message_idx')
+    total_messages = job_data.get('total_messages')
     
     try:
         # Відправляємо повідомлення
@@ -224,7 +226,7 @@ async def send_delayed_message(context: CallbackContext) -> None:
         sheet = connect_to_sheets()
         
         # Якщо це останнє повідомлення, позначаємо як "Так"
-        if message_idx == len(COURSE_MESSAGES) - 1:
+        if message_idx == total_messages:
             sheet.update_cell(row_idx, 9, "Так")
         else:
             sheet.update_cell(row_idx, 9, f"Повідомлення {message_idx+1} відправлено")
