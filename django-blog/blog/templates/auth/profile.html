@@ -1,0 +1,120 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Профіль {{ user.username }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}" alt="Аватар" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px;">
+                        <i class="fas fa-user fa-4x text-white"></i>
+                    </div>
+                {% endif %}
+                
+                <h4>{{ user.get_full_name|default:user.username }}</h4>
+                <p class="text-muted">@{{ user.username }}</p>
+                
+                {% if user.profile.bio %}
+                    <p class="mt-3">{{ user.profile.bio }}</p>
+                {% endif %}
+                
+                <a href="{% url 'accounts:profile-edit' %}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Редагувати профіль
+                </a>
+            </div>
+        </div>
+        
+        <div class="card shadow mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Додаткова інформація</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <strong><i class="fas fa-envelope"></i> Email:</strong>
+                    <span class="text-muted">{{ user.email|default:"Не вказано" }}</span>
+                </div>
+                
+                {% if user.profile.phone %}
+                    <div class="mb-2">
+                        <strong><i class="fas fa-phone"></i> Телефон:</strong>
+                        <span class="text-muted">{{ user.profile.phone }}</span>
+                    </div>
+                {% endif %}
+                
+                {% if user.profile.city %}
+                    <div class="mb-2">
+                        <strong><i class="fas fa-map-marker-alt"></i> Місто:</strong>
+                        <span class="text-muted">{{ user.profile.city }}</span>
+                    </div>
+                {% endif %}
+                
+                {% if user.profile.birth_date %}
+                    <div class="mb-2">
+                        <strong><i class="fas fa-birthday-cake"></i> Дата народження:</strong>
+                        <span class="text-muted">{{ user.profile.birth_date }}</span>
+                    </div>
+                {% endif %}
+                
+                <div class="mb-2">
+                    <strong><i class="fas fa-calendar-alt"></i> Дата реєстрації:</strong>
+                    <span class="text-muted">{{ user.date_joined|date:"d.m.Y" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <h5><i class="fas fa-newspaper"></i> Мої пости</h5>
+            </div>
+            <div class="card-body">
+                {% if user.author.posts.all %}
+                    {% for post in user.author.posts.all %}
+                        <div class="border-bottom pb-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>
+                                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
+                                            {{ post.title }}
+                                        </a>
+                                        {% if not post.is_published %}
+                                            <span class="badge bg-warning">Чернетка</span>
+                                        {% endif %}
+                                    </h6>
+                                    <p class="text-muted small mb-2">
+                                        <i class="fas fa-calendar"></i> 
+                                        {% if post.published_date %}
+                                            {{ post.published_date|date:"d.m.Y H:i" }}
+                                        {% else %}
+                                            {{ post.created_date|date:"d.m.Y H:i" }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="mb-0">{{ post.content|truncatewords:20 }}</p>
+                                </div>
+                                <div class="ms-3">
+                                    <a href="{% url 'post-edit' post.slug %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">У вас поки немає опублікованих постів</p>
+                        <a href="{% url 'post-create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Створити перший пост
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
