@@ -76,7 +76,7 @@ def profile_edit(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Ваш профіль успішно оновлено!')
-            return redirect('profile')
+            return redirect('auth_system:profile')
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)

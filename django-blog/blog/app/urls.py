@@ -5,11 +5,11 @@ urlpatterns = [
     # Головна сторінка з усіма постами
     path('', views.post_list, name='post-list'),
     
-    # Сторінка з деталями поста
-    path('post/<slug:slug>/', views.post_detail, name='post-detail'),
+    # ВАЖЛИВО: Специфічні шляхи ПЕРЕД загальними
+    path('post/new/', views.post_create, name='post-create'),  # ← ПЕРЕМІСТИТИ ВГОРУ
     
-    # Сторінка створення нового поста
-    path('post/new/', views.post_create, name='post-create'),
+    # Сторінка з деталями поста (загальний паттерн)
+    path('post/<slug:slug>/', views.post_detail, name='post-detail'),
     
     # Сторінка редагування поста
     path('post/<slug:slug>/edit/', views.post_edit, name='post-edit'),
