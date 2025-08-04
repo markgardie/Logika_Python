@@ -59,14 +59,9 @@
                 <hr>
                 
                 <div class="text-center">
-                    <p class="mb-2">
-                        <a href="{% url 'accounts:password_reset' %}" class="text-decoration-none">
-                            <i class="fas fa-question-circle"></i> Забули пароль?
-                        </a>
-                    </p>
                     <p class="mb-0">
                         Ще немає акаунта? 
-                        <a href="{% url 'accounts:signup' %}" class="text-decoration-none">
+                        <a href="{% url 'auth_system:signup' %}" class="text-decoration-none">
                             <i class="fas fa-user-plus"></i> Зареєструйтесь
                         </a>
                     </p>

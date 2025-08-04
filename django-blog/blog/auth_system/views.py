@@ -31,7 +31,7 @@ def login_view(request):
     else:
         form = CustomAuthenticationForm()
     
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'auth/login.html', {'form': form})
 
 
 def logout_view(request):
@@ -56,13 +56,13 @@ def signup_view(request):
     else:
         form = CustomUserCreationForm()
     
-    return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, 'auth/signup.html', {'form': form})
 
 
 @login_required
 def profile_view(request):
     """Відображення профілю користувача"""
-    return render(request, 'accounts/profile.html', {'user': request.user})
+    return render(request, 'auth/profile.html', {'user': request.user})
 
 
 @login_required
@@ -85,6 +85,6 @@ def profile_edit(request):
         'user_form': user_form,
         'profile_form': profile_form
     }
-    return render(request, 'accounts/profile_edit.html', context)
+    return render(request, 'auth/profile_edit.html', context)
 
 

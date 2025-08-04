@@ -46,29 +46,29 @@
                                 <i class="fas fa-user"></i> {{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                                <li><a class="dropdown-item" href="{% url 'auth_system:profile' %}">
                                     <i class="fas fa-user-circle"></i> Профіль
                                 </a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:profile-edit' %}">
+                                <li><a class="dropdown-item" href="{% url 'auth_system:profile-edit' %}">
                                     <i class="fas fa-edit"></i> Редагувати профіль
                                 </a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:password_change' %}">
+                                <li><a class="dropdown-item" href="{% url 'auth_system:password_change' %}">
                                     <i class="fas fa-key"></i> Змінити пароль
                                 </a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                                <li><a class="dropdown-item" href="{% url 'auth_system:logout' %}">
                                     <i class="fas fa-sign-out-alt"></i> Вийти
                                 </a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'accounts:login' %}">
+                            <a class="nav-link" href="{% url 'auth_system:login' %}">
                                 <i class="fas fa-sign-in-alt"></i> Увійти
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'accounts:signup' %}">
+                            <a class="nav-link" href="{% url 'auth_system:signup' %}">
                                 <i class="fas fa-user-plus"></i> Реєстрація
                             </a>
                         </li>

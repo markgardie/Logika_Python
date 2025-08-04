@@ -18,11 +18,11 @@
                 <li class="nav-item"><a href="{% url 'author-list' %}" class="nav-link px-2 text-dark">Автори</a></li>
                 {% if user.is_authenticated %}
                     <li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link px-2 text-dark">Новий пост</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-dark">{{ user.username }}</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-dark">Вийти</a></li>
+                    <li class="nav-item"><a href="{% url 'auth_system:profile' %}" class="nav-link px-2 text-dark">{{ user.username }}</a></li>
+                    <li class="nav-item"><a href="{% url 'auth_system:logout' %}" class="nav-link px-2 text-dark">Вийти</a></li>
                 {% else %}
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-dark">Увійти</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-dark">Зареєструватися</a></li>
+                    <li class="nav-item"><a href="{% url 'auth_system:login' %}" class="nav-link px-2 text-dark">Увійти</a></li>
+                    <li class="nav-item"><a href="{% url 'auth_system:signup' %}" class="nav-link px-2 text-dark">Зареєструватися</a></li>
                 {% endif %}
             </ul>
         </div>
