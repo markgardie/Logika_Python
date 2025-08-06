@@ -73,7 +73,15 @@
                             <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Мій профіль</a></li>
                             <li><a class="dropdown-item" href="{% url 'accounts:profile_edit' %}">Редагувати профіль</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Вийти</a></li>
+                            <li>
+                                <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item text-danger" style="width: 100%; text-align: left;">
+                                        <i class="fas fa-sign-out-alt"></i> Вийти
+                                    </button>
+                                </form>
+                            </li>
+
                         </ul>
                     </li>
                     {% else %}
