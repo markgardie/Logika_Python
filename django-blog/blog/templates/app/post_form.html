@@ -10,13 +10,71 @@
         padding-left: 0;
         margin-top: 5px;
     }
+    .status-indicator {
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 500;
+        margin-left: 15px;
+    }
+    .status-published {
+        background-color: #d1edff;
+        color: #0066cc;
+        border: 1px solid #b3d9ff;
+    }
+    .status-draft {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffecb5;
+    }
+    .btn-group-post {
+        gap: 10px;
+    }
+    .btn-publish {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        border: none;
+        color: white;
+    }
+    .btn-publish:hover {
+        background: linear-gradient(45deg, #218838, #1aa085);
+        color: white;
+    }
+    .btn-draft {
+        background: linear-gradient(45deg, #6c757d, #495057);
+        border: none;
+        color: white;
+    }
+    .btn-draft:hover {
+        background: linear-gradient(45deg, #5a6268, #3d4142);
+        color: white;
+    }
+    .btn-unpublish {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        border: none;
+        color: white;
+    }
+    .btn-unpublish:hover {
+        background: linear-gradient(45deg, #c82333, #a71e2a);
+        color: white;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <h1 class="my-4">{% if form.instance.id %}Редагування поста{% else %}Новий пост{% endif %}</h1>
+        <div class="d-flex align-items-center mb-4">
+            <h1>{% if form.instance.id %}Редагування поста{% else %}Новий пост{% endif %}</h1>
+            {% if form.instance.id %}
+                <span class="status-indicator {% if form.instance.is_published %}status-published{% else %}status-draft{% endif %}">
+                    {% if form.instance.is_published %}
+                        <i class="fas fa-globe"></i> Опубліковано
+                    {% else %}
+                        <i class="fas fa-edit"></i> Чернетка
+                    {% endif %}
+                </span>
+            {% endif %}
+        </div>
         
         <form method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
@@ -70,11 +128,86 @@
                 {% endif %}
             </div>
             
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Зберегти</button>
-                <a href="{% url 'post-list' %}" class="btn btn-secondary">Скасувати</a>
+            <!-- Кнопки дій -->
+            <div class="mb-4">
+                <div class="d-flex flex-wrap btn-group-post">
+                    {% if form.instance.id %}
+                        <!-- Для редагування існуючого поста -->
+                        {% if form.instance.is_published %}
+                            <button type="submit" name="save" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Зберегти зміни
+                            </button>
+                            <button type="submit" name="unpublish" class="btn btn-unpublish">
+                                <i class="fas fa-eye-slash"></i> Зняти з публікації
+                            </button>
+                        {% else %}
+                            <button type="submit" name="save" class="btn btn-draft">
+                                <i class="fas fa-save"></i> Зберегти як чернетку
+                            </button>
+                            <button type="submit" name="publish" class="btn btn-publish">
+                                <i class="fas fa-globe"></i> Опублікувати
+                            </button>
+                        {% endif %}
+                    {% else %}
+                        <!-- Для створення нового поста -->
+                        <button type="submit" name="draft" class="btn btn-draft">
+                            <i class="fas fa-edit"></i> Зберегти як чернетку
+                        </button>
+                        <button type="submit" name="publish" class="btn btn-publish">
+                            <i class="fas fa-globe"></i> Опублікувати
+                        </button>
+                    {% endif %}
+                    
+                    <a href="{% url 'post-list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Скасувати
+                    </a>
+                </div>
+                
+                {% if form.instance.id and form.instance.is_published %}
+                    <div class="mt-2">
+                        <a href="{{ form.instance.get_absolute_url }}" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-eye"></i> Переглянути пост
+                        </a>
+                    </div>
+                {% endif %}
             </div>
+            
+            <!-- Інформаційна панель -->
+            {% if form.instance.id %}
+                <div class="alert alert-light">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar-plus"></i> <strong>Створено:</strong> 
+                                {{ form.instance.created_date|date:"d.m.Y H:i" }}
+                            </small>
+                        </div>
+                        {% if form.instance.published_date %}
+                            <div class="col-md-6">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> <strong>Опубліковано:</strong> 
+                                    {{ form.instance.published_date|date:"d.m.Y H:i" }}
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
         </form>
     </div>
 </div>
+
+<script>
+// Підтвердження для зняття з публікації
+document.addEventListener('DOMContentLoaded', function() {
+    const unpublishBtn = document.querySelector('button[name="unpublish"]');
+    if (unpublishBtn) {
+        unpublishBtn.addEventListener('click', function(e) {
+            if (!confirm('Ви впевнені, що хочете зняти пост з публікації? Він буде недоступний для читачів.')) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

@@ -1,5 +1,7 @@
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.utils import timezone
 from .models import Post, Author
 from .forms import PostForm, AuthorForm
@@ -24,10 +26,18 @@ def post_create(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            # Отримуємо або створюємо автора на основі поточного користувача
             author, created = Author.objects.get_or_create(user=request.user)
             post.author = author
             post.created_date = timezone.now()
+            
+            if 'publish' in request.POST:
+                post.publish()
+                messages.success(request, '🎉 Пост успішно створено та опубліковано!')
+            else: 
+                post.is_published = False
+                post.published_date = None
+                messages.success(request, '📝 Пост збережено як чернетку.')
+            
             post.save()
             return redirect('post-detail', slug=post.slug)
     else:
@@ -40,14 +50,28 @@ def post_edit(request, slug):
     """Редагування існуючого поста"""
     post = get_object_or_404(Post, slug=slug)
     
-    # Перевірка чи користувач є автором поста
     if post.author.user != request.user:
+        messages.error(request, '❌ Ви можете редагувати тільки свої пости.')
         return redirect('post-detail', slug=post.slug)
     
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
+            
+            if 'publish' in request.POST and not post.is_published:
+                post.publish()
+                messages.success(request, '🎉 Пост успішно опубліковано!')
+            elif 'unpublish' in request.POST and post.is_published:
+                post.is_published = False
+                post.published_date = None
+                messages.success(request, '📝 Пост знято з публікації і збережено як чернетку.')
+            else:  # 'save' або будь-яка інша кнопка
+                if post.is_published:
+                    messages.success(request, '✅ Зміни в пості успішно збережено!')
+                else:
+                    messages.success(request, '📝 Чернетка поста оновлена.')
+            
             post.save()
             return redirect('post-detail', slug=post.slug)
     else:
