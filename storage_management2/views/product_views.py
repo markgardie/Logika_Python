@@ -33,8 +33,33 @@ def create_product(
     return db_product
 
 @router.get("/", response_model=List[ProductResponse])
-def get_products():
-    pass
+def get_products(
+    skip: Annotated[int, Query(ge=0, description="Пропустити товари")] = 0,  
+    limit: Annotated[int, Query(ge=1, le=500, description="Ліміт товарів")] = 50,
+    search: Annotated[Optional[str], Query(description="Пошук")] = None,
+    min_price: Annotated[Optional[float], Query(qe=0, description="Мінімальна ціна")] = None,
+    max_price: Annotated[Optional[float], Query(qt=0, description="Максимальна ціна")] = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    if search:
+        query_res = db.query(Product).filter(
+            or_(
+                Product.name.ilike(f"%{search}%"),
+                Product.sku.ilike(f"%{search}%")
+            )
+        )
+
+    if min_price:
+        query_res = db.query(Product).filter(Product.price >= min_price)
+    if max_price:
+        query_res = db.query(Product).filter(Product.price <= max_price)
+    
+    products = query_res.offset(skip).limit(limit)
+
+    return products
+
+
 
 @router.get("/{product_id}", response_model=ProductResponse)
 def get_product():
