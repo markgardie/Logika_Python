@@ -43,9 +43,11 @@ def get_categories(
     categories = query.offset(skip).limit(limit).all()
     return categories
 
+from fastapi import Path
+
 @router.get("/{category_id}", response_model=CategoryResponse)
 def get_category(
-    category_id: int = Query(..., gt=0),
+    category_id: int = Path(..., gt=0, description="ID of the category"),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):
@@ -56,6 +58,7 @@ def get_category(
             detail="Category not found"
         )
     return category
+
 
 @router.put("/{category_id}", response_model=CategoryResponse)
 def update_category(
