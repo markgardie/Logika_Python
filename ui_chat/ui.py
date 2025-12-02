@@ -34,15 +34,41 @@ class MainWindow(CTk):
 
 
 
-    def toggle_menu():
-        pass
+    def toggle_menu(self):
+        if self.is_show_menu:
+            self.is_show_menu = False
+            self.menu_animation_speed *= -1
+            self.menu_btn.configure(text = '▶️')
+            self.show_menu()
+        else:
+            self.is_show_menu = True
+            self.menu_animation_speed *= -1
+            self.menu_btn.configure(text = '◀️')
+            self.show_menu()
 
-    def show_menu():
-        pass
+            self.label = CTkLabel(self.menu_frame, text = "Ім'я")
+            self.label.pack(pady = 30)
+            self.name_entry = CTkEntry(self.menu_frame)
+            self.message_entry.pack()
 
-    def adaptive_ui():
-        pass
 
-    def add_message():
-        pass
+    def show_menu(self):
+        self.menu_frame.configure(width = self.menu_frame.winfo_width() + self.menu_animation_speed)
+        if not self.menu_frame.winfo_width() >= 200 and self.is_show_menu:
+            self.after(10, self.show_menu)
+        elif self.menu_frame.winfo_width() >= 40 and not self.is_show_menu:
+            self.after(10, self.show_menu)
+            if self.label and self.name_entry:
+                self.label.destroy()
+                self.name_entry.destroy()
+
+    def adaptive_ui(self):
+        self.menu_frame.configure(height = self.winfo_height)
+        self.chat_field.place(x = self.menu_frame.winfo_width())
+        self.chat_field.configure(width = self.winfo_width() - self.menu_frame.winfo_width())
+
+    def add_message(self, text):
+        self.chat_field.configure(state="normal")
+        self.chat_field.insert(END, "Я:" + text + "\n")
+        self.chat_field.configure(state="disable")
 
