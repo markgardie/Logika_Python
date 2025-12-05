@@ -1,74 +1,100 @@
-from customtkinter import *
+# ui.py
+from customtkinter import CTk, CTkFrame, CTkButton, CTkTextbox, CTkEntry, CTkLabel, END
+import tkinter as tk
 
 class MainWindow(CTk):
-
-    def __init__(self):
+    def __init__(self, client, default_username="User"):
         super().__init__()
+        self.title("Chat (текст)")
+        self.geometry("600x400")
+        self.minsize(400, 300)
 
-        self.geometry('400x300')
-        self.title('LogiTalk')
+        self.client = client  # екземпляр ChatClient
+        self.username = tk.StringVar(value=default_username)
 
-        self.username = "Mark"
+        # --- layout ---
+        # menu frame (ліва панель)
+        self.menu_frame = CTkFrame(self, width=200)
+        self.menu_frame.pack(side="left", fill="y")
 
-        # Меню
-        self.label = None
-        self.menu_frame = CTkFrame(self, width=30, height=300)
-        self.menu_frame.pack_propagate(False)
-        self.menu_frame.place(x=0, y=0)
-        self.is_show_menu = False
-        self.menu_animation_speed = -20
-        self.menu_btn = CTkButton(self, text="▶️", command=self.toggle_menu, width=30)
-        self.menu_btn.place(x=0, y=0)
+        CTkLabel(self.menu_frame, text="Ім'я:").pack(pady=(20, 4))
+        self.name_entry = CTkEntry(self.menu_frame, textvariable=self.username)
+        self.name_entry.pack(fill="x", padx=10)
 
-        # Поле чату
-        self.chat_frame = CTkScrollableFrame(self)
-        self.chat_frame.place(x=0, y=0)
-        
-        # Поле ведення та кнопки
-        self.message_entry = CTkEntry(self, 
-                                      placeholder_text="Введіть повідомлення", 
-                                      height=40)
-        self.message_entry.place(x=0, y=0)
+        CTkLabel(self.menu_frame, text="").pack(pady=(10, 0))  # spacer
 
-        self.send_btn = CTkButton(self, text = "->", width=50, )
+        # праворуч — чат
+        right_frame = CTkFrame(self)
+        right_frame.pack(side="left", fill="both", expand=True)
 
+        self.chat_field = CTkTextbox(right_frame, wrap="word", state="disabled")
+        self.chat_field.pack(fill="both", expand=True, padx=8, pady=(8, 4))
 
+        bottom_frame = CTkFrame(right_frame, height=40)
+        bottom_frame.pack(fill="x", padx=8, pady=(0, 8))
 
-    def toggle_menu(self):
-        if self.is_show_menu:
-            self.is_show_menu = False
-            self.menu_animation_speed *= -1
-            self.menu_btn.configure(text = '▶️')
-            self.show_menu()
-        else:
-            self.is_show_menu = True
-            self.menu_animation_speed *= -1
-            self.menu_btn.configure(text = '◀️')
-            self.show_menu()
+        self.message_entry = CTkEntry(bottom_frame, placeholder_text="Введіть повідомлення...")
+        self.message_entry.pack(side="left", fill="x", expand=True, padx=(0, 8))
 
-            self.label = CTkLabel(self.menu_frame, text = "Ім'я")
-            self.label.pack(pady = 30)
-            self.name_entry = CTkEntry(self.menu_frame)
-            self.message_entry.pack()
+        self.send_button = CTkButton(bottom_frame, text="Відправити", width=120, command=self.on_send)
+        self.send_button.pack(side="right")
 
+        # bind Enter
+        self.message_entry.bind("<Return>", self._enter_pressed)
 
-    def show_menu(self):
-        self.menu_frame.configure(width = self.menu_frame.winfo_width() + self.menu_animation_speed)
-        if not self.menu_frame.winfo_width() >= 200 and self.is_show_menu:
-            self.after(10, self.show_menu)
-        elif self.menu_frame.winfo_width() >= 40 and not self.is_show_menu:
-            self.after(10, self.show_menu)
-            if self.label and self.name_entry:
-                self.label.destroy()
-                self.name_entry.destroy()
+        # при закритті вікна треба закрити клієнт
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
 
-    def adaptive_ui(self):
-        self.menu_frame.configure(height = self.winfo_height)
-        self.chat_field.place(x = self.menu_frame.winfo_width())
-        self.chat_field.configure(width = self.winfo_width() - self.menu_frame.winfo_width())
+        # невеликий внутрішній буфер для автоскролу
+        self._at_bottom = True
+        self.chat_field.bind("<MouseWheel>", self._on_scroll_mousewheel)
 
-    def add_message(self, text):
+    # UI-інтерфейс, який викликає потік recv через ui.after
+    def add_message(self, author: str, text: str):
+        """Додає повідомлення у текстове поле. Викликається з головного потоку через after."""
         self.chat_field.configure(state="normal")
-        self.chat_field.insert(END, "Я:" + text + "\n")
-        self.chat_field.configure(state="disable")
+        # просте форматування: якщо автор — наше ім'я, покажемо "Я"
+        display_author = "Я" if author == self.username.get() else author
+        self.chat_field.insert(END, f"{display_author}: {text}\n")
+        # автоскрол
+        self.chat_field.see("end")
+        self.chat_field.configure(state="disabled")
 
+    # callback потоку (вище в client.start_receiving викликає цей колбек)
+    def on_incoming_message(self, author, message):
+        # Безпечне оновлення UI: schedule on main thread
+        self.after(0, self.add_message, author, message)
+
+    # відправка повідомлення
+    def on_send(self):
+        text = self.message_entry.get().strip()
+        if not text:
+            return
+        username = self.username.get().strip() or "User"
+        try:
+            self.client.send_text(username, text)
+            # локально додамо повідомлення (щоб не чекати ретрансляції серверу)
+            self.add_message(username, text)
+        except Exception as e:
+            # показуємо помилку у чаті
+            self.add_message("SYSTEM", f"Не вдалось надіслати повідомлення: {e}")
+        finally:
+            # очистити поле та фокус
+            self.message_entry.delete(0, END)
+            self.message_entry.focus_set()
+
+    def _enter_pressed(self, event):
+        self.on_send()
+        return "break"
+
+    def on_close(self):
+        # закриваємо клієнт та вікно
+        try:
+            self.client.close()
+        except Exception:
+            pass
+        self.destroy()
+
+    def _on_scroll_mousewheel(self, event):
+        # простий індикатор прокрутки
+        self._at_bottom = False
