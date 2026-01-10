@@ -1,7 +1,7 @@
 from random import randint
 
 def dice_game():
-    print("Гра в кістки")
+    print("Гра в кісті")
     print("               ")
     
     player1 = input("Гравець 1: ")
@@ -13,7 +13,7 @@ def dice_game():
     for round in range(3):
         print(f"Раунд {round+1}")
         
-        input(player1 + ", Enter щоб кинути...")
+        print(player1 + ", кидає кість")
         dice = randint(1, 6)
         guess = int(input("Вгадай число (1-6): "))
         
@@ -23,7 +23,7 @@ def dice_game():
         else:
             print("Невірно! Було", dice)
         
-        input(player2 + ", Enter щоб кинути...")
+        print(player2 + ", кидає кість")
         dice = randint(1, 6)
         guess = int(input("Вгадай число (1-6): "))
         

@@ -1,4 +1,5 @@
-from time import*
+
+from time import *
 
 score = 0
 def question(q, right_answer):
@@ -9,19 +10,29 @@ def question(q, right_answer):
        score += 1 
     else:
         print(f"Невірно! Правильна відповідь: {right_answer}\n")
+
 start_time = time()      
 
+question("- Змінна у Python?", "Ім’я для даних.")
+question("- Типи даних?", "int, float, str, bool, list, tuple, dict, set.")
+question("- List vs tuple?", "list змінний, tuple ні.")
+question("- Dict?", "Ключ–значення.")
+question("- Цикл for?", "Ітерація по елементах.")
+question("- While vs for?", "while — умова; for — елементи.")
+question("- Функція?", "Блок коду через def.")
+question("- Mutable vs immutable?", "Mutable змінювані; immutable — ні.")
+question("- Помилки?", "try, except, finally, raise.")
 
-question("- Що таке змінна у Python?", "Іменоване посилання на значення, яке зберігається в пам’яті.")
-question("- Які основні типи даних існують у Python?", "int, float, str, bool, list, tuple, dict, set.")
-question("- Чим відрізняється список (list) від кортежу (tuple)?", "list змінний (mutable), tuple незмінний (immutable).")
-question("- Для чого використовується словник (dict)?", "Для зберігання пар «ключ–значення».")
-question("- Що таке цикл for і коли його застосовують?", "Використовується для проходження по елементах послідовності (ітерація).")
-question("- Чим відрізняється цикл while від for?", "while виконується, поки умова істинна; for проходить по елементах.")
-question("- Що таке функція у Python і як її оголосити?", "Блок коду з ім’ям, який виконує дію; оголошується через def.")
-question("- Що означає поняття 'mutable' та 'immutable' у Python?", "Mutable — можна змінювати після створення (list, dict, set). Immutable — не можна змінювати (str, tuple, int).")
-question("- Як у Python обробляються помилки (exceptions)?", "За допомогою конструкцій try, except, finally, raise.")
-question("- Що таке модуль і як його імпортувати?", "Модуль — файл з кодом Python; імпортується через import.")
-end_time = time()
-print(f"Ваш результат: {score} із 10.")
+end_time = time()                 
+elapsed_time = end_time - start_time   
+
+
+if elapsed_time <= 60:
+    print(f"Час виконання: {elapsed_time:.0f} секунд.")
+else:
+    minutes = int(elapsed_time // 60)
+    seconds = int(elapsed_time % 60)
+    print(f"Час виконання: {minutes} хв {seconds} сек.")
+
+print(f"Ваш результат: {score} з 9 балів.")
 
