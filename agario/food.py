@@ -1,10 +1,10 @@
 from pygame.draw import circle
+from pygame import Rect
 
 class Food():
 
     def __init__(self, x, y, radius, color):
-        self.x = x
-        self.y = y
+        self.hitbox = Rect(x, y, radius*2, radius*2)
         self.radius = radius
         self.color = color
         

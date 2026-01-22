@@ -11,6 +11,8 @@ class Game():
     def __init__(self):
         self.foods = []
         self.players = []
+        self.font = pygame.font.Font(FONT, FONT_SIZE)
+        self.game = True
 
     def create_food(self, amount):
         for i in range(amount):
@@ -50,10 +52,43 @@ class Game():
             player.controls(pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d)
 
     def collisions(self):
-        pass
+        for player in self.players:
+            for food in self.foods:
+                if player.hitbox.colliderect(food.hitbox):
+                    player.size += 1
+                    self.foods.remove(food)
 
     def win_lose(self):
-        pass
+        if len(self.players) == 1:
+            text = self.font.render(f"Виграв гравець {self.players[0].name}", True, TEXT_COLOR)
+            self.window.surface.blit(text, (WINDOW_WIDTH /2, WINDOW_HEIGHT / 2))
+            self.game = False
+            
+        for player1 in self.players:
+            for player2 in self.players:
+                if player1.size + D_SIZE > player2.size:
+                    player1.size += player2.size
+                    self.players.remove(player2)
+                if player2.size + D_SIZE > player1.size:
+                    player2.size += player1.size
+                    self.players.remove(player1)  
 
     def gameloop(self):
-        pass
+        self.create_objects()
+        while self.game:
+            for e in pygame.event.get():
+                if e.type == pygame.QUIT:
+                    self.game = False
+                    quit()
+
+
+            self.draw_objects()
+            self.move_objects()
+            self.collisions()
+            self.win_lose()
+
+            pygame.display.update()
+            self.window.clock.tick(FPS)
+
+
+

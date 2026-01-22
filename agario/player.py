@@ -3,9 +3,10 @@ from pygame.key import get_pressed
 
 class Player(Image_Sprite):
 
-    def __init__(self, x, y, width, height, image_path):
+    def __init__(self, x, y, width, height, image_path, name):
         super().__init__(x, y, width, height, image_path)
         self.size = 1
+        self.name = name
 
     def controls(self, key_up, key_down, key_left, key_right, speed):
         pressed_keys = get_pressed()
