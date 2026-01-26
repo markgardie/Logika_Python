@@ -1,21 +1,19 @@
 from pygame.display import set_mode, set_caption, update
-from pygame.image import load
-from pygame.transform import scale
 from pygame.time import Clock
+from constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, COLOR_WHITE
 
-class Window():
 
-    def __init__(self, width, height, caption, bg_image_path, fps):
-        self.surface = set_mode((width, height))
-        set_caption(caption)
-        self.image = load(bg_image_path)
-        self.image = scale(self.image, (width, height))
+class Window:
+    
+    def __init__(self):
+        self.surface = set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        set_caption("Agario Game")
         self.clock = Clock()
-        self.fps = fps
-
-    def draw(self):
-        self.surface.blit(self.image)
-        self.clock.tick(self.fps)
+        self.fps = FPS
+    
+    def fill(self, color=COLOR_WHITE):
+        self.surface.fill(color)
+    
+    def update(self):
         update()
-
-
+        self.clock.tick(self.fps)
