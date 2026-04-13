@@ -96,6 +96,7 @@ def crossOut(cell, h, who):
             s = size*3
         elif h == 270:
             x += size//2
+            y += size
             s = size*3
         else:
             y += size
