@@ -210,6 +210,6 @@ screen.onkey(on_end_fill, "p")
 
 pen.ondrag(on_drag)
 screen.onclick(on_screen_click)
-
+screen.listen()
 
 done()

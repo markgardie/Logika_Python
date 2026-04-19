@@ -61,8 +61,6 @@ def is_collide(t1, t2):
     return False
 
 
-
-
 def create_apple():
     apple = Turtle()
     apple.color(choice(["red", "green", "yellow"]))
@@ -110,17 +108,9 @@ def remove_apple(apple):
     apple.hideturtle()
     apples.remove(apple)
 
-
-
-
 screen.onkey(move_left, "Left")
 screen.onkey(move_right, "Right")
 screen.listen()
-
-
-
-
-
 
 def end_game(victory):
     global score
@@ -136,10 +126,6 @@ def end_game(victory):
         info.write("Програш", font=("Arial", 64, "normal"))
 
 
-
-
-
-
 def game_update():
     global score, missed, loop_counter
 
@@ -153,7 +139,7 @@ def game_update():
             scoreLabel.clear()
             scoreLabel.write(f"Зібрано: {score}", font=("Arial", 16, "normal"))
             remove_apple(apple)
-            if score == 10:
+            if score == 2:
                 end_game(True)
                 return
                
@@ -164,12 +150,9 @@ def game_update():
             missedLabel.clear()
             missedLabel.write(f"Пропущено: {missed}", font=("Arial", 16, "normal"))
             remove_apple(apple)
-            if missed == 3:
+            if missed == 2:
                 end_game(False)
                 return
-
-
-
 
     loop_counter += 1
     if loop_counter > 80:
