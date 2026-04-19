@@ -52,7 +52,7 @@ def create_turtle():
     dy = math.sin(angle) * speed
 
     t.color(color)
-    t.pendown()
+   
 
     obj = {
         "t": t,

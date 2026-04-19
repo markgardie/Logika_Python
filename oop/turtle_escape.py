@@ -113,7 +113,7 @@ while True:
             turtles.remove(t)
 
 
-    if clicks >= 20 or turtles_outside >= 4:
+    if clicks >= 4 or turtles_outside >= 4:
         break
 
 

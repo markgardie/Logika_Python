@@ -5,8 +5,6 @@ speed(0)
 screen = getscreen()
 screen.bgcolor("black")
 
-# базові графічні примітиви
-# Функція для швидкого переміщення черепашки
 def go_xy(t, x, y):
     t.penup()
     t.goto(x, y)
@@ -33,12 +31,9 @@ def draw_rect(t, x, y, w, h, fill=None):
     if fill:
         end_fill()
 
-
-# Функції для створення потрібних об'єктів редактора
-# створення пера
 def create_pen():
     pen = Turtle()
-    pen.color("blue")
+    pen.color("red")
     pen.speed(0)
     pen.shape("circle")
 
@@ -88,7 +83,7 @@ def create_pen():
 
     return pen
 
-# позначка, показує результат (скільки кліків і скільки черепашок втекли)
+
 def create_label(x,y, cl, text):
     t = Turtle()
     go_xy(t, x, y)
@@ -98,7 +93,7 @@ def create_label(x,y, cl, text):
     return t
 
 
-# кнопка керування
+
 def create_button(x,y, cl, shape = "square"):
     t = Turtle()
     t.shape(shape)
@@ -107,7 +102,7 @@ def create_button(x,y, cl, shape = "square"):
     return t
 
 
-# індікатор стану
+
 def create_indicator(x,y, active):
     t = Turtle()
     t.speed(0)
@@ -129,11 +124,11 @@ def create_indicator(x,y, active):
     return t
    
 
-# поле для рисування
-def create_field():
-    draw_rect(getpen(), -200, 120, 400, 320, "white")
 
-# об'єкти редактора та їх налаштування
+def create_field():
+    draw_rect(getpen(), -200, 120, 400, 320, "blue")
+
+
 create_field()
 draw_rect(getpen(),-200, 200, 400, 70, "green")
 pen = create_pen()
@@ -148,7 +143,7 @@ def on_drag(x, y):
         return
     pen.goto(x, y)
 
-# панель керування і об'єкти
+
 btn_width_up = create_button(100, 180, "red")
 btn_width_down = create_button(100, 150, "blue")
 btn_clear = create_button(-80, 165, "orange")
