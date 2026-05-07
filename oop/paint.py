@@ -126,7 +126,7 @@ def create_indicator(x,y, active):
 
 
 def create_field():
-    draw_rect(getpen(), -200, 120, 400, 320, "blue")
+    draw_rect(getpen(), -200, 120, 400, 320, "white")
 
 
 create_field()
