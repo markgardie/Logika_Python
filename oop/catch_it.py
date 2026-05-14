@@ -108,8 +108,8 @@ def remove_apple(apple):
     apple.hideturtle()
     apples.remove(apple)
 
-screen.onkey(move_left, "Left")
-screen.onkey(move_right, "Right")
+screen.onkey(move_left, "a")
+screen.onkey(move_right, "d")
 screen.listen()
 
 def end_game(victory):
