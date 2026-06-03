@@ -158,7 +158,14 @@ class Environment:
         self._update_clouds()
 
     def draw(self, surface: pygame.Surface) -> None:
-        surface.blit(self._ground_image, self._rect.topleft)
+        surface.blit(self._ground_image, (self._rect.left, self._rect.top))
+
+        surface.blit(
+            self._ground_image,
+            (self._rect.left + self._ground_image.get_width(),
+            self._rect.top)
+        )
+
         for cloud in self._clouds:
             cloud.draw(surface)
 
@@ -166,9 +173,8 @@ class Environment:
 
     def _scroll_ground(self) -> None:
         self._rect.left -= SCROLL_SPEED
-        self._scroll_counter += SCROLL_SPEED
-        if self._scroll_counter >= self._ground_image.get_width():
-            self._scroll_counter = 0
+
+        if self._rect.right <= 0:
             self._rect.left = 0
 
     def _update_clouds(self) -> None:
