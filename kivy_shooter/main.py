@@ -1,14 +1,61 @@
 from kivymd.app import MDApp
+from kivymd.uix.widget import MDWidget
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.screen import MDScreen
+from kivy.clock import Clock
+from kivy.metrics import sp, dp
 from kivy import platform
 from kivy.core.window import Window
+
+FPS = 60
+BULLET_SPEED = dp(10)
+SHIP_SPEED = dp(5)
+
+class Shot(MDWidget):
+    ...
 
 class MainScreen(MDScreen):
     ...
 
 class GameScreen(MDScreen):
-    ...
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        Clock.schedule_interval(self.update, 1/FPS)
+        self.eventkeys = {}
+        self.cartridge = []
+
+
+    def update(self, dt):
+        for key in self.eventkeys:
+            if self.eventkeys[key]:
+                if key == "left":
+                    self.moveLeft()
+                if key == "right":
+                    self.moveRight()
+                if key == "shot":
+                    self.shot()
+
+        for bullet in self.cartridge:
+            bullet.pos[1] += BULLET_SPEED
+
+
+    def pressKey(self, key):
+        self.eventkeys[key] = True
+
+    def releaseKey(self, key):
+        self.eventkeys[key] = False
+
+    def moveLeft(self):
+        self.ids.ship.pos[0] -= SHIP_SPEED
+
+    def moveRight(self):
+        self.ids.ship.pos[0] += SHIP_SPEED
+
+    def shot(self):
+        shot = Shot(pos = (self.ids.ship.centerx,
+                           self.ids.ship.top))
+        self.cartridge.append(shot)
+        self.ids.front.add_widget(shot)
 
 class ShooterApp(MDApp):
     def build(self):

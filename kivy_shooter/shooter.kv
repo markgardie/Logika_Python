@@ -1,3 +1,5 @@
+#:set color_cosmos 0.2, 0, 0.1, 1
+
 <MainScreen>:
     MDBoxLayout: 
         orientation: 'vertical'     
@@ -7,6 +9,10 @@
             icon: "cog"
             pos_hint: {"right": 1, "top": 1}
             icon_size: 50dp
+        MDLabel:
+            text: "SHOOTER"
+            halign: "center"
+            font_size: "60sp"
         Image:
             source: 'assets/images/rocket.png'
             size_hint_y: 0.7
@@ -15,6 +21,9 @@
             text: "PLAY"
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             font_size: 60sp
+            theme_text_color: "Custom"
+            text_color: "white"
+            line_color: "red"
             on_press:
                 root.manager.current = "game"
 
@@ -23,17 +32,45 @@
     size_hint: None, None
     size: dp(100), dp(300)
 
+<Shot>:
+    size_hint: None, None
+    size: 20, 20
+    md_bg_color: app.theme_cls.primary_color
+
 <GameScreen>:
-    FloatLayout:
-        FloatLayout:
+    MDFloatLayout:
+        md_bg_color: color_cosmos
+        MDFloatLayout:
             id: game
-            FloatLayout:
+            MDFloatLayout:
                 id: back
-            FloatLayout:
+            MDFloatLayout:
                 id: front
                 Ship:
                     id: ship
                     center: root.center
 
-        FloatLayout:
+        MDFloatLayout:
             id: interface
+            MDBoxLayout:
+                spacing: dp(20)
+                padding: dp(20)
+                MDFloatActionButton:
+                    icon: "arrow-left-bold"
+                    md_bg_color: app.theme_cls.primary_color
+                    on_press: root.pressKey("left")
+                    on_release: root.releaseKey("left")
+                MDFloatActionButton:
+                    icon:"arrow-right-bold"
+                    md_bg_color: app.theme_cls.primary_color
+                    on_press: root.pressKey("right")
+                    on_release: root.releaseKey("right")
+                Widget:
+                MDFloatActionButton:
+                    icon: "arrow-up-bold"
+                    md_bg_color: app.theme_cls.primary_color
+                    on_press: root.pressKey("shot")
+                    on_release: root.releaseKey("shot")
+
+
+
