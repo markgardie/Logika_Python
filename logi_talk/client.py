@@ -1,5 +1,6 @@
 from customtkinter import *
-
+import socket
+import threading
 
 class MainWindow(CTk):
     def __init__(self):
