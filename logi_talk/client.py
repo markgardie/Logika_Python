@@ -23,6 +23,11 @@ class MainWindow(CTk):
         self.send_button = CTkButton(self, text='>', width=50, height=40)
         self.send_button.place(x=0, y=0)
 
+        try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        except Exception as e:
+            self.add_message(f"Помилка: {e}")
 
         self.adaptive_ui()
 
@@ -66,6 +71,47 @@ class MainWindow(CTk):
             width = self.winfo_width() - self.menu_frame.winfo_width() - 20,
             height = self.winfo_height() - 40
         )
+
+
+    def recv_message(self):
+        buffer = ""
+        while True:
+            try:
+                chunk = self.socket.recv(4096)
+                if not chunk:
+                    break
+                buffer += chunk.decode()
+
+                while "\n" in buffer:
+                    line, buffer = buffer.split("\n")
+                    self.handle_line(line)
+            except:
+                break
+        self.socket.close()
+
+
+    def handle_line(self, line):
+        if not line:
+            return
+
+        parts = line.split("@", 3)
+        msg_type = parts[0]
+
+        if msg_type == "TEXT":
+            if len(parts) >= 3:
+                author = parts[1]
+                message = parts[2]
+                self.add_message(f"{author}: {message}")
+
+        elif msg_type == "IMAGE":
+            if len(parts) >= 4:
+                author = parts[1]
+                filename = parts[2]
+                self.add_message(f"{author}: {filename}")
+
+        else:
+            self.add_message(line)
+
 
 
     win = MainWindow()
