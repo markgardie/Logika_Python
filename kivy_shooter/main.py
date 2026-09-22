@@ -17,8 +17,11 @@ FPS = 60
 BULLET_SPEED = dp(10)
 SHIP_SPEED = dp(5)
 
+
 DIR_UP = 1
 DIR_DOWN = -1
+
+SPAWN_ENEMY_TIME = 2
 
 class Shot(MDWidget):
     def __init__(self, direction, **kwargs):
@@ -87,17 +90,72 @@ class GameScreen(MDScreen):
 
         self.pauseMenu = None
 
+        self.spawn_delay = SPAWN_ENEMY_TIME
+        self.time_last_spawn = 0
+
         # desktop
         Window.bind(on_key_down = self._on_key_down)
         Window.bind(on_key_up = self._on_key_up)
 
-    def update(self):
+    def on_enter(self, *args):
+        self.updateEvent = Clock.schedule_interval(self.update, 1 / FPS)
+        self.ship = self.ids.ship
+
+        return super().on_enter(*args)
+
+    # dz
+    def spawn_enemy(self):
+        pass
+
+    def update(self, dt):
         self.ship.update(self.eventkeys)
+
+        self.time_last_spawn += dt
+        if self.time_last_spawn >= self.spawn_delay:
+            self.spawn_enemy()
+            self.time_last_spawn = 0
 
         for enemy in self.enemyShips:
             enemy.update()
+            if enemy.top < 0:
+                self.enemyShips.remove(enemy)
+                self.ids.front.remove_widget(enemy)
+
+            if enemy.collide_widget(self.ship):
+                self.game_over()
 
         self.manage_bullets()
+
+    # dz
+    def manage_bullets(self):
+        pass
+
+    def check_collisions(self, bullet):
+        if bullet.owner == self.ship:
+            for enemy in self.enemyShips:
+                if bullet.collide_widget(enemy):
+                    self.enemyShips.remove(enemy)
+                    self.ids.front.remove_widget(enemy)
+
+                    self.remove_bullets(bullet)
+                    break
+        else:
+            if bullet.collide_widget(self.ship):
+                self.game_over()
+                self.remove_bullets(bullet)
+
+    # dz
+    def remove_bullets(self, bullet):
+        pass
+
+    def game_over(self):
+        self.updateEvent.cancel()
+        for enemy in self.enemyShips:
+            self.enemyShips.remove(enemy)
+            self.ids.front.remove_widget(enemy)
+        # remove bullets: dz
+
+        self.manager.current = "game_over"
 
     def pressKey(self, key):
         self.eventkeys[key] = True
@@ -105,7 +163,40 @@ class GameScreen(MDScreen):
     def releaseKey(self, key):
         self.eventkeys[key] = False
 
+    def show_menu(self):
+        self.updateEvent.cancel()
 
+        if not self.pauseMenu:
+            self.pauseMenu = MDDialog(
+                title = "Game Paused",
+                text = "Resume the game?",
+                on_dismiss = self.resumeGame,
+                buttons = [
+                    MDFlatButton(
+                        text = "RESUME",
+                        theme_text_color = "Custom",
+                        text_color = app.theme_cls.primary_color,
+                        on_press = self.pauseStop
+                    )
+                ]
+
+            )
+        self.pauseMenu.open()
+
+    def pauseStop(self, *args):
+        self.pauseMenu.dismiss()
+
+    def resumeGame(self, *args):
+        self.updateEvent = Clock.schedule_interval(self.update, 1 / FPS)
+
+    def _on_key_down(self, window, keycode, *args, **kwargs):
+        key = key if (key := Keyboard.keycode_to_string(window, keycode)) != "spacebar" else "shot"
+        self.eventkeys[key] = True
+
+    # dz
+    def _on_key_up(self, window, keycode, *args, **kwargs):
+        pass
+    
 
 class ShooterApp(MDApp):
     def build(self):
