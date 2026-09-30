@@ -20,6 +20,7 @@ SHIP_SPEED = dp(5)
 
 DIR_UP = 1
 DIR_DOWN = -1
+HP_DEF = 100
 
 SPAWN_ENEMY_TIME = 2
 
@@ -32,9 +33,13 @@ class MainScreen(MDScreen):
     ...
 
 class Ship(Image):
-    def __init__(self, direction = DIR_UP, **kwargs):
+    hp = NumericProperty()
+    max_hp = NumericProperty()
+
+    def __init__(self, direction = DIR_UP, hp = HP_DEF, **kwargs):
         super().__init__(**kwargs)
         self.direction = direction
+        self.hp = self.max_hp = hp
 
     def moveLeft(self):
         self.pos[0] -= SHIP_SPEED
@@ -79,6 +84,22 @@ class EnemyShip(Ship):
             self.shot()
         self.frame += 1
 
+class MoveBackground(MDFloatLayout):
+    def __init__(self, source, speed = dp(1), scale = 1, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.speed = speed
+        self.add_widget(FitImage(source = source, size_hint_y = scale))
+        self.add_widget(FitImage(
+            source = source, 
+            size_hint_y = scale, 
+            pos = (0, Window.size[1]) * scale))
+
+    def move(self):
+        for img in self.children:
+            img.pos[1] -= self.speed
+            if img.top <= 0:
+                img.pos[1] = img.size[1]
+
 class GameScreen(MDScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -92,6 +113,12 @@ class GameScreen(MDScreen):
 
         self.spawn_delay = SPAWN_ENEMY_TIME
         self.time_last_spawn = 0
+
+        self.backBack = MoveBackground(source="", speed = 0.5)
+        self.backFront = MoveBackground(source="", speed = 1, scale = 3)
+
+        self.ids.back.add_widget(self.backBack)
+        self.ids.back.add_widget(self.backFront)
 
         # desktop
         Window.bind(on_key_down = self._on_key_down)
@@ -125,6 +152,9 @@ class GameScreen(MDScreen):
                 self.game_over()
 
         self.manage_bullets()
+
+        self.backBack.move()
+        self.backFront.move()
 
     # dz
     def manage_bullets(self):

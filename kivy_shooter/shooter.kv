@@ -55,6 +55,33 @@
             MDBoxLayout:
                 spacing: dp(20)
                 padding: dp(20)
+                pos_hint: {"top": 1} 
+                size_hint_y: None
+                height: dp(50)
+                MDIcon:
+                    icon: "heart"
+                    font_size: "60sp"
+                    size_hint: None, None
+                    pos_hint: {"top": 1}
+                    color: 1, 0, 0, 1
+                MDProgressBar:
+                    id: hp_status
+                    value: (ship.hp / ship.max_hp) * 100
+                    size_hint_y: None
+                    height: "50dp"
+                    pos_hint: {"top": 1}
+                    color: app.theme_cls.accent_color
+
+                MDIcon:
+                    icon: "clock"
+                    font_size: "60sp"
+                    size_hint: None, None
+                    pos_hint: {"top": 1}
+                MDLabel:
+                    text: "12:00"
+                    font_size: "60sp"
+                    size_hint: None, None
+                    pos_hint: {"top": 1}
                 MDFloatActionButton:
                     icon: "arrow-left-bold"
                     md_bg_color: app.theme_cls.primary_color
