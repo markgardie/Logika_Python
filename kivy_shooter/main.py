@@ -3,7 +3,7 @@ from kivymd.uix.widget import MDWidget
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.screen import MDScreen
 from kivy.clock import Clock
-from kivy.metrics import sp, dp
+from kivy.metrics import dp
 from kivy.core.window import Window
 from kivy import platform
 from kivy.uix.image import Image
@@ -11,23 +11,32 @@ from random import randint
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivy.core.window import Keyboard
+from kivy.properties import NumericProperty
+from kivymd.uix.floatlayout import MDFloatLayout
+from kivymd.uix.fitimage import FitImage
+from particles import Particle
 
 
-FPS = 60
-BULLET_SPEED = dp(10)
-SHIP_SPEED = dp(5)
-
-
+FPS = 30
+BULLET_SPEED = dp(600)
+SHIP_SPEED = dp(300)
+SHIP_SPEED_FORWARD = dp(180)
 DIR_UP = 1
 DIR_DOWN = -1
-HP_DEF = 100
 
 SPAWN_ENEMY_TIME = 2
 
+HP_DEF = 3
+
+FIRE_RATE_MIN = 0.5
+FIRE_RATE_MEDIUM = 2
+FIRE_RATE_DEF = FIRE_RATE_MIN
+
 class Shot(MDWidget):
-    def __init__(self, direction, **kwargs):
+    def __init__(self, direction, owner, **kwargs):
         super().__init__(**kwargs)
         self.direction = direction
+        self.owner = owner
 
 class MainScreen(MDScreen):
     ...
@@ -36,10 +45,18 @@ class Ship(Image):
     hp = NumericProperty()
     max_hp = NumericProperty()
 
-    def __init__(self, direction = DIR_UP, hp = HP_DEF, **kwargs):
+    def __init__(self, direction = DIR_UP, hp = HP_DEF, fire_rate = FIRE_RATE_MEDIUM, **kwargs):
         super().__init__(**kwargs)
         self.direction = direction
         self.hp = self.max_hp = hp
+
+        self.fire_rate = fire_rate
+        self._last_shot = self.fire_rate
+
+        self.anim_delay = 1 / 30
+        self._last_anim = self.anim_delay
+        self._current_anim = 0
+
 
     def moveLeft(self):
         self.pos[0] -= SHIP_SPEED
@@ -48,11 +65,13 @@ class Ship(Image):
         self.pos[0] += SHIP_SPEED
 
     def shot(self):
-        shot = Shot(self.direction)
+        shot = Shot(self.direction, owner = self)
         shot.center_x = self.center_x
         shot.y = self.top if self.direction == DIR_UP else self.y - shot.height
         self.parent.parent.parent.parent.bullets.append(shot)
         self.parent.add_widget(shot)
+
+        self._last_shot = 0
 
     def update(self):
         pass
@@ -71,6 +90,21 @@ class PlayerShip(Ship):
                 if key == "shot":
                     self.shot()
                     keys[key] = False
+    def animation(self, dt):
+        if self._last_anim >= self.anim_delay:
+            p = Particle(
+                source = "",
+                width = dp(70 + randint(0, 50)),
+                y = dp(self.y + randint(-15, 0)),
+                life = 0.4,
+                speed = dp(200),
+                direction= self.direction * -1
+            )
+            if self.parent:
+                self.parent.add_widget(p)
+
+            self._last_anim = 0
+        self._last_anim += dt
     
 class EnemyShip(Ship):
     def __init__(self, direction=DIR_DOWN, **kwargs):
@@ -83,6 +117,23 @@ class EnemyShip(Ship):
         if self.frame % 100 == 0:
             self.shot()
         self.frame += 1
+
+    def animation(self, dt):
+        if self._last_anim >= self.anim_delay:
+            p = Particle(
+                source = "",
+                width = dp(50 + randint(0, 50)),
+                y = dp(self.y + randint(-15, 0)),
+                life = 0.3,
+                speed = 0,
+                direction= self.direction * -1,
+                opacity = 1
+            )
+            if self.parent:
+                self.parent.add_widget(p)
+
+            self._last_anim = 0
+        self._last_anim += dt
 
 class MoveBackground(MDFloatLayout):
     def __init__(self, source, speed = dp(1), scale = 1, *args, **kwargs):
