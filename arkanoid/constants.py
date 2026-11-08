@@ -5,7 +5,6 @@ BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
-
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
 
@@ -17,3 +16,14 @@ BLOCK_HEIGHT = 30
 
 BALL_WIDTH = 25
 BALL_HEIGHT = 25
+
+# Швидкість об'єктів
+PLATFORM_SPEED = 7
+BALL_SPEED = 5
+
+FPS = 60
+
+# Шляхи до зображень
+PLATFORM_IMAGE_PATH = "images/platform.png"
+BALL_IMAGE_PATH = "images/ball.png"
+BLOCK_IMAGE_PATH1 = "images/block.png"
