@@ -44,7 +44,15 @@ class Game:
     
     def update_other_players(self):
         """Оновлює список інших гравців з даних сервера"""
-        pass
+        players_data = self.network.get_other_players()
+        self.other_players.clear()
+
+        for data in players_data:
+            if len(data) == 4:
+                players_id, x, y, radius = data
+                if players_id != self.network.my_id:
+                    player = Player(players_id, x, y, radius, False)
+                    self.other_players.append(player)
     
     def handle_food_collisions(self):
         """Обробляє колізії з їжею"""
@@ -83,14 +91,17 @@ class Game:
     def handle_events(self):
         """Обробляє події pygame"""
         pass
-    
+
+    #dz2
     def handle_controls(self):
         """Обробляє управління гравцем"""
         pass
     
     def send_player_state(self):
         """Відправляє стан гравця на сервер"""
-        pass
+        if not self.network.check_lose():
+            data_string = self.my_player.get_data_string()
+            self.network.send_player_data(data_string)
     
     def gameloop(self):
         """Основний ігровий цикл"""
@@ -104,7 +115,25 @@ class Game:
         self.running = True
         
         while self.running:
-            pass
+            self.handle_events()
+
+            self.window.fill()
+
+            self.update_other_players()
+            scale = self.calculate_scale()
+
+            self.draw_other_players()
+            self.draw_my_player()
+            self.draw_foods()
+
+            if self.network.check_lose():
+                self.draw_lose_message()
+            else:
+                self.handle_controls()
+                self.handle_food_collisions()
+                self.send_player_state()
+
+            self.window.update()
         
         # Відключення від сервера
         self.network.disconnect()
