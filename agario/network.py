@@ -35,15 +35,40 @@ class Network:
     
     def start_receiving(self):
         """Запускає потік для отримання даних від сервера"""
-        pass
+        if not self.connected:
+            return
+
+        self.receiving = True
+        thread = Thread(target=self._receive_data, daemon=True)
+        thread.start()
     
     def _receive_data(self):
         """Отримує дані від сервера в окремому потоці"""
-        pass
+        while self.receiving:
+            try:
+                data = self.socket.recv(BUFFER_SIZE).decode().strip()
+
+                if data == "LOSE":
+                    self.is_lost = True
+                elif data:
+                    parts = data.strip('|').split('|')
+                    self.all_players_data = [
+                        list(map(int, p.split(','))) 
+                        for p in parts 
+                        if len(p.split(',')) == 4
+                    ]
+            except:
+                pass
     
     def send_player_data(self, player_data_string):
         """Відправляє дані гравця на сервер"""
-        pass
+        if not self.connected:
+            return
+
+        try:
+            self.socket.send(player_data_string.encode())
+        except:
+            pass
 
     #dz2
     def get_other_players(self):
